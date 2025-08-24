@@ -10,6 +10,7 @@ requires-python = ">=3.13"
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["physics", "library", "science"]
+dynamic = ["urls"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -18,6 +19,10 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Physics",
 ]
+
+[project.urls]
+"Homepage" = "https://github.com/Elabsurdo984/Cinetica"
+"Bug Tracker" = "https://github.com/Elabsurdo984/Cinetica/issues"
 
 [build-system]
 requires = ["setuptools>=61.0"]
