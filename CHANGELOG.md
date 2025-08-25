@@ -7,3 +7,6 @@
 - Tests unitarios para la clase `MovimientoRectilineo`.
 - Documentación de uso para `MovimientoRectilineo` en `README.md`.
 - Enlaces de GitHub (Homepage y Bug Tracker) en `pyproject.toml`.
+- Módulo `MovimientoParabolico` para simulación de trayectorias, alcance y tiempo de vuelo.
+- Tests unitarios para la clase `MovimientoParabolico`.
+- Documentación de uso para `MovimientoParabolico` en `README.md`.
