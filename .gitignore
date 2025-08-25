@@ -21,3 +21,7 @@ dist/
 .DS_Store
 .env
 venv/
+
+# More
+.coverage
+.mypy

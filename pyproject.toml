@@ -10,7 +10,6 @@ requires-python = ">=3.13"
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["physics", "library", "science"]
-dynamic = ["urls"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
