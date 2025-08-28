@@ -1,8 +1,13 @@
 # Changelog
-## 0.3.1 - 2025-08-28
+## 0.3.2 - 2025-08-28
 
 ### Changed
 - Añadidas sugerencias de tipo a todas las firmas de métodos y sus parámetros en las clases `MovimientoRectilineo`, `MovimientoCircular` y `MovimientoParabolico`.
+
+## 0.3.1 - 2025-08-28
+
+### Changed
+- Se corrigió un error al intentar subir la versión 0.3.1 a PyPI, ya que esta versión ya existía.
 
 ## 0.3.0 - 2025-08-24
 
