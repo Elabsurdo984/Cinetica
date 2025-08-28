@@ -6,7 +6,7 @@ class MovimientoCircular:
     y Movimiento Circular Uniformemente Variado (MCUV).
     """
 
-    def __init__(self, radio, posicion_angular_inicial=0.0, velocidad_angular_inicial=0.0, aceleracion_angular_inicial=0.0):
+    def __init__(self, radio: float, posicion_angular_inicial: float = 0.0, velocidad_angular_inicial: float = 0.0, aceleracion_angular_inicial: float = 0.0):
         """
         Inicializa el objeto MovimientoCircular con las condiciones iniciales.
 
@@ -25,7 +25,7 @@ class MovimientoCircular:
         self.aceleracion_angular_inicial = aceleracion_angular_inicial
 
     # Métodos para MCU (Movimiento Circular Uniforme)
-    def mcu_posicion_angular(self, tiempo):
+    def mcu_posicion_angular(self, tiempo: float) -> float:
         """
         Calcula la posición angular en MCU.
         Ecuación: theta = theta0 + omega * t
@@ -40,7 +40,7 @@ class MovimientoCircular:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
-    def mcu_velocidad_angular(self):
+    def mcu_velocidad_angular(self) -> float:
         """
         Calcula la velocidad angular en MCU (es constante).
         Ecuación: omega = omega0
@@ -50,7 +50,7 @@ class MovimientoCircular:
         """
         return self.velocidad_angular_inicial
 
-    def mcu_velocidad_tangencial(self):
+    def mcu_velocidad_tangencial(self) -> float:
         """
         Calcula la velocidad tangencial en MCU.
         Ecuación: v = omega * R
@@ -60,7 +60,7 @@ class MovimientoCircular:
         """
         return self.mcu_velocidad_angular() * self.radio
 
-    def mcu_aceleracion_centripeta(self):
+    def mcu_aceleracion_centripeta(self) -> float:
         """
         Calcula la aceleración centrípeta en MCU.
         Ecuación: ac = omega^2 * R = v^2 / R
@@ -70,7 +70,7 @@ class MovimientoCircular:
         """
         return (self.mcu_velocidad_angular() ** 2) * self.radio
 
-    def mcu_periodo(self):
+    def mcu_periodo(self) -> float:
         """
         Calcula el período en MCU.
         Ecuación: T = 2 * pi / omega
@@ -82,7 +82,7 @@ class MovimientoCircular:
             raise ValueError("La velocidad angular inicial no puede ser cero para calcular el período en MCU.")
         return (2 * math.pi) / self.velocidad_angular_inicial
 
-    def mcu_frecuencia(self):
+    def mcu_frecuencia(self) -> float:
         """
         Calcula la frecuencia en MCU.
         Ecuación: f = 1 / T = omega / (2 * pi)
@@ -95,7 +95,7 @@ class MovimientoCircular:
         return self.velocidad_angular_inicial / (2 * math.pi)
 
     # Métodos para MCUV (Movimiento Circular Uniformemente Variado)
-    def mcuv_posicion_angular(self, tiempo):
+    def mcuv_posicion_angular(self, tiempo: float) -> float:
         """
         Calcula la posición angular en MCUV.
         Ecuación: theta = theta0 + omega0 * t + 0.5 * alpha * t^2
@@ -110,7 +110,7 @@ class MovimientoCircular:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo + 0.5 * self.aceleracion_angular_inicial * (tiempo ** 2)
 
-    def mcuv_velocidad_angular(self, tiempo):
+    def mcuv_velocidad_angular(self, tiempo: float) -> float:
         """
         Calcula la velocidad angular en MCUV.
         Ecuación: omega = omega0 + alpha * t
@@ -125,7 +125,7 @@ class MovimientoCircular:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
 
-    def mcuv_aceleracion_angular(self):
+    def mcuv_aceleracion_angular(self) -> float:
         """
         Calcula la aceleración angular en MCUV (es constante).
         Ecuación: alpha = alpha0
@@ -135,7 +135,7 @@ class MovimientoCircular:
         """
         return self.aceleracion_angular_inicial
 
-    def mcuv_velocidad_tangencial(self, tiempo):
+    def mcuv_velocidad_tangencial(self, tiempo: float) -> float:
         """
         Calcula la velocidad tangencial en MCUV.
         Ecuación: v = omega * R
@@ -148,7 +148,7 @@ class MovimientoCircular:
         """
         return self.mcuv_velocidad_angular(tiempo) * self.radio
 
-    def mcuv_aceleracion_tangencial(self):
+    def mcuv_aceleracion_tangencial(self) -> float:
         """
         Calcula la aceleración tangencial en MCUV.
         Ecuación: at = alpha * R
@@ -158,7 +158,7 @@ class MovimientoCircular:
         """
         return self.aceleracion_angular_inicial * self.radio
 
-    def mcuv_aceleracion_centripeta(self, tiempo):
+    def mcuv_aceleracion_centripeta(self, tiempo: float) -> float:
         """
         Calcula la aceleración centrípeta en MCUV.
         Ecuación: ac = omega^2 * R
@@ -171,7 +171,7 @@ class MovimientoCircular:
         """
         return (self.mcuv_velocidad_angular(tiempo) ** 2) * self.radio
 
-    def mcuv_aceleracion_total(self, tiempo):
+    def mcuv_aceleracion_total(self, tiempo: float) -> float:
         """
         Calcula la magnitud de la aceleración total en MCUV.
         Ecuación: a_total = sqrt(at^2 + ac^2)

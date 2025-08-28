@@ -1,4 +1,9 @@
 # Changelog
+## 0.3.1 - 2025-08-28
+
+### Changed
+- Añadidas sugerencias de tipo a todas las firmas de métodos y sus parámetros en las clases `MovimientoRectilineo`, `MovimientoCircular` y `MovimientoParabolico`.
+
 ## 0.3.0 - 2025-08-24
 
 ### Added
@@ -23,4 +28,3 @@
 - Módulo `MovimientoParabolico` para simulación de trayectorias, alcance y tiempo de vuelo.
 - Tests unitarios para la clase `MovimientoParabolico`.
 - Documentación de uso para `MovimientoParabolico` en `README.md`.
-

@@ -6,7 +6,7 @@ class MovimientoParabolico:
     Se asume que el lanzamiento se realiza desde el origen (0,0) y la gravedad actúa hacia abajo.
     """
 
-    def __init__(self, velocidad_inicial, angulo_grados, gravedad=9.81):
+    def __init__(self, velocidad_inicial: float, angulo_grados: float, gravedad: float = 9.81):
         """
         Inicializa el objeto MovimientoParabolico con las condiciones iniciales.
 
@@ -29,7 +29,7 @@ class MovimientoParabolico:
         self.velocidad_inicial_x = self.velocidad_inicial * math.cos(self.angulo_radianes)
         self.velocidad_inicial_y = self.velocidad_inicial * math.sin(self.angulo_radianes)
 
-    def posicion(self, tiempo):
+    def posicion(self, tiempo: float) -> tuple[float, float]:
         """
         Calcula la posición (x, y) del proyectil en un tiempo dado.
 
@@ -46,7 +46,7 @@ class MovimientoParabolico:
         posicion_y = (self.velocidad_inicial_y * tiempo) - (0.5 * self.gravedad * (tiempo ** 2))
         return (posicion_x, posicion_y)
 
-    def velocidad(self, tiempo):
+    def velocidad(self, tiempo: float) -> tuple[float, float]:
         """
         Calcula la velocidad (vx, vy) del proyectil en un tiempo dado.
 
@@ -63,7 +63,7 @@ class MovimientoParabolico:
         velocidad_y = self.velocidad_inicial_y - (self.gravedad * tiempo)
         return (velocidad_x, velocidad_y)
 
-    def tiempo_vuelo(self):
+    def tiempo_vuelo(self) -> float:
         """
         Calcula el tiempo total de vuelo del proyectil hasta que regresa a la altura inicial (y=0).
 
@@ -74,7 +74,7 @@ class MovimientoParabolico:
             return 0.0
         return (2 * self.velocidad_inicial_y) / self.gravedad
 
-    def altura_maxima(self):
+    def altura_maxima(self) -> float:
         """
         Calcula la altura máxima alcanzada por el proyectil.
 
@@ -85,7 +85,7 @@ class MovimientoParabolico:
             return 0.0
         return (self.velocidad_inicial_y ** 2) / (2 * self.gravedad)
 
-    def alcance_maximo(self):
+    def alcance_maximo(self) -> float:
         """
         Calcula el alcance horizontal máximo del proyectil (cuando y=0).
 
