@@ -36,6 +36,21 @@ print(f"MRUV - Posición a los 3s: {posicion_mruv} m, Velocidad: {velocidad_mruv
 mruv_sin_tiempo = MovimientoRectilineo(posicion_inicial=0.0, velocidad_inicial=0.0, aceleracion_inicial=2.0)
 velocidad_final_sin_tiempo = mruv_sin_tiempo.mruv_velocidad_sin_tiempo(posicion_final=16.0)
 print(f"MRUV - Velocidad final sin tiempo (para posición 16m): {velocidad_final_sin_tiempo} m/s")
+
+# MRUV - Tiempo a partir de la posición final
+# Ejemplo: Calcular el tiempo para alcanzar una posición de 16m
+tiempos_posicion = mruv.mruv_tiempo_por_posicion(posicion_final=16.0)
+print(f"MRUV - Tiempos para posición 16m: {tiempos_posicion[0]:.2f}s, {tiempos_posicion[1]:.2f}s")
+
+# MRUV - Tiempo a partir de la velocidad final
+# Ejemplo: Calcular el tiempo para alcanzar una velocidad de 20 m/s
+tiempo_velocidad = mruv.mruv_tiempo_por_velocidad(velocidad_final=20.0)
+print(f"MRUV - Tiempo para velocidad 20m/s: {tiempo_velocidad:.2f}s")
+
+# MRUV - Desplazamiento sin conocer el tiempo
+# Ejemplo: Calcular el desplazamiento para alcanzar una velocidad final de 20 m/s
+desplazamiento_sin_tiempo = mruv.mruv_desplazamiento_sin_tiempo(velocidad_final=20.0)
+print(f"MRUV - Desplazamiento sin tiempo (para velocidad 20m/s): {desplazamiento_sin_tiempo:.2f}m")
 ```
 
 ### Movimiento Parabólico
@@ -101,6 +116,21 @@ acel_tangencial_mcuv = mcuv.mcuv_aceleracion_tangencial()
 acel_centripeta_mcuv = mcuv.mcuv_aceleracion_centripeta(tiempo=2.0)
 acel_total_mcuv = mcuv.mcuv_aceleracion_total(tiempo=2.0)
 print(f"MCUV - Aceleración tangencial: {acel_tangencial_mcuv:.2f} m/s^2, Aceleración centrípeta: {acel_centripeta_mcuv:.2f} m/s^2, Aceleración total: {acel_total_mcuv:.2f} m/s^2")
+
+# MCUV - Velocidad angular final sin tiempo
+# Ejemplo: Calcular la velocidad angular final para una posición angular de 5 rad
+vel_angular_final_sin_tiempo = mcuv.mcuv_velocidad_angular_sin_tiempo(posicion_angular_final=5.0)
+print(f"MCUV - Velocidad angular final sin tiempo (para posición 5rad): {vel_angular_final_sin_tiempo:.2f} rad/s")
+
+# MCUV - Tiempo a partir de la posición angular final
+# Ejemplo: Calcular el tiempo para alcanzar una posición angular de 5 rad
+tiempos_posicion_angular = mcuv.mcuv_tiempo_por_posicion_angular(posicion_angular_final=5.0)
+print(f"MCUV - Tiempos para posición angular 5rad: {tiempos_posicion_angular[0]:.2f}s, {tiempos_posicion_angular[1]:.2f}s")
+
+# MCUV - Tiempo a partir de la velocidad angular final
+# Ejemplo: Calcular el tiempo para alcanzar una velocidad angular de 3 rad/s
+tiempo_vel_angular = mcuv.mcuv_tiempo_por_velocidad_angular(velocidad_angular_final=3.0)
+print(f"MCUV - Tiempo para velocidad angular 3rad/s: {tiempo_vel_angular:.2f}s")
 ```
 
 ## Contributing

@@ -1,4 +1,9 @@
 # Changelog
+## 0.3.6 - 2025-08-28
+
+### Added
+- Métodos `mcuv_velocidad_angular_sin_tiempo`, `mcuv_tiempo_por_posicion_angular` y `mcuv_tiempo_por_velocidad_angular` a la clase `MovimientoCircular`.
+
 ## 0.3.5 - 2025-08-28
 
 ### Added
