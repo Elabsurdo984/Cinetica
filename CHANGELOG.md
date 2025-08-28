@@ -1,5 +1,8 @@
 # Changelog
-## 0.3.4 - 2025-08-28
+## 0.3.5 - 2025-08-28
+
+### Added
+- Métodos `mruv_tiempo_por_posicion`, `mruv_tiempo_por_velocidad` y `mruv_desplazamiento_sin_tiempo` a la clase `MovimientoRectilineo`.
 
 ### Changed
 - Se han revisado y estandarizado los docstrings de todos los métodos en las clases `MovimientoRectilineo`, `MovimientoCircular` y `MovimientoParabolico`, incluyendo detalles sobre argumentos, valores de retorno y excepciones/notas de valores límite.
