@@ -1,4 +1,10 @@
 # Changelog
+## 0.3.7 - 2025-08-28
+
+### Fixed
+- Actualizados los tests de `MovimientoCircular` para reflejar los cambios en el manejo de errores de `mcu_periodo` y `mcu_frecuencia`.
+- Actualizada la versión de la librería en `cinetica/__init__.py` y `tests/test_cinetica.py`.
+
 ## 0.3.6 - 2025-08-28
 
 ### Added

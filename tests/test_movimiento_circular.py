@@ -45,8 +45,7 @@ def test_mcu_periodo():
 
 def test_mcu_periodo_zero_omega():
     mc = MovimientoCircular(radio=1.0, velocidad_angular_inicial=0.0)
-    with pytest.raises(ValueError, match="La velocidad angular inicial no puede ser cero para calcular el período en MCU."):
-        mc.mcu_periodo()
+    assert mc.mcu_periodo() == math.inf
 
 def test_mcu_frecuencia():
     mc = MovimientoCircular(radio=1.0, velocidad_angular_inicial=math.pi)
@@ -54,8 +53,7 @@ def test_mcu_frecuencia():
 
 def test_mcu_frecuencia_zero_omega():
     mc = MovimientoCircular(radio=1.0, velocidad_angular_inicial=0.0)
-    with pytest.raises(ValueError, match="La velocidad angular inicial no puede ser cero para calcular la frecuencia en MCU."):
-        mc.mcu_frecuencia()
+    assert mc.mcu_frecuencia() == 0.0
 
 # MCUV Tests
 def test_mcuv_posicion_angular():
