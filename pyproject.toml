@@ -1,6 +1,6 @@
 [project]
 name = "cinetica"
-version = "0.2.0"
+version = "0.3.0"
 description = "A Python library for physics modules."
 authors = [
     { name = "Elabsurdo984", email = "matiassfernandez00@gmail.com" },
@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Elabsurdo984/Cinetica"
+"Source Code" = "https://github.com/Elabsurdo984/Cinetica"
 "Bug Tracker" = "https://github.com/Elabsurdo984/Cinetica/issues"
 
 [build-system]

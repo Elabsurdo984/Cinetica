@@ -67,6 +67,42 @@ print(f"MP - Altura máxima: {altura_maxima:.2f} m")
 print(f"MP - Alcance máximo: {alcance_maximo:.2f} m")
 ```
 
+### Movimiento Circular
+
+El módulo `movimiento_circular` proporciona la clase `MovimientoCircular` para calcular y simular Movimiento Circular Uniforme (MCU) y Movimiento Circular Uniformemente Variado (MCUV).
+
+**Ejemplo de uso:**
+
+```python
+from cinetica.movimiento_circular import MovimientoCircular
+import math
+
+# MCU con radio de 2m y velocidad angular de pi/2 rad/s
+mcu = MovimientoCircular(radio=2.0, velocidad_angular_inicial=math.pi/2)
+
+# Posición angular a los 1s
+pos_angular_mcu = mcu.mcu_posicion_angular(tiempo=1.0)
+print(f"MCU - Posición angular a 1s: {pos_angular_mcu:.2f} rad")
+
+# Velocidad tangencial y aceleración centrípeta
+vel_tangencial_mcu = mcu.mcu_velocidad_tangencial()
+acel_centripeta_mcu = mcu.mcu_aceleracion_centripeta()
+print(f"MCU - Velocidad tangencial: {vel_tangencial_mcu:.2f} m/s, Aceleración centrípeta: {acel_centripeta_mcu:.2f} m/s^2")
+
+# MCUV con radio de 1m, vel. angular inicial 1 rad/s, acel. angular 0.5 rad/s^2
+mcuv = MovimientoCircular(radio=1.0, velocidad_angular_inicial=1.0, aceleracion_angular_inicial=0.5)
+
+# Velocidad angular a los 2s
+vel_angular_mcuv = mcuv.mcuv_velocidad_angular(tiempo=2.0)
+print(f"MCUV - Velocidad angular a 2s: {vel_angular_mcuv:.2f} rad/s")
+
+# Aceleración tangencial y centrípeta a los 2s
+acel_tangencial_mcuv = mcuv.mcuv_aceleracion_tangencial()
+acel_centripeta_mcuv = mcuv.mcuv_aceleracion_centripeta(tiempo=2.0)
+acel_total_mcuv = mcuv.mcuv_aceleracion_total(tiempo=2.0)
+print(f"MCUV - Aceleración tangencial: {acel_tangencial_mcuv:.2f} m/s^2, Aceleración centrípeta: {acel_centripeta_mcuv:.2f} m/s^2, Aceleración total: {acel_total_mcuv:.2f} m/s^2")
+```
+
 ## Contributing
 
 Contributions are welcome! Please see the `CONTRIBUTING.md` for more details.
