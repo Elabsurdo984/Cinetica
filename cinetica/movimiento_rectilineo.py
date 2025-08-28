@@ -30,6 +30,9 @@ class MovimientoRectilineo:
 
         Returns:
             float: Posición final (m).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -56,6 +59,9 @@ class MovimientoRectilineo:
 
         Returns:
             float: Posición final (m).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -71,6 +77,9 @@ class MovimientoRectilineo:
 
         Returns:
             float: Velocidad final (m/s).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -96,6 +105,9 @@ class MovimientoRectilineo:
 
         Returns:
             float: Velocidad final (m/s).
+        
+        Raises:
+            ValueError: Si la velocidad al cuadrado es negativa, indicando una situación físicamente imposible.
         """
         delta_x = posicion_final - self.posicion_inicial
         v_squared = (self.velocidad_inicial ** 2) + 2 * self.aceleracion_inicial * delta_x

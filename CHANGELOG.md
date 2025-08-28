@@ -1,4 +1,9 @@
 # Changelog
+## 0.3.4 - 2025-08-28
+
+### Changed
+- Se han revisado y estandarizado los docstrings de todos los métodos en las clases `MovimientoRectilineo`, `MovimientoCircular` y `MovimientoParabolico`, incluyendo detalles sobre argumentos, valores de retorno y excepciones/notas de valores límite.
+
 ## 0.3.3 - 2025-08-28
 
 ### Changed

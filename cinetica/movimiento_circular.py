@@ -15,6 +15,9 @@ class MovimientoCircular:
             posicion_angular_inicial (float): Posición angular inicial (radianes).
             velocidad_angular_inicial (float): Velocidad angular inicial (rad/s).
             aceleracion_angular_inicial (float): Aceleración angular inicial (rad/s^2).
+        
+        Raises:
+            ValueError: Si el radio es menor o igual a cero.
         """
         if radio <= 0:
             raise ValueError("El radio debe ser un valor positivo.")
@@ -35,6 +38,9 @@ class MovimientoCircular:
 
         Returns:
             float: Posición angular final (radianes).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -77,6 +83,9 @@ class MovimientoCircular:
 
         Returns:
             float: Período (s).
+        
+        Notes:
+            Retorna `math.inf` si la velocidad angular inicial es cero.
         """
         if self.velocidad_angular_inicial == 0:
             return math.inf  # Período infinito si la velocidad angular es cero
@@ -89,6 +98,9 @@ class MovimientoCircular:
 
         Returns:
             float: Frecuencia (Hz).
+        
+        Notes:
+            Retorna `0.0` si la velocidad angular inicial es cero.
         """
         if self.velocidad_angular_inicial == 0:
             return 0.0  # Frecuencia cero si la velocidad angular es cero
@@ -105,6 +117,9 @@ class MovimientoCircular:
 
         Returns:
             float: Posición angular final (radianes).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -120,6 +135,9 @@ class MovimientoCircular:
 
         Returns:
             float: Velocidad angular final (rad/s).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")

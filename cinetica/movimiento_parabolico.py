@@ -14,6 +14,9 @@ class MovimientoParabolico:
             velocidad_inicial (float): Magnitud de la velocidad inicial (m/s).
             angulo_grados (float): Ángulo de lanzamiento con respecto a la horizontal (grados).
             gravedad (float): Aceleración debido a la gravedad (m/s^2).
+        
+        Raises:
+            ValueError: Si la velocidad inicial es negativa, el ángulo no está entre 0 y 90 grados, o la gravedad es menor o igual a cero.
         """
         if velocidad_inicial < 0:
             raise ValueError("La velocidad inicial no puede ser negativa.")
@@ -38,6 +41,9 @@ class MovimientoParabolico:
 
         Returns:
             tuple: Una tupla (x, y) con las coordenadas de la posición (m).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -55,6 +61,9 @@ class MovimientoParabolico:
 
         Returns:
             tuple: Una tupla (vx, vy) con las componentes de la velocidad (m/s).
+        
+        Raises:
+            ValueError: Si el tiempo es negativo.
         """
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
@@ -69,6 +78,9 @@ class MovimientoParabolico:
 
         Returns:
             float: Tiempo total de vuelo (s).
+        
+        Notes:
+            Retorna `0.0` si el ángulo de lanzamiento es 0 grados.
         """
         if self.angulo_radianes == 0: # Si el ángulo es 0, no hay tiempo de vuelo vertical
             return 0.0
@@ -80,6 +92,9 @@ class MovimientoParabolico:
 
         Returns:
             float: Altura máxima (m).
+        
+        Notes:
+            Retorna `0.0` si el ángulo de lanzamiento es 0 grados.
         """
         if self.angulo_radianes == 0: # Si el ángulo es 0, la altura máxima es 0
             return 0.0
