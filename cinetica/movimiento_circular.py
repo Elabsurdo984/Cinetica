@@ -79,7 +79,7 @@ class MovimientoCircular:
             float: Período (s).
         """
         if self.velocidad_angular_inicial == 0:
-            raise ValueError("La velocidad angular inicial no puede ser cero para calcular el período en MCU.")
+            return math.inf  # Período infinito si la velocidad angular es cero
         return (2 * math.pi) / self.velocidad_angular_inicial
 
     def mcu_frecuencia(self) -> float:
@@ -91,7 +91,7 @@ class MovimientoCircular:
             float: Frecuencia (Hz).
         """
         if self.velocidad_angular_inicial == 0:
-            raise ValueError("La velocidad angular inicial no puede ser cero para calcular la frecuencia en MCU.")
+            return 0.0  # Frecuencia cero si la velocidad angular es cero
         return self.velocidad_angular_inicial / (2 * math.pi)
 
     # Métodos para MCUV (Movimiento Circular Uniformemente Variado)

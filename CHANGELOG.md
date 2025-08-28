@@ -1,4 +1,9 @@
 # Changelog
+## 0.3.3 - 2025-08-28
+
+### Changed
+- Estandarizado el manejo de errores en las clases `MovimientoRectilineo` y `MovimientoCircular`, utilizando `ValueError` para entradas inválidas y `math.inf` o `0.0` para escenarios físicamente definidos con valores límite.
+
 ## 0.3.2 - 2025-08-28
 
 ### Changed

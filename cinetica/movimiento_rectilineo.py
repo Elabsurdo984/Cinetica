@@ -31,6 +31,8 @@ class MovimientoRectilineo:
         Returns:
             float: Posición final (m).
         """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
     def mru_velocidad(self) -> float:
@@ -55,6 +57,8 @@ class MovimientoRectilineo:
         Returns:
             float: Posición final (m).
         """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo + 0.5 * self.aceleracion_inicial * (tiempo ** 2)
 
     def mruv_velocidad(self, tiempo: float) -> float:
@@ -68,6 +72,8 @@ class MovimientoRectilineo:
         Returns:
             float: Velocidad final (m/s).
         """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_inicial * tiempo
 
     def mruv_aceleracion(self) -> float:
