@@ -1,4 +1,11 @@
 # Changelog
+## 0.4.8 - 2025-08-29
+
+### Added
+- Nuevo módulo `MovimientoOscilatorio` con la clase `MovimientoArmonicoSimple` para cálculos de posición, velocidad, aceleración, período, frecuencia y energías en M.A.S.
+- Tests unitarios para la clase `MovimientoArmonicoSimple`.
+- Actualizados los archivos `__init__.py` en `cinetica/` para incluir el nuevo módulo.
+
 ## 0.3.8 - 2025-08-29
 
 ### Changed
