@@ -1,14 +1,14 @@
 import math
 
-class MovimientoParabolico:
+class MovimientoParabolicoBase:
     """
-    Clase para simular trayectorias, alcance y tiempo de vuelo en Movimiento Parabólico.
+    Clase base para simular trayectorias en Movimiento Parabólico.
     Se asume que el lanzamiento se realiza desde el origen (0,0) y la gravedad actúa hacia abajo.
     """
 
     def __init__(self, velocidad_inicial: float, angulo_grados: float, gravedad: float = 9.81):
         """
-        Inicializa el objeto MovimientoParabolico con las condiciones iniciales.
+        Inicializa el objeto MovimientoParabolicoBase con las condiciones iniciales.
 
         Args:
             velocidad_inicial (float): Magnitud de la velocidad inicial (m/s).
@@ -71,41 +71,3 @@ class MovimientoParabolico:
         velocidad_x = self.velocidad_inicial_x
         velocidad_y = self.velocidad_inicial_y - (self.gravedad * tiempo)
         return (velocidad_x, velocidad_y)
-
-    def tiempo_vuelo(self) -> float:
-        """
-        Calcula el tiempo total de vuelo del proyectil hasta que regresa a la altura inicial (y=0).
-
-        Returns:
-            float: Tiempo total de vuelo (s).
-        
-        Notes:
-            Retorna `0.0` si el ángulo de lanzamiento es 0 grados.
-        """
-        if self.angulo_radianes == 0: # Si el ángulo es 0, no hay tiempo de vuelo vertical
-            return 0.0
-        return (2 * self.velocidad_inicial_y) / self.gravedad
-
-    def altura_maxima(self) -> float:
-        """
-        Calcula la altura máxima alcanzada por el proyectil.
-
-        Returns:
-            float: Altura máxima (m).
-        
-        Notes:
-            Retorna `0.0` si el ángulo de lanzamiento es 0 grados.
-        """
-        if self.angulo_radianes == 0: # Si el ángulo es 0, la altura máxima es 0
-            return 0.0
-        return (self.velocidad_inicial_y ** 2) / (2 * self.gravedad)
-
-    def alcance_maximo(self) -> float:
-        """
-        Calcula el alcance horizontal máximo del proyectil (cuando y=0).
-
-        Returns:
-            float: Alcance horizontal máximo (m).
-        """
-        tiempo_total = self.tiempo_vuelo()
-        return self.velocidad_inicial_x * tiempo_total

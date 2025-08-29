@@ -1,4 +1,14 @@
 # Changelog
+## 0.3.8 - 2025-08-29
+
+### Changed
+- Refactorización de la arquitectura del proyecto para mejorar la modularidad y la facilidad de importación.
+  - La clase `MovimientoRectilineo` se dividió en `MovimientoRectilineoUniforme` (MRU) y `MovimientoRectilineoUniformementeVariado` (MRUV) en `cinetica/rectilineo/mru.py` y `cinetica/rectilineo/mruv.py` respectivamente.
+  - La clase `MovimientoCircular` se dividió en `MovimientoCircularUniforme` (MCU) y `MovimientoCircularUniformementeVariado` (MCUV) en `cinetica/circular/mcu.py` y `cinetica/circular/mcuv.py` respectivamente.
+  - La clase `MovimientoParabolico` se dividió en `MovimientoParabolicoBase` y `MovimientoParabolicoAnalisis` en `cinetica/parabolico/base.py` y `cinetica/parabolico/analisis.py` respectivamente.
+- Actualizados los archivos `__init__.py` en `cinetica/`, `cinetica/rectilineo/`, `cinetica/circular/` y `cinetica/parabolico/` para reflejar la nueva estructura de módulos.
+- Actualizados los tests en `tests/test_movimiento_rectilineo.py`, `tests/test_movimiento_circular.py` y `tests/test_movimiento_parabolico.py` para usar las nuevas clases y métodos.
+
 ## 0.3.7 - 2025-08-28
 
 ### Fixed

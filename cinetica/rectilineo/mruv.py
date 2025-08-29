@@ -1,14 +1,13 @@
 import math
 
-class MovimientoRectilineo:
+class MovimientoRectilineoUniformementeVariado:
     """
-    Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniforme (MRU)
-    y Movimiento Rectilíneo Uniformemente Variado (MRUV).
+    Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniformemente Variado (MRUV).
     """
 
     def __init__(self, posicion_inicial: float = 0.0, velocidad_inicial: float = 0.0, aceleracion_inicial: float = 0.0):
         """
-        Inicializa el objeto MovimientoRectilineo con condiciones iniciales.
+        Inicializa el objeto MovimientoRectilineoUniformementeVariado con condiciones iniciales.
 
         Args:
             posicion_inicial (float): Posición inicial del objeto (m).
@@ -19,37 +18,7 @@ class MovimientoRectilineo:
         self.velocidad_inicial = velocidad_inicial
         self.aceleracion_inicial = aceleracion_inicial
 
-    # Métodos para MRU (Movimiento Rectilíneo Uniforme)
-    def mru_posicion(self, tiempo: float) -> float:
-        """
-        Calcula la posición en MRU.
-        Ecuación: x = x0 + v * t
-
-        Args:
-            tiempo (float): Tiempo transcurrido (s).
-
-        Returns:
-            float: Posición final (m).
-        
-        Raises:
-            ValueError: Si el tiempo es negativo.
-        """
-        if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
-        return self.posicion_inicial + self.velocidad_inicial * tiempo
-
-    def mru_velocidad(self) -> float:
-        """
-        Calcula la velocidad en MRU (es constante).
-        Ecuación: v = v0
-
-        Returns:
-            float: Velocidad (m/s).
-        """
-        return self.velocidad_inicial
-
-    # Métodos para MRUV (Movimiento Rectilíneo Uniformemente Variado)
-    def mruv_posicion(self, tiempo: float) -> float:
+    def posicion(self, tiempo: float) -> float:
         """
         Calcula la posición en MRUV.
         Ecuación: x = x0 + v0 * t + 0.5 * a * t^2
@@ -67,7 +36,7 @@ class MovimientoRectilineo:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo + 0.5 * self.aceleracion_inicial * (tiempo ** 2)
 
-    def mruv_velocidad(self, tiempo: float) -> float:
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad en MRUV.
         Ecuación: v = v0 + a * t
@@ -85,7 +54,7 @@ class MovimientoRectilineo:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_inicial * tiempo
 
-    def mruv_aceleracion(self) -> float:
+    def aceleracion(self) -> float:
         """
         Calcula la aceleración en MRUV (es constante).
         Ecuación: a = a0
@@ -95,7 +64,7 @@ class MovimientoRectilineo:
         """
         return self.aceleracion_inicial
 
-    def mruv_velocidad_sin_tiempo(self, posicion_final: float) -> float:
+    def velocidad_sin_tiempo(self, posicion_final: float) -> float:
         """
         Calcula la velocidad final en MRUV sin conocer el tiempo.
         Ecuación: v^2 = v0^2 + 2 * a * (x - x0)
@@ -115,7 +84,7 @@ class MovimientoRectilineo:
             raise ValueError("No se puede calcular la velocidad real (velocidad al cuadrado negativa).")
         return math.sqrt(v_squared)
 
-    def mruv_tiempo_por_posicion(self, posicion_final: float) -> tuple[float, float]:
+    def tiempo_por_posicion(self, posicion_final: float) -> tuple[float, float]:
         """
         Calcula el tiempo a partir de la posición final en MRUV, resolviendo la ecuación cuadrática.
         Ecuación: x = x0 + v0 * t + 0.5 * a * t^2  =>  0.5 * a * t^2 + v0 * t + (x0 - x_f) = 0
@@ -177,7 +146,7 @@ class MovimientoRectilineo:
             else:
                 return (min(valid_times), max(valid_times))
 
-    def mruv_tiempo_por_velocidad(self, velocidad_final: float) -> float:
+    def tiempo_por_velocidad(self, velocidad_final: float) -> float:
         """
         Calcula el tiempo a partir de la velocidad final en MRUV.
         Ecuación: v = v0 + a * t  =>  t = (v - v0) / a
@@ -202,7 +171,7 @@ class MovimientoRectilineo:
             raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
         return tiempo
 
-    def mruv_desplazamiento_sin_tiempo(self, velocidad_final: float) -> float:
+    def desplazamiento_sin_tiempo(self, velocidad_final: float) -> float:
         """
         Calcula el desplazamiento (delta_x) en MRUV sin conocer el tiempo.
         Ecuación: v_f^2 = v_0^2 + 2 * a * delta_x  =>  delta_x = (v_f^2 - v_0^2) / (2 * a)
