@@ -1,4 +1,11 @@
 # Changelog
+## 0.6.0 - 2025-08-30
+
+### Added
+- Nuevo módulo `MovimientoArmonicoComplejo` con la clase `MovimientoArmonicoComplejo` para la superposición de múltiples Movimientos Armónicos Simples.
+- Tests unitarios para la clase `MovimientoArmonicoComplejo`.
+- Actualizados los archivos `__init__.py` en `cinetica/oscilatorio/` para incluir el nuevo módulo.
+
 ## 0.5.9 - 2025-08-29
 
 ### Added

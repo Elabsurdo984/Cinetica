@@ -149,9 +149,9 @@ print(f"MCUV - Tiempo para velocidad angular 3rad/s: {tiempo_vel_angular:.2f}s")
 
 ### Movimiento Oscilatorio
 
-El módulo `cinetica.oscilatorio` proporciona la clase `MovimientoArmonicoSimple` (M.A.S.) para calcular la posición, velocidad, aceleración, período, frecuencia y energías en un movimiento armónico simple.
+El módulo `cinetica.oscilatorio` proporciona la clase `MovimientoArmonicoSimple` (M.A.S.) para calcular la posición, velocidad, aceleración, período, frecuencia y energías en un movimiento armónico simple, y la clase `MovimientoArmonicoComplejo` (M.A.C.) para la superposición de múltiples M.A.S.
 
-**Ejemplo de uso:**
+**Ejemplo de uso de M.A.S.:**
 
 ```python
 from cinetica.oscilatorio import MovimientoArmonicoSimple
@@ -183,6 +183,30 @@ energia_total_mas = mas.energia_total(masa, constante_elastica)
 print(f"MAS - Energía Cinética a {tiempo}s: {energia_cinetica_mas:.4f} J")
 print(f"MAS - Energía Potencial a {tiempo}s: {energia_potencial_mas:.4f} J")
 print(f"MAS - Energía Total: {energia_total_mas:.4f} J")
+```
+
+**Ejemplo de uso de M.A.C.:**
+
+```python
+from cinetica.oscilatorio import MovimientoArmonicoComplejo
+import numpy as np
+
+# Definir componentes MAS
+componente1 = {'amplitud': 2.0, 'frecuencia_angular': 1.0, 'fase_inicial': 0.0}
+componente2 = {'amplitud': 1.0, 'frecuencia_angular': 3.0, 'fase_inicial': np.pi / 2}
+componente3 = {'amplitud': 0.5, 'frecuencia_angular': 5.0, 'fase_inicial': np.pi}
+
+mac = MovimientoArmonicoComplejo([componente1, componente2, componente3])
+
+# Calcular posición, velocidad y aceleración en un tiempo específico
+tiempo_mac = 0.5
+posicion_mac = mac.posicion(tiempo_mac)
+velocidad_mac = mac.velocidad(tiempo_mac)
+aceleracion_mac = mac.aceleracion(tiempo_mac)
+
+print(f"MAC - Posición a {tiempo_mac}s: {posicion_mac:.4f} m")
+print(f"MAC - Velocidad a {tiempo_mac}s: {velocidad_mac:.4f} m/s")
+print(f"MAC - Aceleración a {tiempo_mac}s: {aceleracion_mac:.4f} m/s^2")
 ```
 
 ### Movimiento Relativo

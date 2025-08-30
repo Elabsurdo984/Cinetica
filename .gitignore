@@ -25,3 +25,4 @@ venv/
 # More
 .coverage
 .mypy
+prueba/
