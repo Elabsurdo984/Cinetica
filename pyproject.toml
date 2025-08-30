@@ -27,16 +27,42 @@ classifiers = [
 "Bug Tracker" = "https://github.com/Elabsurdo984/Cinetica/issues"
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61.0", "poetry-core>=1.0.0"] # Added poetry-core for poetry build system
+build-backend = "poetry.core.masonry.api" # Changed build-backend to poetry
 
-[project.optional-dependencies]
-dev = [
-    "pytest",
-    "pylint",
-    "black",
-    "isort",
+[tool.poetry]
+name = "cinetica"
+version = "0.7.0"
+description = "A Python library for physics modules."
+authors = [
+    { name = "Elabsurdo984", email = "matiassfernandez00@gmail.com" },
 ]
+dependencies = {
+    python = ">=3.8",
+    numpy = ">=2.3.2",
+    matplotlib = ">=3.10.5"
+}
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["physics", "library", "science"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+pylint = "^2.15"
+black = "^23.0"
+isort = "^5.10"
+
+[project.urls]
+"Source Code" = "https://github.com/Elabsurdo984/Cinetica"
+"Bug Tracker" = "https://github.com/Elabsurdo984/Cinetica/issues"
 
 [tool.setuptools]
 packages = ["cinetica"]
