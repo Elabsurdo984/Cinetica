@@ -1,8 +1,9 @@
 import math
 from ..graficos.graficador import plot_mruv
 from ..exceptions import NegativeTimeError, InvalidPhysicsParameterError, PhysicallyImpossibleError, ZeroDivisionError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoRectilineoUniformementeVariado:
+class MovimientoRectilineoUniformementeVariado(MovimientoBase):
     """
     Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniformemente Variado (MRUV).
     """
@@ -56,10 +57,13 @@ class MovimientoRectilineoUniformementeVariado:
             raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_inicial * tiempo
 
-    def aceleracion(self) -> float:
+    def aceleracion(self, tiempo: float) -> float:
         """
         Calcula la aceleración en MRUV (es constante).
         Ecuación: a = a0
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s). (Ignorado en MRUV ya que la aceleración es constante)
 
         Returns:
             float: Aceleración (m/s^2).

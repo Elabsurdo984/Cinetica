@@ -4,11 +4,10 @@
 ### Changed
 - Implementado un manejo de errores más consistente y específico mediante la introducción de excepciones personalizadas (`CineticaError`, `InvalidPhysicsParameterError`, `NegativeTimeError`, `PhysicallyImpossibleError`, `ZeroDivisionError`).
 - Refactorizados todos los módulos de cinemática (`circular`, `rectilineo`, `parabolico`, `oscilatorio`, `relativo`) y el módulo `graficos` para utilizar estas nuevas excepciones.
-
-### Changed
-- Implementado un manejo de errores más consistente y específico mediante la introducción de excepciones personalizadas (`CineticaError`, `InvalidPhysicsParameterError`, `NegativeTimeError`, `PhysicallyImpossibleError`, `ZeroDivisionError`).
-- Refactorizados todos los módulos de cinemática (`circular`, `rectilineo`, `parabolico`, `oscilatorio`, `relativo`) y el módulo `graficos` para utilizar estas nuevas excepciones.
 - Optimizado el rendimiento de las funciones de graficación en `cinetica/graficos/graficador.py` mediante la vectorización de cálculos con NumPy para `plot_mru`, `plot_mruv`, `plot_parabolico`, `plot_mcu` y `plot_mcuv`.
+- Refactorizada la arquitectura del proyecto para mejorar la modularidad y la extensibilidad mediante la introducción de una clase base abstracta `MovimientoBase` en `cinetica/movimiento_base.py`.
+- Las clases `MovimientoRectilineoUniforme`, `MovimientoRectilineoUniformementeVariado`, `MovimientoParabolicoBase`, `MovimientoCircularUniforme`, `MovimientoCircularUniformementeVariado`, `MovimientoArmonicoSimple` y `MovimientoArmonicoComplejo` ahora heredan de `MovimientoBase` e implementan sus métodos abstractos (`posicion`, `velocidad`, `aceleracion`).
+- Corregidos los errores de tipo en `cinetica/oscilatorio/mac.py` utilizando `typing.Union` para `float` y `np.ndarray`.
 
 ### Added
 - Funcionalidad de graficación para los módulos de cinemática 1D (MRU, MRUV), 2D (Parabólico) y Circular (MCU, MCUV).

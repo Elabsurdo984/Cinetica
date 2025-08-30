@@ -1,8 +1,9 @@
 import math
 from ..graficos.graficador import plot_mru
 from ..exceptions import NegativeTimeError, InvalidPhysicsParameterError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoRectilineoUniforme:
+class MovimientoRectilineoUniforme(MovimientoBase):
     """
     Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme (MRU).
     """
@@ -36,15 +37,31 @@ class MovimientoRectilineoUniforme:
             raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
-    def velocidad(self) -> float:
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad en MRU (es constante).
         Ecuación: v = v0
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s). (Ignorado en MRU ya que la velocidad es constante)
 
         Returns:
             float: Velocidad (m/s).
         """
         return self.velocidad_inicial
+
+    def aceleracion(self, tiempo: float) -> float:
+        """
+        Calcula la aceleración en MRU (es cero).
+        Ecuación: a = 0
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s). (Ignorado en MRU ya que la aceleración es cero)
+
+        Returns:
+            float: Aceleración (m/s^2).
+        """
+        return 0.0
 
     def graficar(self, t_max: float, num_points: int = 100):
         """

@@ -1,8 +1,9 @@
 import math
 from ..graficos.graficador import plot_mcu
 from ..exceptions import InvalidPhysicsParameterError, NegativeTimeError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoCircularUniforme:
+class MovimientoCircularUniforme(MovimientoBase):
     """
     Clase para calcular y simular Movimiento Circular Uniforme (MCU).
     """
@@ -26,7 +27,7 @@ class MovimientoCircularUniforme:
         self.posicion_angular_inicial = posicion_angular_inicial
         self.velocidad_angular_inicial = velocidad_angular_inicial
 
-    def posicion_angular(self, tiempo: float) -> float:
+    def posicion(self, tiempo: float) -> float:
         """
         Calcula la posición angular en MCU.
         Ecuación: theta = theta0 + omega * t
@@ -44,10 +45,13 @@ class MovimientoCircularUniforme:
             raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
-    def velocidad_angular(self) -> float:
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad angular en MCU (es constante).
         Ecuación: omega = omega0
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s). (Ignorado en MCU ya que la velocidad angular es constante)
 
         Returns:
             float: Velocidad angular (rad/s).
@@ -72,7 +76,7 @@ class MovimientoCircularUniforme:
         Returns:
             float: Aceleración centrípeta (m/s^2).
         """
-        return (self.velocidad_angular() ** 2) * self.radio
+        return (self.velocidad_angular(tiempo=0) ** 2) * self.radio # Aceleración centrípeta es constante
 
     def periodo(self) -> float:
         """

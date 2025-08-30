@@ -1,7 +1,8 @@
 import math
 from ..exceptions import InvalidPhysicsParameterError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoArmonicoSimple:
+class MovimientoArmonicoSimple(MovimientoBase):
     """
     Clase para calcular la posición, velocidad y aceleración en un Movimiento Armónico Simple (M.A.S.).
     """
@@ -26,7 +27,7 @@ class MovimientoArmonicoSimple:
         self.frecuencia_angular = frecuencia_angular
         self.fase_inicial = fase_inicial
 
-    def posicion(self, tiempo):
+    def posicion(self, tiempo: float) -> float:
         """
         Calcula la posición (x) en un tiempo dado.
 
@@ -37,7 +38,7 @@ class MovimientoArmonicoSimple:
         """
         return self.amplitud * math.cos(self.frecuencia_angular * tiempo + self.fase_inicial)
 
-    def velocidad(self, tiempo):
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad (v) en un tiempo dado.
 
@@ -48,7 +49,7 @@ class MovimientoArmonicoSimple:
         """
         return -self.amplitud * self.frecuencia_angular * math.sin(self.frecuencia_angular * tiempo + self.fase_inicial)
 
-    def aceleracion(self, tiempo):
+    def aceleracion(self, tiempo: float) -> float:
         """
         Calcula la aceleración (a) en un tiempo dado.
 

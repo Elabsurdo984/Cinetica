@@ -6,9 +6,11 @@ armónico complejo, que es la superposición de varios movimientos armónicos si
 """
 
 import numpy as np
+from typing import Union
 from ..exceptions import InvalidPhysicsParameterError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoArmonicoComplejo:
+class MovimientoArmonicoComplejo(MovimientoBase):
     """
     Representa un Movimiento Armónico Complejo (MAC) como la superposición
     de múltiples Movimientos Armónicos Simples (MAS).
@@ -41,15 +43,15 @@ class MovimientoArmonicoComplejo:
 
         self.mas_components = mas_components
 
-    def posicion(self, tiempo):
+    def posicion(self, tiempo: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         """
         Calcula la posición del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float or np.ndarray): El tiempo o array de tiempos en segundos.
+            tiempo (Union[float, np.ndarray]): El tiempo o array de tiempos en segundos.
 
         Returns:
-            float or np.ndarray: La posición total en el tiempo especificado.
+            Union[float, np.ndarray]: La posición total en el tiempo especificado.
         """
         posiciones = np.zeros_like(np.array(tiempo, dtype=float))
         for comp in self.mas_components:
@@ -59,15 +61,15 @@ class MovimientoArmonicoComplejo:
             posiciones += A * np.cos(omega * tiempo + phi)
         return posiciones
 
-    def velocidad(self, tiempo):
+    def velocidad(self, tiempo: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         """
         Calcula la velocidad del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float or np.ndarray): El tiempo o array de tiempos en segundos.
+            tiempo (Union[float, np.ndarray]): El tiempo o array de tiempos en segundos.
 
         Returns:
-            float or np.ndarray: La velocidad total en el tiempo especificado.
+            Union[float, np.ndarray]: La velocidad total en el tiempo especificado.
         """
         velocidades = np.zeros_like(np.array(tiempo, dtype=float))
         for comp in self.mas_components:
@@ -77,15 +79,15 @@ class MovimientoArmonicoComplejo:
             velocidades += -A * omega * np.sin(omega * tiempo + phi)
         return velocidades
 
-    def aceleracion(self, tiempo):
+    def aceleracion(self, tiempo: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
         """
         Calcula la aceleración del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float or np.ndarray): El tiempo o array de tiempos en segundos.
+            tiempo (Union[float, np.ndarray]): El tiempo o array de tiempos en segundos.
 
         Returns:
-            float or np.ndarray: La aceleración total en el tiempo especificado.
+            Union[float, np.ndarray]: La aceleración total en el tiempo especificado.
         """
         aceleraciones = np.zeros_like(np.array(tiempo, dtype=float))
         for comp in self.mas_components:

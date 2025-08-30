@@ -1,8 +1,9 @@
 import math
 from ..graficos.graficador import plot_mcuv
 from ..exceptions import InvalidPhysicsParameterError, NegativeTimeError, PhysicallyImpossibleError
+from ..movimiento_base import MovimientoBase
 
-class MovimientoCircularUniformementeVariado:
+class MovimientoCircularUniformementeVariado(MovimientoBase):
     """
     Clase para calcular y simular Movimiento Circular Uniformemente Variado (MCUV).
     """
@@ -28,7 +29,7 @@ class MovimientoCircularUniformementeVariado:
         self.velocidad_angular_inicial = velocidad_angular_inicial
         self.aceleracion_angular_inicial = aceleracion_angular_inicial
 
-    def posicion_angular(self, tiempo: float) -> float:
+    def posicion(self, tiempo: float) -> float:
         """
         Calcula la posición angular en MCUV.
         Ecuación: theta = theta0 + omega0 * t + 0.5 * alpha * t^2
@@ -46,7 +47,7 @@ class MovimientoCircularUniformementeVariado:
             raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo + 0.5 * self.aceleracion_angular_inicial * (tiempo ** 2)
 
-    def velocidad_angular(self, tiempo: float) -> float:
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad angular en MCUV.
         Ecuación: omega = omega0 + alpha * t
@@ -64,10 +65,13 @@ class MovimientoCircularUniformementeVariado:
             raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
 
-    def aceleracion_angular(self) -> float:
+    def aceleracion(self, tiempo: float) -> float:
         """
         Calcula la aceleración angular en MCUV (es constante).
         Ecuación: alpha = alpha0
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s). (Ignorado en MCUV ya que la aceleración angular es constante)
 
         Returns:
             float: Aceleración angular (rad/s^2).
