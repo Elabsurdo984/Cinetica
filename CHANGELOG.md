@@ -1,5 +1,12 @@
 # Changelog
-## 0.4.8 - 2025-08-29
+## 0.5.9 - 2025-08-29
+
+### Added
+- Nuevo módulo `MovimientoRelativo` con la clase `MovimientoRelativo` para cálculos de velocidad relativa en 2D y 3D, incluyendo magnitud y dirección.
+- Tests unitarios para la clase `MovimientoRelativo`.
+- Actualizados los archivos `__init__.py` en `cinetica/` para incluir el nuevo módulo.
+
+## 0.4.9 - 2025-08-29
 
 ### Added
 - Nuevo módulo `MovimientoOscilatorio` con la clase `MovimientoArmonicoSimple` para cálculos de posición, velocidad, aceleración, período, frecuencia y energías en M.A.S.

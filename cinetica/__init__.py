@@ -2,8 +2,9 @@ from .rectilineo import MovimientoRectilineoUniforme, MovimientoRectilineoUnifor
 from .parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
 from .circular import MovimientoCircularUniforme, MovimientoCircularUniformementeVariado
 from .oscilatorio import MovimientoArmonicoSimple
+from .relativo import MovimientoRelativo
 
-__version__ = "0.3.8"
+__version__ = "0.5.9"
 
 __all__ = [
     "MovimientoRectilineoUniforme",
@@ -13,4 +14,5 @@ __all__ = [
     "MovimientoCircularUniforme",
     "MovimientoCircularUniformementeVariado",
     "MovimientoArmonicoSimple",
+    "MovimientoRelativo",
 ]
