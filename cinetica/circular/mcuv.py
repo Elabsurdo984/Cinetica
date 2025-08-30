@@ -1,4 +1,5 @@
 import math
+from ..graficos.graficador import plot_mcuv
 
 class MovimientoCircularUniformementeVariado:
     """
@@ -229,3 +230,14 @@ class MovimientoCircularUniformementeVariado:
         if tiempo < 0:
             raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
         return tiempo
+
+    def graficar(self, t_max: float, num_points: int = 100):
+        """
+        Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo,
+        aceleración angular vs. tiempo, aceleración centrípeta vs. tiempo y aceleración total vs. tiempo para MCUV.
+
+        Args:
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+        """
+        plot_mcuv(self, t_max, num_points)

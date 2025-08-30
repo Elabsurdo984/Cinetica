@@ -1,4 +1,5 @@
 import math
+from ..graficos.graficador import plot_parabolico
 
 class MovimientoParabolicoBase:
     """
@@ -71,3 +72,13 @@ class MovimientoParabolicoBase:
         velocidad_x = self.velocidad_inicial_x
         velocidad_y = self.velocidad_inicial_y - (self.gravedad * tiempo)
         return (velocidad_x, velocidad_y)
+
+    def graficar(self, t_max: float, num_points: int = 100):
+        """
+        Genera y muestra el gráfico de la trayectoria (y vs. x) para Movimiento Parabólico.
+
+        Args:
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+        """
+        plot_parabolico(self, t_max, num_points)

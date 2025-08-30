@@ -1,7 +1,11 @@
 # Changelog
-## 0.6.0 - 2025-08-30
+## 0.7.0 - 2025-08-30
 
 ### Added
+- Funcionalidad de graficación para los módulos de cinemática 1D (MRU, MRUV), 2D (Parabólico) y Circular (MCU, MCUV).
+  - Se creó el nuevo paquete `cinetica/graficos` con el módulo `graficador.py` que contiene funciones para generar gráficos de posición, velocidad, aceleración y trayectoria.
+  - Se añadió un método `graficar(self, t_max: float, num_points: int = 100)` a las clases `MovimientoRectilineoUniforme`, `MovimientoRectilineoUniformementeVariado`, `MovimientoParabolicoBase`, `MovimientoCircularUniforme` y `MovimientoCircularUniformementeVariado`.
+  - Este método permite al usuario generar visualizaciones de los movimientos simulados.
 - Nuevo módulo `MovimientoArmonicoComplejo` con la clase `MovimientoArmonicoComplejo` para la superposición de múltiples Movimientos Armónicos Simples.
 - Tests unitarios para la clase `MovimientoArmonicoComplejo`.
 - Actualizados los archivos `__init__.py` en `cinetica/oscilatorio/` para incluir el nuevo módulo.

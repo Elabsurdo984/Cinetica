@@ -57,6 +57,7 @@ print(f"MRUV - Tiempo para velocidad 20m/s: {tiempo_velocidad:.2f}s")
 # Ejemplo: Calcular el desplazamiento para alcanzar una velocidad final de 20 m/s
 desplazamiento_sin_tiempo = mruv.desplazamiento_sin_tiempo(velocidad_final=20.0)
 print(f"MRUV - Desplazamiento sin tiempo (para velocidad 20m/s): {desplazamiento_sin_tiempo:.2f}m")
+mruv.graficar(t_max=10) # Ejemplo de graficación
 ```
 
 ### Movimiento Parabólico
@@ -87,6 +88,7 @@ alcance_maximo = mp_analisis.alcance_maximo()
 print(f"MP - Tiempo de vuelo: {tiempo_vuelo:.2f} s")
 print(f"MP - Altura máxima: {altura_maxima:.2f} m")
 print(f"MP - Alcance máximo: {alcance_maximo:.2f} m")
+mp_base.graficar(t_max=4) # Ejemplo de graficación
 ```
 
 ### Movimiento Circular
@@ -110,6 +112,7 @@ print(f"MCU - Posición angular a 1s: {pos_angular_mcu:.2f} rad")
 vel_tangencial_mcu = mcu.velocidad_tangencial()
 acel_centripeta_mcu = mcu.aceleracion_centripeta()
 print(f"MCU - Velocidad tangencial: {vel_tangencial_mcu:.2f} m/s, Aceleración centrípeta: {acel_centripeta_mcu:.2f} m/s^2")
+mcu.graficar(t_max=10) # Ejemplo de graficación
 ```
 
 **Ejemplo de uso de MCUV:**
@@ -145,6 +148,7 @@ print(f"MCUV - Tiempos para posición angular 5rad: {tiempos_posicion_angular[0]
 # Ejemplo: Calcular el tiempo para alcanzar una velocidad angular de 3 rad/s
 tiempo_vel_angular = mcuv.tiempo_por_velocidad_angular(velocidad_angular_final=3.0)
 print(f"MCUV - Tiempo para velocidad angular 3rad/s: {tiempo_vel_angular:.2f}s")
+mcuv.graficar(t_max=10) # Ejemplo de graficación
 ```
 
 ### Movimiento Oscilatorio
@@ -207,6 +211,19 @@ aceleracion_mac = mac.aceleracion(tiempo_mac)
 print(f"MAC - Posición a {tiempo_mac}s: {posicion_mac:.4f} m")
 print(f"MAC - Velocidad a {tiempo_mac}s: {velocidad_mac:.4f} m/s")
 print(f"MAC - Aceleración a {tiempo_mac}s: {aceleracion_mac:.4f} m/s^2")
+```
+
+### Funcionalidad de Graficación
+
+Se ha añadido la capacidad de generar gráficos para visualizar los movimientos. Cada clase de movimiento (MRU, MRUV, Parabólico, MCU, MCUV) ahora incluye un método `graficar()` que utiliza `matplotlib` para mostrar la evolución de los parámetros relevantes o la trayectoria.
+
+**Ejemplo de uso de graficación (aplicable a todas las clases de movimiento):**
+
+```python
+from cinetica.rectilineo import MovimientoRectilineoUniforme
+
+mru = MovimientoRectilineoUniforme(posicion_inicial=0, velocidad_inicial=5)
+mru.graficar(t_max=10) # Genera gráficos de posición y velocidad vs. tiempo para MRU
 ```
 
 ### Movimiento Relativo

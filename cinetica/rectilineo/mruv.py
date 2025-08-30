@@ -1,4 +1,5 @@
 import math
+from ..graficos.graficador import plot_mruv
 
 class MovimientoRectilineoUniformementeVariado:
     """
@@ -197,3 +198,13 @@ class MovimientoRectilineoUniformementeVariado:
         
         delta_x = (velocidad_final**2 - self.velocidad_inicial**2) / denominador
         return delta_x
+
+    def graficar(self, t_max: float, num_points: int = 100):
+        """
+        Genera y muestra gráficos de posición vs. tiempo, velocidad vs. tiempo y aceleración vs. tiempo para MRUV.
+
+        Args:
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+        """
+        plot_mruv(self, t_max, num_points)

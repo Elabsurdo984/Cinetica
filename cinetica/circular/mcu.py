@@ -1,4 +1,5 @@
 import math
+from ..graficos.graficador import plot_mcu
 
 class MovimientoCircularUniforme:
     """
@@ -101,3 +102,14 @@ class MovimientoCircularUniforme:
         if self.velocidad_angular_inicial == 0:
             return 0.0  # Frecuencia cero si la velocidad angular es cero
         return self.velocidad_angular_inicial / (2 * math.pi)
+
+    def graficar(self, t_max: float, num_points: int = 100):
+        """
+        Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo
+        y aceleración centrípeta vs. tiempo para MCU. También grafica la trayectoria circular.
+
+        Args:
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+        """
+        plot_mcu(self, t_max, num_points)
