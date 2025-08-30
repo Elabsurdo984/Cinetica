@@ -18,8 +18,8 @@ def plot_mru(mru_obj, t_max: float, num_points: int = 100):
         raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
-    posiciones = [mru_obj.posicion(t) for t in tiempo]
-    velocidades = [mru_obj.velocidad() for _ in tiempo] # Velocidad constante
+    posiciones = mru_obj.posicion_inicial + mru_obj.velocidad_inicial * tiempo
+    velocidades = np.full_like(tiempo, mru_obj.velocidad_inicial) # Velocidad constante
 
     fig, axs = plt.subplots(2, 1, figsize=(10, 8))
     fig.suptitle('Movimiento Rectilíneo Uniforme (MRU)')
@@ -59,9 +59,9 @@ def plot_mruv(mruv_obj, t_max: float, num_points: int = 100):
         raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
-    posiciones = [mruv_obj.posicion(t) for t in tiempo]
-    velocidades = [mruv_obj.velocidad(t) for t in tiempo]
-    aceleraciones = [mruv_obj.aceleracion() for _ in tiempo] # Aceleración constante
+    posiciones = mruv_obj.posicion_inicial + mruv_obj.velocidad_inicial * tiempo + 0.5 * mruv_obj.aceleracion_inicial * (tiempo ** 2)
+    velocidades = mruv_obj.velocidad_inicial + mruv_obj.aceleracion_inicial * tiempo
+    aceleraciones = np.full_like(tiempo, mruv_obj.aceleracion_inicial) # Aceleración constante
 
     fig, axs = plt.subplots(3, 1, figsize=(10, 12))
     fig.suptitle('Movimiento Rectilíneo Uniformemente Variado (MRUV)')
@@ -109,15 +109,13 @@ def plot_parabolico(parabolico_obj, t_max: float, num_points: int = 100):
         raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
-    posiciones_x = []
-    posiciones_y = []
-    for t in tiempo:
-        x, y = parabolico_obj.posicion(t)
-        if y >= 0: # Solo graficar mientras el proyectil esté por encima o en el suelo
-            posiciones_x.append(x)
-            posiciones_y.append(y)
-        else:
-            break # Detener si el proyectil cae por debajo del suelo
+    posiciones_x = parabolico_obj.velocidad_inicial_x * tiempo
+    posiciones_y = (parabolico_obj.velocidad_inicial_y * tiempo) - (0.5 * parabolico_obj.gravedad * (tiempo ** 2))
+
+    # Filtrar puntos donde y es negativo (proyectil por debajo del suelo)
+    valid_indices = posiciones_y >= 0
+    posiciones_x = posiciones_x[valid_indices]
+    posiciones_y = posiciones_y[valid_indices]
 
     plt.figure(figsize=(10, 6))
     plt.plot(posiciones_x, posiciones_y, label='Trayectoria Parabólica')
@@ -148,9 +146,9 @@ def plot_mcu(mcu_obj, t_max: float, num_points: int = 100):
         raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
-    posiciones_angulares = [mcu_obj.posicion_angular(t) for t in tiempo]
-    velocidades_angulares = [mcu_obj.velocidad_angular() for _ in tiempo]
-    aceleraciones_centripetas = [mcu_obj.aceleracion_centripeta() for _ in tiempo]
+    posiciones_angulares = mcu_obj.posicion_angular_inicial + mcu_obj.velocidad_angular_inicial * tiempo
+    velocidades_angulares = np.full_like(tiempo, mcu_obj.velocidad_angular_inicial)
+    aceleraciones_centripetas = np.full_like(tiempo, (mcu_obj.velocidad_angular_inicial ** 2) * mcu_obj.radio)
 
     fig, axs = plt.subplots(3, 1, figsize=(10, 12))
     fig.suptitle('Movimiento Circular Uniforme (MCU)')
@@ -214,11 +212,12 @@ def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
         raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
-    posiciones_angulares = [mcuv_obj.posicion_angular(t) for t in tiempo]
-    velocidades_angulares = [mcuv_obj.velocidad_angular(t) for t in tiempo]
-    aceleraciones_angulares = [mcuv_obj.aceleracion_angular() for _ in tiempo]
-    aceleraciones_centripetas = [mcuv_obj.aceleracion_centripeta(t) for t in tiempo]
-    aceleraciones_totales = [mcuv_obj.aceleracion_total(t) for t in tiempo]
+    posiciones_angulares = mcuv_obj.posicion_angular_inicial + mcuv_obj.velocidad_angular_inicial * tiempo + 0.5 * mcuv_obj.aceleracion_angular_inicial * (tiempo ** 2)
+    velocidades_angulares = mcuv_obj.velocidad_angular_inicial + mcuv_obj.aceleracion_angular_inicial * tiempo
+    aceleraciones_angulares = np.full_like(tiempo, mcuv_obj.aceleracion_angular_inicial)
+    aceleraciones_centripetas = (velocidades_angulares ** 2) * mcuv_obj.radio
+    aceleraciones_tangenciales = np.full_like(tiempo, mcuv_obj.aceleracion_angular_inicial * mcuv_obj.radio)
+    aceleraciones_totales = np.sqrt(aceleraciones_tangenciales**2 + aceleraciones_centripetas**2)
 
     fig, axs = plt.subplots(5, 1, figsize=(10, 20))
     fig.suptitle('Movimiento Circular Uniformemente Variado (MCUV)')

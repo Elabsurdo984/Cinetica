@@ -5,6 +5,11 @@
 - Implementado un manejo de errores más consistente y específico mediante la introducción de excepciones personalizadas (`CineticaError`, `InvalidPhysicsParameterError`, `NegativeTimeError`, `PhysicallyImpossibleError`, `ZeroDivisionError`).
 - Refactorizados todos los módulos de cinemática (`circular`, `rectilineo`, `parabolico`, `oscilatorio`, `relativo`) y el módulo `graficos` para utilizar estas nuevas excepciones.
 
+### Changed
+- Implementado un manejo de errores más consistente y específico mediante la introducción de excepciones personalizadas (`CineticaError`, `InvalidPhysicsParameterError`, `NegativeTimeError`, `PhysicallyImpossibleError`, `ZeroDivisionError`).
+- Refactorizados todos los módulos de cinemática (`circular`, `rectilineo`, `parabolico`, `oscilatorio`, `relativo`) y el módulo `graficos` para utilizar estas nuevas excepciones.
+- Optimizado el rendimiento de las funciones de graficación en `cinetica/graficos/graficador.py` mediante la vectorización de cálculos con NumPy para `plot_mru`, `plot_mruv`, `plot_parabolico`, `plot_mcu` y `plot_mcuv`.
+
 ### Added
 - Funcionalidad de graficación para los módulos de cinemática 1D (MRU, MRUV), 2D (Parabólico) y Circular (MCU, MCUV).
   - Se creó el nuevo paquete `cinetica/graficos` con el módulo `graficador.py` que contiene funciones para generar gráficos de posición, velocidad, aceleración y trayectoria.
