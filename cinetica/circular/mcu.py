@@ -1,5 +1,6 @@
 import math
 from ..graficos.graficador import plot_mcu
+from ..exceptions import InvalidPhysicsParameterError, NegativeTimeError
 
 class MovimientoCircularUniforme:
     """
@@ -16,10 +17,10 @@ class MovimientoCircularUniforme:
             velocidad_angular_inicial (float): Velocidad angular inicial (rad/s).
         
         Raises:
-            ValueError: Si el radio es menor o igual a cero.
+            InvalidPhysicsParameterError: Si el radio es menor o igual a cero.
         """
         if radio <= 0:
-            raise ValueError("El radio debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("El radio debe ser un valor positivo.")
 
         self.radio = radio
         self.posicion_angular_inicial = posicion_angular_inicial
@@ -37,10 +38,10 @@ class MovimientoCircularUniforme:
             float: Posición angular final (radianes).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
     def velocidad_angular(self) -> float:
@@ -111,5 +112,10 @@ class MovimientoCircularUniforme:
         Args:
             t_max (float): Tiempo máximo para la simulación (s).
             num_points (int): Número de puntos a generar para el gráfico.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
         """
+        if t_max <= 0:
+            raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
         plot_mcu(self, t_max, num_points)

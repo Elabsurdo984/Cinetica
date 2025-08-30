@@ -1,5 +1,6 @@
 import math
 from ..graficos.graficador import plot_parabolico
+from ..exceptions import InvalidPhysicsParameterError, NegativeTimeError
 
 class MovimientoParabolicoBase:
     """
@@ -17,14 +18,14 @@ class MovimientoParabolicoBase:
             gravedad (float): Aceleración debido a la gravedad (m/s^2).
         
         Raises:
-            ValueError: Si la velocidad inicial es negativa, el ángulo no está entre 0 y 90 grados, o la gravedad es menor o igual a cero.
+            InvalidPhysicsParameterError: Si la velocidad inicial es negativa, el ángulo no está entre 0 y 90 grados, o la gravedad es menor o igual a cero.
         """
         if velocidad_inicial < 0:
-            raise ValueError("La velocidad inicial no puede ser negativa.")
+            raise InvalidPhysicsParameterError("La velocidad inicial no puede ser negativa.")
         if not (0 <= angulo_grados <= 90):
-            raise ValueError("El ángulo de lanzamiento debe estar entre 0 y 90 grados.")
+            raise InvalidPhysicsParameterError("El ángulo de lanzamiento debe estar entre 0 y 90 grados.")
         if gravedad <= 0:
-            raise ValueError("La gravedad debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("La gravedad debe ser un valor positivo.")
 
         self.velocidad_inicial = velocidad_inicial
         self.angulo_radianes = math.radians(angulo_grados)
@@ -44,10 +45,10 @@ class MovimientoParabolicoBase:
             tuple: Una tupla (x, y) con las coordenadas de la posición (m).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
 
         posicion_x = self.velocidad_inicial_x * tiempo
         posicion_y = (self.velocidad_inicial_y * tiempo) - (0.5 * self.gravedad * (tiempo ** 2))
@@ -64,10 +65,10 @@ class MovimientoParabolicoBase:
             tuple: Una tupla (vx, vy) con las componentes de la velocidad (m/s).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
 
         velocidad_x = self.velocidad_inicial_x
         velocidad_y = self.velocidad_inicial_y - (self.gravedad * tiempo)
@@ -80,5 +81,10 @@ class MovimientoParabolicoBase:
         Args:
             t_max (float): Tiempo máximo para la simulación (s).
             num_points (int): Número de puntos a generar para el gráfico.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
         """
+        if t_max <= 0:
+            raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
         plot_parabolico(self, t_max, num_points)

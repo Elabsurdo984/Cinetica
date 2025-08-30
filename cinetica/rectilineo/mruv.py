@@ -1,5 +1,6 @@
 import math
 from ..graficos.graficador import plot_mruv
+from ..exceptions import NegativeTimeError, InvalidPhysicsParameterError, PhysicallyImpossibleError, ZeroDivisionError
 
 class MovimientoRectilineoUniformementeVariado:
     """
@@ -31,10 +32,10 @@ class MovimientoRectilineoUniformementeVariado:
             float: Posición final (m).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo + 0.5 * self.aceleracion_inicial * (tiempo ** 2)
 
     def velocidad(self, tiempo: float) -> float:
@@ -49,10 +50,10 @@ class MovimientoRectilineoUniformementeVariado:
             float: Velocidad final (m/s).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_inicial * tiempo
 
     def aceleracion(self) -> float:
@@ -77,12 +78,12 @@ class MovimientoRectilineoUniformementeVariado:
             float: Velocidad final (m/s).
         
         Raises:
-            ValueError: Si la velocidad al cuadrado es negativa, indicando una situación físicamente imposible.
+            PhysicallyImpossibleError: Si la velocidad al cuadrado es negativa, indicando una situación físicamente imposible.
         """
         delta_x = posicion_final - self.posicion_inicial
         v_squared = (self.velocidad_inicial ** 2) + 2 * self.aceleracion_inicial * delta_x
         if v_squared < 0:
-            raise ValueError("No se puede calcular la velocidad real (velocidad al cuadrado negativa).")
+            raise PhysicallyImpossibleError("No se puede calcular la velocidad real (velocidad al cuadrado negativa).")
         return math.sqrt(v_squared)
 
     def tiempo_por_posicion(self, posicion_final: float) -> tuple[float, float]:
@@ -99,8 +100,9 @@ class MovimientoRectilineoUniformementeVariado:
                                  Si no hay soluciones reales, ambos valores serán `math.nan`.
         
         Raises:
-            ValueError: Si la aceleración es cero y la velocidad inicial también es cero,
-                        o si el discriminante es negativo (no hay soluciones reales).
+            PhysicallyImpossibleError: Si la aceleración es cero y la velocidad inicial también es cero,
+                                       o si el discriminante es negativo (no hay soluciones reales).
+            NegativeTimeError: Si el tiempo calculado es negativo.
         """
         a = 0.5 * self.aceleracion_inicial
         b = self.velocidad_inicial
@@ -118,7 +120,7 @@ class MovimientoRectilineoUniformementeVariado:
                 # Ecuación lineal: t = -c / b
                 tiempo = -c / b
                 if tiempo < 0:
-                    raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+                    raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
                 return (tiempo, math.nan)
 
         discriminante = b**2 - 4 * a * c
@@ -128,7 +130,7 @@ class MovimientoRectilineoUniformementeVariado:
         elif discriminante == 0:
             tiempo = (-b) / (2 * a)
             if tiempo < 0:
-                raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+                raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
             return (tiempo, math.nan)
         else:
             tiempo1 = (-b + math.sqrt(discriminante)) / (2 * a)
@@ -141,7 +143,7 @@ class MovimientoRectilineoUniformementeVariado:
                 valid_times.append(tiempo2)
             
             if not valid_times:
-                raise ValueError("Ambos tiempos calculados son negativos, lo cual no es físicamente posible.")
+                raise NegativeTimeError("Ambos tiempos calculados son negativos, lo cual no es físicamente posible.")
             elif len(valid_times) == 1:
                 return (valid_times[0], math.nan)
             else:
@@ -159,17 +161,17 @@ class MovimientoRectilineoUniformementeVariado:
             float: Tiempo transcurrido (s).
         
         Raises:
-            ValueError: Si la aceleración es cero y la velocidad final no coincide con la inicial,
-                        o si el tiempo calculado es negativo.
+            PhysicallyImpossibleError: Si la aceleración es cero y la velocidad final no coincide con la inicial.
+            NegativeTimeError: Si el tiempo calculado es negativo.
         """
         if self.aceleracion_inicial == 0:
             if velocidad_final != self.velocidad_inicial:
-                raise ValueError("La aceleración es cero, por lo que la velocidad no puede cambiar.")
+                raise PhysicallyImpossibleError("La aceleración es cero, por lo que la velocidad no puede cambiar.")
             return math.inf # Velocidad constante, tiempo infinito para alcanzar la misma velocidad si ya la tiene
         
         tiempo = (velocidad_final - self.velocidad_inicial) / self.aceleracion_inicial
         if tiempo < 0:
-            raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+            raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
         return tiempo
 
     def desplazamiento_sin_tiempo(self, velocidad_final: float) -> float:
@@ -184,17 +186,17 @@ class MovimientoRectilineoUniformementeVariado:
             float: Desplazamiento (m).
         
         Raises:
-            ValueError: Si la aceleración es cero y la velocidad final es diferente de la inicial,
-                        o si el denominador es cero.
+            PhysicallyImpossibleError: Si la aceleración es cero y la velocidad final es diferente de la inicial.
+            ZeroDivisionError: Si el denominador es cero.
         """
         if self.aceleracion_inicial == 0:
             if velocidad_final != self.velocidad_inicial:
-                raise ValueError("La aceleración es cero, por lo que la velocidad no puede cambiar y el desplazamiento es indefinido si las velocidades son diferentes.")
+                raise PhysicallyImpossibleError("La aceleración es cero, por lo que la velocidad no puede cambiar y el desplazamiento es indefinido si las velocidades son diferentes.")
             return 0.0 # Si la aceleración es cero y las velocidades son iguales, el desplazamiento es 0 (o indefinido si no se mueve)
         
         denominador = 2 * self.aceleracion_inicial
         if denominador == 0:
-            raise ValueError("El denominador es cero, no se puede calcular el desplazamiento.")
+            raise ZeroDivisionError("El denominador es cero, no se puede calcular el desplazamiento.")
         
         delta_x = (velocidad_final**2 - self.velocidad_inicial**2) / denominador
         return delta_x
@@ -206,5 +208,10 @@ class MovimientoRectilineoUniformementeVariado:
         Args:
             t_max (float): Tiempo máximo para la simulación (s).
             num_points (int): Número de puntos a generar para el gráfico.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
         """
+        if t_max <= 0:
+            raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
         plot_mruv(self, t_max, num_points)

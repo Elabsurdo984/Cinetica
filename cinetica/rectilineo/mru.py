@@ -1,5 +1,6 @@
 import math
 from ..graficos.graficador import plot_mru
+from ..exceptions import NegativeTimeError, InvalidPhysicsParameterError
 
 class MovimientoRectilineoUniforme:
     """
@@ -29,10 +30,10 @@ class MovimientoRectilineoUniforme:
             float: Posición final (m).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
     def velocidad(self) -> float:
@@ -52,5 +53,10 @@ class MovimientoRectilineoUniforme:
         Args:
             t_max (float): Tiempo máximo para la simulación (s).
             num_points (int): Número de puntos a generar para el gráfico.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
         """
+        if t_max <= 0:
+            raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
         plot_mru(self, t_max, num_points)

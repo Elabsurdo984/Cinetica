@@ -6,6 +6,7 @@ armónico complejo, que es la superposición de varios movimientos armónicos si
 """
 
 import numpy as np
+from ..exceptions import InvalidPhysicsParameterError
 
 class MovimientoArmonicoComplejo:
     """
@@ -22,15 +23,21 @@ class MovimientoArmonicoComplejo:
                                    - 'amplitud' (float): Amplitud del MAS.
                                    - 'frecuencia_angular' (float): Frecuencia angular (omega) del MAS.
                                    - 'fase_inicial' (float): Fase inicial (phi) del MAS en radianes.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si `mas_components` no es una lista válida o si alguna componente
+                                          MAS no tiene las claves requeridas o valores numéricos válidos.
         """
         if not isinstance(mas_components, list) or not mas_components:
-            raise ValueError("mas_components debe ser una lista no vacía de diccionarios.")
+            raise InvalidPhysicsParameterError("mas_components debe ser una lista no vacía de diccionarios.")
         
         for comp in mas_components:
             if not all(k in comp for k in ['amplitud', 'frecuencia_angular', 'fase_inicial']):
-                raise ValueError("Cada componente MAS debe tener 'amplitud', 'frecuencia_angular' y 'fase_inicial'.")
+                raise InvalidPhysicsParameterError("Cada componente MAS debe tener 'amplitud', 'frecuencia_angular' y 'fase_inicial'.")
             if not all(isinstance(comp[k], (int, float)) for k in ['amplitud', 'frecuencia_angular', 'fase_inicial']):
-                raise ValueError("Los valores de amplitud, frecuencia_angular y fase_inicial deben ser numéricos.")
+                raise InvalidPhysicsParameterError("Los valores de amplitud, frecuencia_angular y fase_inicial deben ser numéricos.")
+            if comp['amplitud'] <= 0 or comp['frecuencia_angular'] <= 0:
+                raise InvalidPhysicsParameterError("La amplitud y la frecuencia angular de cada componente MAS deben ser valores positivos.")
 
         self.mas_components = mas_components
 

@@ -1,5 +1,6 @@
 import math
 from .base import MovimientoParabolicoBase
+from ..exceptions import InvalidPhysicsParameterError
 
 class MovimientoParabolicoAnalisis:
     """

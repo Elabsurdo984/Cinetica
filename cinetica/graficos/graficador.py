@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from ..exceptions import InvalidPhysicsParameterError
 
 def plot_mru(mru_obj, t_max: float, num_points: int = 100):
     """
@@ -9,9 +10,12 @@ def plot_mru(mru_obj, t_max: float, num_points: int = 100):
         mru_obj: Instancia de MovimientoRectilineoUniforme.
         t_max (float): Tiempo máximo para la simulación (s).
         num_points (int): Número de puntos a generar para el gráfico.
+    
+    Raises:
+        InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
     """
     if t_max <= 0:
-        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+        raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
     posiciones = [mru_obj.posicion(t) for t in tiempo]
@@ -43,13 +47,16 @@ def plot_mruv(mruv_obj, t_max: float, num_points: int = 100):
     """
     Genera y muestra gráficos de posición vs. tiempo, velocidad vs. tiempo y aceleración vs. tiempo para MRUV.
 
-    Args:
-        mruv_obj: Instancia de MovimientoRectilineoUniformementeVariado.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+        Args:
+            mruv_obj: Instancia de MovimientoRectilineoUniformementeVariado.
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+    
+    Raises:
+        InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
     """
     if t_max <= 0:
-        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+        raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
     posiciones = [mruv_obj.posicion(t) for t in tiempo]
@@ -90,13 +97,16 @@ def plot_parabolico(parabolico_obj, t_max: float, num_points: int = 100):
     """
     Genera y muestra el gráfico de la trayectoria (y vs. x) para Movimiento Parabólico.
 
-    Args:
-        parabolico_obj: Instancia de MovimientoParabolicoBase.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+        Args:
+            parabolico_obj: Instancia de MovimientoParabolicoBase.
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+    
+    Raises:
+        InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
     """
     if t_max <= 0:
-        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+        raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
     posiciones_x = []
@@ -126,13 +136,16 @@ def plot_mcu(mcu_obj, t_max: float, num_points: int = 100):
     Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo
     y aceleración centrípeta vs. tiempo para MCU. También grafica la trayectoria circular.
 
-    Args:
-        mcu_obj: Instancia de MovimientoCircularUniforme.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+        Args:
+            mcu_obj: Instancia de MovimientoCircularUniforme.
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+    
+    Raises:
+        InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
     """
     if t_max <= 0:
-        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+        raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
     posiciones_angulares = [mcu_obj.posicion_angular(t) for t in tiempo]
@@ -189,13 +202,16 @@ def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
     Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo,
     aceleración angular vs. tiempo, aceleración centrípeta vs. tiempo y aceleración total vs. tiempo para MCUV.
 
-    Args:
-        mcuv_obj: Instancia de MovimientoCircularUniformementeVariado.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+        Args:
+            mcuv_obj: Instancia de MovimientoCircularUniformementeVariado.
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+    
+    Raises:
+        InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
     """
     if t_max <= 0:
-        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+        raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
 
     tiempo = np.linspace(0, t_max, num_points)
     posiciones_angulares = [mcuv_obj.posicion_angular(t) for t in tiempo]

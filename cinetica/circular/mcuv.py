@@ -1,5 +1,6 @@
 import math
 from ..graficos.graficador import plot_mcuv
+from ..exceptions import InvalidPhysicsParameterError, NegativeTimeError, PhysicallyImpossibleError
 
 class MovimientoCircularUniformementeVariado:
     """
@@ -17,10 +18,10 @@ class MovimientoCircularUniformementeVariado:
             aceleracion_angular_inicial (float): Aceleración angular inicial (rad/s^2).
         
         Raises:
-            ValueError: Si el radio es menor o igual a cero.
+            InvalidPhysicsParameterError: Si el radio es menor o igual a cero.
         """
         if radio <= 0:
-            raise ValueError("El radio debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("El radio debe ser un valor positivo.")
 
         self.radio = radio
         self.posicion_angular_inicial = posicion_angular_inicial
@@ -39,10 +40,10 @@ class MovimientoCircularUniformementeVariado:
             float: Posición angular final (radianes).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo + 0.5 * self.aceleracion_angular_inicial * (tiempo ** 2)
 
     def velocidad_angular(self, tiempo: float) -> float:
@@ -57,10 +58,10 @@ class MovimientoCircularUniformementeVariado:
             float: Velocidad angular final (rad/s).
         
         Raises:
-            ValueError: Si el tiempo es negativo.
+            NegativeTimeError: Si el tiempo es negativo.
         """
         if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
+            raise NegativeTimeError("El tiempo no puede ser negativo.")
         return self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
 
     def aceleracion_angular(self) -> float:
@@ -136,12 +137,12 @@ class MovimientoCircularUniformementeVariado:
             float: Velocidad angular final (rad/s).
         
         Raises:
-            ValueError: Si la velocidad angular al cuadrado es negativa, indicando una situación físicamente imposible.
+            PhysicallyImpossibleError: Si la velocidad angular al cuadrado es negativa, indicando una situación físicamente imposible.
         """
         delta_theta = posicion_angular_final - self.posicion_angular_inicial
         omega_squared = (self.velocidad_angular_inicial ** 2) + 2 * self.aceleracion_angular_inicial * delta_theta
         if omega_squared < 0:
-            raise ValueError("No se puede calcular la velocidad angular real (velocidad angular al cuadrado negativa).")
+            raise PhysicallyImpossibleError("No se puede calcular la velocidad angular real (velocidad angular al cuadrado negativa).")
         return math.sqrt(omega_squared)
 
     def tiempo_por_posicion_angular(self, posicion_angular_final: float) -> tuple[float, float]:
@@ -158,8 +159,9 @@ class MovimientoCircularUniformementeVariado:
                                  Si no hay soluciones reales, ambos valores serán `math.nan`.
         
         Raises:
-            ValueError: Si la aceleración angular es cero y la velocidad angular inicial también es cero,
-                        o si el discriminante es negativo (no hay soluciones reales).
+            PhysicallyImpossibleError: Si la aceleración angular es cero y la velocidad angular inicial también es cero,
+                                       o si el discriminante es negativo (no hay soluciones reales).
+            NegativeTimeError: Si el tiempo calculado es negativo.
         """
         a = 0.5 * self.aceleracion_angular_inicial
         b = self.velocidad_angular_inicial
@@ -177,7 +179,7 @@ class MovimientoCircularUniformementeVariado:
                 # Ecuación lineal: t = -c / b
                 tiempo = -c / b
                 if tiempo < 0:
-                    raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+                    raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
                 return (tiempo, math.nan)
 
         discriminante = b**2 - 4 * a * c
@@ -187,7 +189,7 @@ class MovimientoCircularUniformementeVariado:
         elif discriminante == 0:
             tiempo = (-b) / (2 * a)
             if tiempo < 0:
-                raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+                raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
             return (tiempo, math.nan)
         else:
             tiempo1 = (-b + math.sqrt(discriminante)) / (2 * a)
@@ -200,7 +202,7 @@ class MovimientoCircularUniformementeVariado:
                 valid_times.append(tiempo2)
             
             if not valid_times:
-                raise ValueError("Ambos tiempos calculados son negativos, lo cual no es físicamente posible.")
+                raise NegativeTimeError("Ambos tiempos calculados son negativos, lo cual no es físicamente posible.")
             elif len(valid_times) == 1:
                 return (valid_times[0], math.nan)
             else:
@@ -218,17 +220,17 @@ class MovimientoCircularUniformementeVariado:
             float: Tiempo transcurrido (s).
         
         Raises:
-            ValueError: Si la aceleración angular es cero y la velocidad angular final no coincide con la inicial,
-                        o si el tiempo calculado es negativo.
+            PhysicallyImpossibleError: Si la aceleración angular es cero y la velocidad angular final no coincide con la inicial.
+            NegativeTimeError: Si el tiempo calculado es negativo.
         """
         if self.aceleracion_angular_inicial == 0:
             if velocidad_angular_final != self.velocidad_angular_inicial:
-                raise ValueError("La aceleración angular es cero, por lo que la velocidad angular no puede cambiar.")
+                raise PhysicallyImpossibleError("La aceleración angular es cero, por lo que la velocidad angular no puede cambiar.")
             return math.inf # Velocidad angular constante, tiempo infinito para alcanzar la misma velocidad si ya la tiene
         
         tiempo = (velocidad_angular_final - self.velocidad_angular_inicial) / self.aceleracion_angular_inicial
         if tiempo < 0:
-            raise ValueError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
+            raise NegativeTimeError("El tiempo calculado es negativo, lo cual no es físicamente posible.")
         return tiempo
 
     def graficar(self, t_max: float, num_points: int = 100):
@@ -239,5 +241,10 @@ class MovimientoCircularUniformementeVariado:
         Args:
             t_max (float): Tiempo máximo para la simulación (s).
             num_points (int): Número de puntos a generar para el gráfico.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si el tiempo máximo es menor o igual a cero.
         """
+        if t_max <= 0:
+            raise InvalidPhysicsParameterError("El tiempo máximo debe ser positivo para generar el gráfico.")
         plot_mcuv(self, t_max, num_points)

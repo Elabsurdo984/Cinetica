@@ -1,4 +1,5 @@
 import math
+from ..exceptions import InvalidPhysicsParameterError
 
 class MovimientoArmonicoSimple:
     """
@@ -12,11 +13,14 @@ class MovimientoArmonicoSimple:
         :param amplitud: Amplitud del movimiento (A).
         :param frecuencia_angular: Frecuencia angular (ω) en radianes/segundo.
         :param fase_inicial: Fase inicial (φ) en radianes. Por defecto es 0.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si la amplitud o la frecuencia angular son menores o iguales a cero.
         """
         if amplitud <= 0:
-            raise ValueError("La amplitud debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("La amplitud debe ser un valor positivo.")
         if frecuencia_angular <= 0:
-            raise ValueError("La frecuencia angular debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("La frecuencia angular debe ser un valor positivo.")
 
         self.amplitud = amplitud
         self.frecuencia_angular = frecuencia_angular
@@ -84,9 +88,12 @@ class MovimientoArmonicoSimple:
         :param tiempo: Tiempo (t) en segundos.
         :param masa: Masa del objeto en kg.
         :return: Energía cinética en Joules.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si la masa es menor o igual a cero.
         """
         if masa <= 0:
-            raise ValueError("La masa debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("La masa debe ser un valor positivo.")
         return 0.5 * masa * (self.velocidad(tiempo) ** 2)
 
     def energia_potencial(self, tiempo, constante_elastica):
@@ -98,9 +105,12 @@ class MovimientoArmonicoSimple:
         :param tiempo: Tiempo (t) en segundos.
         :param constante_elastica: Constante elástica (k) en N/m.
         :return: Energía potencial en Joules.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si la constante elástica es menor o igual a cero.
         """
         if constante_elastica <= 0:
-            raise ValueError("La constante elástica debe ser un valor positivo.")
+            raise InvalidPhysicsParameterError("La constante elástica debe ser un valor positivo.")
         return 0.5 * constante_elastica * (self.posicion(tiempo) ** 2)
 
     def energia_total(self, masa, constante_elastica):
@@ -112,7 +122,10 @@ class MovimientoArmonicoSimple:
         :param masa: Masa del objeto en kg.
         :param constante_elastica: Constante elástica (k) en N/m.
         :return: Energía total en Joules.
+        
+        Raises:
+            InvalidPhysicsParameterError: Si la masa o la constante elástica son menores o iguales a cero.
         """
         if masa <= 0 or constante_elastica <= 0:
-            raise ValueError("La masa y la constante elástica deben ser valores positivos.")
+            raise InvalidPhysicsParameterError("La masa y la constante elástica deben ser valores positivos.")
         return 0.5 * constante_elastica * (self.amplitud ** 2)
