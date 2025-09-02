@@ -1,6 +1,6 @@
 [project]
 name = "cinetica"
-version = "0.6.0"
+version = "0.7.5"
 description = "A Python library for physics modules."
 authors = [
     { name = "Elabsurdo984", email = "matiassfernandez00@gmail.com" },
