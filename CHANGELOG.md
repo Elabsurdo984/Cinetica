@@ -1,4 +1,9 @@
 # Changelog
+## 0.7.6
+
+### Changed
+- Documentacion transportada de README.md a DOCS.md
+
 ## 0.7.0 - 2025-08-30
 
 ### Added
