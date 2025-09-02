@@ -1,6 +1,6 @@
 # Cinetica
 
-Cinetica es una librería de Python diseñada para proporcionar varios módulos para cálculos y simulaciones de física.
+Cinetica es una librería de Python diseñada para proporcionar varios módulos para cálculos y simulaciones de física, incluyendo movimientos rectilíneos, parabólicos, circulares, oscilatorios, relativos y espaciales (3D).
 
 ## Instalación
 

@@ -1,5 +1,11 @@
 # Changelog
-## 0.7.6
+
+## 0.8.0 - 2025-09-02
+
+### Added
+- Se creo el nuevo modulo `movimiento_espacial` sobre cinematica en 3D, se creo su respectivo test y su clase `MovimientoEspacial`.
+
+## 0.7.6 - 2025-09-02
 
 ### Changed
 - Documentacion transportada de README.md a DOCS.md

@@ -11,6 +11,7 @@ La librería se organiza en módulos, cada uno dedicado a un tipo específico de
 - `circular`: Movimiento Circular Uniforme (MCU) y Movimiento Circular Uniformemente Variado (MCUV).
 - `oscilatorio`: Movimiento Armónico Simple (MAS) y Movimiento Armónico Complejo (MAC).
 - `relativo`: Cálculo de velocidades relativas.
+- `espacial`: Movimiento en 3D con vectores de posición, velocidad y aceleración.
 - `graficos`: Funciones para la visualización de los movimientos.
 
 ## Módulos y Clases
@@ -220,6 +221,30 @@ Clase para calcular velocidades relativas entre objetos.
 - **`direccion_velocidad(self, velocidad_vector)`**:
     Calcula la dirección de un vector de velocidad (ángulo para 2D, vector unitario para 3D).
 
+### 6. Movimiento Espacial (`cinetica.espacial`)
+
+Este módulo permite simular y calcular la trayectoria de un objeto en 3D.
+
+#### `MovimientoEspacial`
+
+Clase para simular y calcular la trayectoria de un objeto en 3D utilizando vectores de posición, velocidad y aceleración.
+
+- **`__init__(self, posicion_inicial: np.ndarray = np.array([0.0, 0.0, 0.0]), velocidad_inicial: np.ndarray = np.array([0.0, 0.0, 0.0]), aceleracion_constante: np.ndarray = np.array([0.0, 0.0, 0.0]))`**:
+    Inicializa el objeto `MovimientoEspacial`.
+    - `posicion_inicial` (np.ndarray): Vector de posición inicial (m).
+    - `velocidad_inicial` (np.ndarray): Vector de velocidad inicial (m/s).
+    - `aceleracion_constante` (np.ndarray): Vector de aceleración constante (m/s^2).
+- **`posicion(self, tiempo: float) -> np.ndarray`**:
+    Calcula el vector de posición en un tiempo dado. Ecuación: `r = r0 + v0 * t + 0.5 * a * t^2`.
+- **`velocidad(self, tiempo: float) -> np.ndarray`**:
+    Calcula el vector de velocidad en un tiempo dado. Ecuación: `v = v0 + a * t`.
+- **`aceleracion(self) -> np.ndarray`**:
+    Retorna el vector de aceleración (es constante). Ecuación: `a = a_constante`.
+- **`magnitud_velocidad(self, tiempo: float) -> float`**:
+    Calcula la magnitud de la velocidad en un tiempo dado.
+- **`magnitud_aceleracion(self) -> float`**:
+    Calcula la magnitud de la aceleración.
+
 ## Uso Básico
 
 Para utilizar la librería, simplemente importa las clases necesarias y crea instancias de ellas para realizar cálculos o simulaciones.
@@ -227,6 +252,8 @@ Para utilizar la librería, simplemente importa las clases necesarias y crea ins
 ```python
 from cinetica.rectilineo import MovimientoRectilineoUniforme
 from cinetica.parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
+from cinetica.espacial import MovimientoEspacial
+import numpy as np
 
 # Ejemplo de MRU
 mru = MovimientoRectilineoUniforme(posicion_inicial=10, velocidad_inicial=2)
@@ -238,3 +265,10 @@ mp_base = MovimientoParabolicoBase(velocidad_inicial=30, angulo_grados=45)
 mp_analisis = MovimientoParabolicoAnalisis(mp_base)
 tiempo_vuelo = mp_analisis.tiempo_vuelo()
 print(f"Tiempo de vuelo: {tiempo_vuelo} s")
+
+# Ejemplo de Movimiento Espacial
+me = MovimientoEspacial(posicion_inicial=np.array([0,0,0]), velocidad_inicial=np.array([1,2,3]), aceleracion_constante=np.array([0,0,-9.81]))
+pos_espacial = me.posicion(tiempo=2)
+print(f"Posición espacial a los 2s: {pos_espacial}")
+vel_espacial = me.velocidad(tiempo=2)
+print(f"Velocidad espacial a los 2s: {vel_espacial}")
