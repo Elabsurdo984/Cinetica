@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+import matplotlib.pyplot as plt # Importar matplotlib
 from cinetica.espacial import MovimientoEspacial
 
 def test_movimiento_espacial_init():
@@ -93,3 +94,21 @@ def test_movimiento_espacial_magnitud_aceleracion():
 
     me2 = MovimientoEspacial(aceleracion_constante=np.array([0, 0, -9.81]))
     assert np.isclose(me2.magnitud_aceleracion(), 9.81)
+
+def test_movimiento_espacial_graficar(mocker):
+    """
+    Testea el método graficar de MovimientoEspacial.
+    Se mockea plt.show() para evitar que se abran ventanas de gráficos durante el test.
+    """
+    mocker.patch('matplotlib.pyplot.show')
+    me = MovimientoEspacial(posicion_inicial=np.array([0, 0, 0]),
+                             velocidad_inicial=np.array([1, 1, 1]),
+                             aceleracion_constante=np.array([0, 0, -9.81]))
+    
+    me.graficar(t_max=1.0, num_points=10)
+    
+    # Verificar que plt.show() fue llamado
+    assert plt.show.called
+
+    with pytest.raises(ValueError):
+        me.graficar(t_max=-1.0)

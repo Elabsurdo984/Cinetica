@@ -45,5 +45,9 @@ def main():
     except ValueError as e:
         print(f"\nError esperado al usar tiempo negativo: {e}")
 
+    # Graficar la trayectoria 3D
+    print("\nGenerando gráfico 3D de la trayectoria...")
+    movimiento_3d.graficar(t_max=10.0) # Graficar hasta 2 segundos
+
 if __name__ == "__main__":
     main()

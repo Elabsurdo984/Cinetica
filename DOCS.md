@@ -244,6 +244,8 @@ Clase para simular y calcular la trayectoria de un objeto en 3D utilizando vecto
     Calcula la magnitud de la velocidad en un tiempo dado.
 - **`magnitud_aceleracion(self) -> float`**:
     Calcula la magnitud de la aceleración.
+- **`graficar(self, t_max: float, num_points: int = 100)`**:
+    Genera y muestra un gráfico 3D de la trayectoria.
 
 ## Uso Básico
 

@@ -5,7 +5,7 @@ from .oscilatorio import MovimientoArmonicoSimple
 from .relativo import MovimientoRelativo
 from .espacial import MovimientoEspacial
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"
 
 __all__ = [
     "MovimientoRectilineoUniforme",

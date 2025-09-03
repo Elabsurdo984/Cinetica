@@ -95,6 +95,13 @@ class MovimientoEspacial:
         """
         return np.linalg.norm(self.aceleracion_constante)
 
-    # Métodos adicionales para análisis de trayectoria 3D podrían ser añadidos aquí,
-    # como graficación 3D (requeriría matplotlib.pyplot.figure(projection='3d'))
-    # o cálculo de desplazamiento entre dos tiempos.
+    def graficar(self, t_max: float, num_points: int = 100):
+        """
+        Genera y muestra un gráfico 3D de la trayectoria para Movimiento Espacial.
+
+        Args:
+            t_max (float): Tiempo máximo para la simulación (s).
+            num_points (int): Número de puntos a generar para el gráfico.
+        """
+        from ..graficos.graficador import plot_movimiento_espacial
+        plot_movimiento_espacial(self, t_max, num_points)

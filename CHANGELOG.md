@@ -1,9 +1,20 @@
 # Changelog
 
+
+
+## 0.9.0 - 2025-09-03
+
+### Added
+- Funcionalidad de graficación 3D para el módulo `MovimientoEspacial`.
+  - Se añadió la función `plot_movimiento_espacial` en `cinetica/graficos/graficador.py`.
+  - Se implementó el método `graficar` en la clase `MovimientoEspacial`.
+  - Se actualizó `DOCS.md` y el archivo de ejemplo `usage/movimiento_espacial_ejemplo.py` para reflejar esta nueva funcionalidad.
+  - Se añadió un test unitario para el método `graficar` en `tests/test_movimiento_espacial.py`.
+
 ## 0.8.0 - 2025-09-02
 
 ### Added
-- Se creo el nuevo modulo `movimiento_espacial` sobre cinematica en 3D, se creo su respectivo test y su clase `MovimientoEspacial`.
+- Se creó el nuevo módulo `movimiento_espacial` sobre cinemática en 3D, se creó su respectivo test y su clase `MovimientoEspacial`.
 
 ## 0.7.6 - 2025-09-02
 

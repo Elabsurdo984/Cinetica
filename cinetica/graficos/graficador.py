@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D # Importar para gráficos 3D
 
 def configurar_estilo_grafico():
     """
@@ -282,4 +283,37 @@ def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
     axs[4].tick_params(labelsize=9)
 
     plt.tight_layout(rect=[0, 0.03, 0.95, 0.95]) # Adjusted rect for legend
+    plt.show()
+
+def plot_movimiento_espacial(espacial_obj, t_max: float, num_points: int = 100):
+    """
+    Genera y muestra un gráfico 3D de la trayectoria para Movimiento Espacial.
+
+    Args:
+        espacial_obj: Instancia de MovimientoEspacial.
+        t_max (float): Tiempo máximo para la simulación (s).
+        num_points (int): Número de puntos a generar para el gráfico.
+    """
+    configurar_estilo_grafico()
+    if t_max <= 0:
+        raise ValueError("El tiempo máximo debe ser positivo para generar el gráfico.")
+
+    tiempo = np.linspace(0, t_max, num_points)
+    posiciones = np.array([espacial_obj.posicion(t) for t in tiempo])
+
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.plot(posiciones[:, 0], posiciones[:, 1], posiciones[:, 2], label='Trayectoria 3D', linewidth=2)
+    ax.scatter(posiciones[0, 0], posiciones[0, 1], posiciones[0, 2], color='green', marker='o', s=50, label='Inicio')
+    ax.scatter(posiciones[-1, 0], posiciones[-1, 1], posiciones[-1, 2], color='red', marker='x', s=50, label='Fin')
+
+    ax.set_xlabel('X (m)', fontsize=10)
+    ax.set_ylabel('Y (m)', fontsize=10)
+    ax.set_zlabel('Z (m)', fontsize=10)
+    ax.set_title('Movimiento Espacial: Trayectoria 3D', pad=10, fontsize=12, fontweight='bold')
+    ax.legend(loc='best')
+    ax.tick_params(labelsize=9)
+
+    plt.tight_layout()
     plt.show()
