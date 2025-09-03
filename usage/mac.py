@@ -1,4 +1,4 @@
-from cinetica.oscilatorio import MovimientoArmonicoComplejo
+from cinetica.cinematica.oscilatorio.mac import MovimientoArmonicoComplejo
 import numpy as np
 
 # Definir componentes MAS

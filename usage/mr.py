@@ -1,4 +1,4 @@
-from cinetica.relativo import MovimientoRelativo
+from cinetica.cinematica.relativo.velocidad_relativa import MovimientoRelativo
 import numpy as np
 
 mr = MovimientoRelativo()

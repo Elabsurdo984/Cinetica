@@ -1,4 +1,4 @@
-from cinetica.rectilineo import MovimientoRectilineoUniforme
+from cinetica.cinematica.rectilineo.mru import MovimientoRectilineoUniforme
 
 # MRU
 mru = MovimientoRectilineoUniforme(posicion_inicial=10.0, velocidad_inicial=2.0)

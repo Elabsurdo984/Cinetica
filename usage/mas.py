@@ -1,4 +1,4 @@
-from cinetica.oscilatorio import MovimientoArmonicoSimple
+from cinetica.cinematica.oscilatorio.mas import MovimientoArmonicoSimple
 import math
 
 # M.A.S. con amplitud de 0.1m, frecuencia angular de 2*pi rad/s (f=1Hz)

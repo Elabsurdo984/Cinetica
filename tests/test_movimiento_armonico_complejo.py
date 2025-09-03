@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from cinetica.oscilatorio import MovimientoArmonicoComplejo
+from cinetica.cinematica.oscilatorio.mac import MovimientoArmonicoComplejo
 
 def test_mac_init():
     # Test con componentes válidos

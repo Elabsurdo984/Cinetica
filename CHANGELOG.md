@@ -2,6 +2,19 @@
 
 
 
+## 0.10.0 - 2025-09-03
+
+### Added
+- Se creó la carpeta `cinetica/dinamica` para futuros módulos de dinámica.
+
+### Changed
+- Se reorganizó la estructura del proyecto:
+  - Se creó la carpeta `cinetica/cinematica` y se movieron todos los módulos de cinemática (`circular`, `espacial`, `oscilatorio`, `parabolico`, `rectilineo`, `relativo`) a esta nueva carpeta.
+  - Se actualizaron las importaciones en `cinetica/cinematica/__init__.py` para reflejar la nueva estructura.
+
+### Fixed
+- Corregidos errores de importación en `cinetica/cinematica/__init__.py` para resolver `ModuleNotFoundError` en los tests.
+
 ## 0.9.0 - 2025-09-03
 
 ### Added

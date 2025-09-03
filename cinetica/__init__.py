@@ -1,20 +1,8 @@
-from .rectilineo import MovimientoRectilineoUniforme, MovimientoRectilineoUniformementeVariado
-from .parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
-from .circular import MovimientoCircularUniforme, MovimientoCircularUniformementeVariado
-from .oscilatorio import MovimientoArmonicoSimple
-from .relativo import MovimientoRelativo
-from .espacial import MovimientoEspacial
+from . import cinematica
 
-__version__ = "0.9.0"
+__version__ = "0.10.0"
 
 __all__ = [
-    "MovimientoRectilineoUniforme",
-    "MovimientoRectilineoUniformementeVariado",
-    "MovimientoParabolicoBase",
-    "MovimientoParabolicoAnalisis",
-    "MovimientoCircularUniforme",
-    "MovimientoCircularUniformementeVariado",
-    "MovimientoArmonicoSimple",
-    "MovimientoRelativo",
-    "MovimientoEspacial",
+    "cinematica",
+    "__version__",
 ]

@@ -1,5 +1,5 @@
 import numpy as np
-from cinetica.espacial import MovimientoEspacial
+from cinetica.cinematica.espacial.movimiento_espacial import MovimientoEspacial
 
 def main():
     """

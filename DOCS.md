@@ -4,19 +4,21 @@
 
 ## Estructura de la Librería
 
-La librería se organiza en módulos, cada uno dedicado a un tipo específico de movimiento:
+La librería se organiza en paquetes y módulos, reflejando una estructura más modular:
 
-- `rectilineo`: Movimiento Rectilíneo Uniforme (MRU) y Movimiento Rectilíneo Uniformemente Variado (MRUV).
-- `parabolico`: Movimiento Parabólico (Base y Análisis).
-- `circular`: Movimiento Circular Uniforme (MCU) y Movimiento Circular Uniformemente Variado (MCUV).
-- `oscilatorio`: Movimiento Armónico Simple (MAS) y Movimiento Armónico Complejo (MAC).
-- `relativo`: Cálculo de velocidades relativas.
-- `espacial`: Movimiento en 3D con vectores de posición, velocidad y aceleración.
+- `cinematica`: Contiene todos los módulos relacionados con la cinemática.
+  - `circular`: Movimiento Circular Uniforme (MCU) y Movimiento Circular Uniformemente Variado (MCUV).
+  - `espacial`: Movimiento en 3D con vectores de posición, velocidad y aceleración.
+  - `oscilatorio`: Movimiento Armónico Simple (MAS) y Movimiento Armónico Complejo (MAC).
+  - `parabolico`: Movimiento Parabólico (Base y Análisis).
+  - `rectilineo`: Movimiento Rectilíneo Uniforme (MRU) y Movimiento Rectilíneo Uniformemente Variado (MRUV).
+  - `relativo`: Cálculo de velocidades relativas.
+- `dinamica`: Carpeta para futuros módulos relacionados con la dinámica.
 - `graficos`: Funciones para la visualización de los movimientos.
 
 ## Módulos y Clases
 
-### 1. Movimiento Rectilíneo (`cinetica.rectilineo`)
+### 1. Movimiento Rectilíneo (`cinetica.cinematica.rectilineo`)
 
 Este módulo maneja los movimientos en una sola dimensión con velocidad constante o aceleración constante.
 
@@ -62,7 +64,7 @@ Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíne
 - **`graficar(self, t_max: float, num_points: int = 100)`**:
     Genera gráficos de posición, velocidad y aceleración vs. tiempo.
 
-### 2. Movimiento Parabólico (`cinetica.parabolico`)
+### 2. Movimiento Parabólico (`cinetica.cinematica.parabolico`)
 
 Este módulo simula el movimiento de proyectiles bajo la influencia de la gravedad.
 
@@ -95,7 +97,7 @@ Clase para calcular propiedades de análisis en Movimiento Parabólico.
 - **`alcance_maximo(self) -> float`**:
     Calcula el alcance horizontal máximo.
 
-### 3. Movimiento Circular (`cinetica.circular`)
+### 3. Movimiento Circular (`cinetica.cinematica.circular`)
 
 Este módulo aborda los movimientos a lo largo de una trayectoria circular.
 
@@ -156,7 +158,7 @@ Clase para calcular y simular Movimiento Circular Uniformemente Variado.
 - **`graficar(self, t_max: float, num_points: int = 100)`**:
     Genera gráficos de posición angular, velocidad angular, aceleración angular, aceleración centrípeta y aceleración total.
 
-### 4. Movimiento Oscilatorio (`cinetica.oscilatorio`)
+### 4. Movimiento Oscilatorio (`cinetica.cinematica.oscilatorio`)
 
 Este módulo se centra en los movimientos periódicos.
 
@@ -200,7 +202,7 @@ Representa un Movimiento Armónico Complejo como la superposición de múltiples
 - **`aceleracion(self, tiempo)`**:
     Calcula la aceleración total del objeto en un tiempo dado.
 
-### 5. Movimiento Relativo (`cinetica.relativo`)
+### 5. Movimiento Relativo (`cinetica.cinematica.relativo`)
 
 Este módulo permite calcular velocidades relativas entre objetos.
 
@@ -221,7 +223,7 @@ Clase para calcular velocidades relativas entre objetos.
 - **`direccion_velocidad(self, velocidad_vector)`**:
     Calcula la dirección de un vector de velocidad (ángulo para 2D, vector unitario para 3D).
 
-### 6. Movimiento Espacial (`cinetica.espacial`)
+### 6. Movimiento Espacial (`cinetica.cinematica.espacial`)
 
 Este módulo permite simular y calcular la trayectoria de un objeto en 3D.
 
@@ -252,9 +254,9 @@ Clase para simular y calcular la trayectoria de un objeto en 3D utilizando vecto
 Para utilizar la librería, simplemente importa las clases necesarias y crea instancias de ellas para realizar cálculos o simulaciones.
 
 ```python
-from cinetica.rectilineo import MovimientoRectilineoUniforme
-from cinetica.parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
-from cinetica.espacial import MovimientoEspacial
+from cinetica.cinematica.rectilineo import MovimientoRectilineoUniforme
+from cinetica.cinematica.parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
+from cinetica.cinematica.espacial import MovimientoEspacial
 import numpy as np
 
 # Ejemplo de MRU

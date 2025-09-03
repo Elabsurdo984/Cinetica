@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from cinetica.relativo import MovimientoRelativo
+from cinetica.cinematica.relativo.velocidad_relativa import MovimientoRelativo
 
 def test_velocidad_relativa_2d():
     mr = MovimientoRelativo()

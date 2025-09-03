@@ -1,4 +1,4 @@
-from cinetica.circular import MovimientoCircularUniformementeVariado
+from cinetica.cinematica.circular import MovimientoCircularUniformementeVariado
 import math
 
 # MCUV con radio de 1m, vel. angular inicial 1 rad/s, acel. angular 0.5 rad/s^2

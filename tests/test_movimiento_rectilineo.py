@@ -1,5 +1,6 @@
 import pytest
-from cinetica.rectilineo import MovimientoRectilineoUniforme, MovimientoRectilineoUniformementeVariado
+from cinetica.cinematica.rectilineo.mru import MovimientoRectilineoUniforme
+from cinetica.cinematica.rectilineo.mruv import MovimientoRectilineoUniformementeVariado
 
 def test_mru_posicion():
     mru = MovimientoRectilineoUniforme(posicion_inicial=10.0, velocidad_inicial=2.0)

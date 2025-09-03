@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 import matplotlib.pyplot as plt # Importar matplotlib
-from cinetica.espacial import MovimientoEspacial
+from cinetica.cinematica.espacial.movimiento_espacial import MovimientoEspacial
 
 def test_movimiento_espacial_init():
     """

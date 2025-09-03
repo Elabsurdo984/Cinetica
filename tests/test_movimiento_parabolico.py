@@ -1,5 +1,6 @@
 import pytest
-from cinetica.parabolico import MovimientoParabolicoBase, MovimientoParabolicoAnalisis
+from cinetica.cinematica.parabolico.base import MovimientoParabolicoBase
+from cinetica.cinematica.parabolico.analisis import MovimientoParabolicoAnalisis
 import math
 
 def test_base_init_valid_params():
