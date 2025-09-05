@@ -1,6 +1,7 @@
 import math
+from ..base_movimiento import Movimiento
 
-class MovimientoArmonicoSimple:
+class MovimientoArmonicoSimple(Movimiento):
     """
     Clase para calcular la posición, velocidad y aceleración en un Movimiento Armónico Simple (M.A.S.).
     """

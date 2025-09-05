@@ -1,7 +1,8 @@
 import math
-from ..graficos.graficador import plot_mru
+from ..base_movimiento import Movimiento
+# from ..graficos.graficador import plot_mru # This will be handled by a separate Graficador class
 
-class MovimientoRectilineoUniforme:
+class MovimientoRectilineoUniforme(Movimiento):
     """
     Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme (MRU).
     """
@@ -35,7 +36,7 @@ class MovimientoRectilineoUniforme:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
-    def velocidad(self) -> float:
+    def velocidad(self, tiempo: float) -> float:
         """
         Calcula la velocidad en MRU (es constante).
         Ecuación: v = v0
@@ -45,12 +46,14 @@ class MovimientoRectilineoUniforme:
         """
         return self.velocidad_inicial
 
-    def graficar(self, t_max: float, num_points: int = 100):
+    def aceleracion(self, tiempo: float) -> float:
         """
-        Genera y muestra gráficos de posición vs. tiempo y velocidad vs. tiempo para MRU.
+        Calcula la aceleración en MRU (es cero).
 
         Args:
-            t_max (float): Tiempo máximo para la simulación (s).
-            num_points (int): Número de puntos a generar para el gráfico.
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Aceleración (m/s^2).
         """
-        plot_mru(self, t_max, num_points)
+        return 0.0

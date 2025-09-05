@@ -1,6 +1,7 @@
 import numpy as np
+from ..base_movimiento import Movimiento
 
-class MovimientoEspacial:
+class MovimientoEspacial(Movimiento):
     """
     Clase para simular y calcular la trayectoria de un objeto en 3D
     utilizando vectores de posición, velocidad y aceleración.
@@ -64,14 +65,18 @@ class MovimientoEspacial:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_constante * tiempo
 
-    def aceleracion(self) -> np.ndarray:
+    def aceleracion(self, tiempo: float) -> np.ndarray:
         """
         Retorna el vector de aceleración (es constante).
         Ecuación: a = a_constante
 
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
         Returns:
             np.ndarray: Vector de aceleración (m/s^2).
         """
+        # La aceleración es constante, no depende del tiempo
         return self.aceleracion_constante
 
     def magnitud_velocidad(self, tiempo: float) -> float:
@@ -86,22 +91,11 @@ class MovimientoEspacial:
         """
         return np.linalg.norm(self.velocidad(tiempo))
 
-    def magnitud_aceleracion(self) -> float:
+    def magnitud_aceleracion_constante(self) -> float:
         """
-        Calcula la magnitud de la aceleración.
+        Calcula la magnitud de la aceleración constante.
 
         Returns:
             float: Magnitud de la aceleración (m/s^2).
         """
         return np.linalg.norm(self.aceleracion_constante)
-
-    def graficar(self, t_max: float, num_points: int = 100):
-        """
-        Genera y muestra un gráfico 3D de la trayectoria para Movimiento Espacial.
-
-        Args:
-            t_max (float): Tiempo máximo para la simulación (s).
-            num_points (int): Número de puntos a generar para el gráfico.
-        """
-        from ..graficos.graficador import plot_movimiento_espacial
-        plot_movimiento_espacial(self, t_max, num_points)

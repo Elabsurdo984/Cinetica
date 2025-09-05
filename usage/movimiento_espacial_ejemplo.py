@@ -37,7 +37,9 @@ def main():
 
     # Calcular la magnitud de la aceleración
     mag_acel = movimiento_3d.magnitud_aceleracion()
-    print(f"\nMagnitud de la aceleración: {mag_acel:.2f} m/s^2")
+    acel = movimiento_3d.aceleracion(tiempo=0.0) # Aceleración es constante, el tiempo no afecta
+    print(f"\nVector de aceleración: {acel}")
+    print(f"Magnitud de la aceleración: {movimiento_3d.magnitud_aceleracion_constante():.2f} m/s^2")
 
     # Ejemplo de un caso de error (tiempo negativo)
     try:
@@ -47,7 +49,7 @@ def main():
 
     # Graficar la trayectoria 3D
     print("\nGenerando gráfico 3D de la trayectoria...")
-    movimiento_3d.graficar(t_max=10.0) # Graficar hasta 2 segundos
+    # movimiento_3d.graficar(t_max=10.0) # Graficación se manejará por una clase Graficador separada
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.10.4 - 2025-09-05
+
+### Added
+- Se creó una clase base `Movimiento` abstracta en `cinetica/cinematica/base_movimiento.py` para definir una interfaz común para todos los tipos de movimiento.
+
+### Changed
+- Se refactorizaron las siguientes clases de movimiento para heredar de la nueva clase base `Movimiento`, implementando sus métodos abstractos (`posicion`, `velocidad`, `aceleracion`):
+  - `MovimientoRectilineoUniforme`
+  - `MovimientoRectilineoUniformementeVariado`
+  - `MovimientoCircularUniforme`
+  - `MovimientoCircularUniformementeVariado`
+  - `MovimientoEspacial`
+  - `MovimientoArmonicoSimple`
+  - `MovimientoArmonicoComplejo`
+- Se actualizaron los archivos `cinetica/cinematica/__init__.py` para exportar la nueva clase base `Movimiento`.
+- Se modificaron los ejemplos de uso en la carpeta `usage/` para adaptarse a los cambios en las firmas de los métodos y la nueva estructura de herencia.
+
 ## 0.10.3 - 2025-09-05
 
 ### Changed

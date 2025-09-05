@@ -9,9 +9,9 @@ pos_angular_mcu = mcu.posicion_angular(tiempo=1.0)
 print(f"MCU - Posición angular a 1s: {pos_angular_mcu:.2f} rad")
 
 # Velocidad tangencial y aceleración centrípeta
-vel_tangencial_mcu = mcu.velocidad_tangencial()
-acel_centripeta_mcu = mcu.aceleracion_centripeta()
-print(f"MCU - Velocidad tangencial: {vel_tangencial_mcu:.2f} m/s, Aceleración centrípeta: {acel_centripeta_mcu:.2f} m/s^2")
-mcu.graficar(t_max=10) # Ejemplo de graficación
+vel_mcu = mcu.velocidad(tiempo=1.0)
+acel_mcu = mcu.aceleracion(tiempo=1.0)
+print(f"MCU - Posición a 1s: {mcu.posicion(1.0)}, Velocidad a 1s: {vel_mcu}, Aceleración a 1s: {acel_mcu}")
+# mcu.graficar(t_max=10) # Graficación se manejará por una clase Graficador separada
 
 # hspace = 0.557

@@ -1,7 +1,9 @@
 import math
-from ..graficos.graficador import plot_mcu
+import numpy as np
+from ..base_movimiento import Movimiento
+# from ..graficos.graficador import plot_mcu # This will be handled by a separate Graficador class
 
-class MovimientoCircularUniforme:
+class MovimientoCircularUniforme(Movimiento):
     """
     Clase para calcular y simular Movimiento Circular Uniforme (MCU).
     """
@@ -43,35 +45,71 @@ class MovimientoCircularUniforme:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
-    def velocidad_angular(self) -> float:
+    def posicion(self, tiempo: float) -> np.ndarray:
         """
-        Calcula la velocidad angular en MCU (es constante).
-        Ecuación: omega = omega0
+        Calcula la posición (x, y) del objeto en un tiempo dado.
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
 
         Returns:
-            float: Velocidad angular (rad/s).
+            np.ndarray: Vector de posición [x, y] (m).
+        """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
+        theta = self.posicion_angular(tiempo)
+        x = self.radio * math.cos(theta)
+        y = self.radio * math.sin(theta)
+        return np.array([x, y])
+
+    def velocidad(self, tiempo: float) -> np.ndarray:
+        """
+        Calcula la velocidad (vx, vy) del objeto en un tiempo dado.
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            np.ndarray: Vector de velocidad [vx, vy] (m/s).
+        """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
+        omega = self.velocidad_angular_inicial
+        theta = self.posicion_angular(tiempo)
+        vx = -omega * self.radio * math.sin(theta)
+        vy = omega * self.radio * math.cos(theta)
+        return np.array([vx, vy])
+
+    def aceleracion(self, tiempo: float) -> np.ndarray:
+        """
+        Calcula la aceleración (ax, ay) del objeto en un tiempo dado (aceleración centrípeta).
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            np.ndarray: Vector de aceleración [ax, ay] (m/s^2).
+        """
+        if tiempo < 0:
+            raise ValueError("El tiempo no puede ser negativo.")
+        omega = self.velocidad_angular_inicial
+        theta = self.posicion_angular(tiempo)
+        ac = (omega ** 2) * self.radio
+        ax = -ac * math.cos(theta)
+        ay = -ac * math.sin(theta)
+        return np.array([ax, ay])
+
+    def velocidad_angular_constante(self) -> float:
+        """
+        Retorna la velocidad angular constante en MCU.
         """
         return self.velocidad_angular_inicial
 
-    def velocidad_tangencial(self) -> float:
+    def aceleracion_centripeta_constante(self) -> float:
         """
-        Calcula la velocidad tangencial en MCU.
-        Ecuación: v = omega * R
-
-        Returns:
-            float: Velocidad tangencial (m/s).
+        Retorna la magnitud de la aceleración centrípeta constante en MCU.
         """
-        return self.velocidad_angular() * self.radio
-
-    def aceleracion_centripeta(self) -> float:
-        """
-        Calcula la aceleración centrípeta en MCU.
-        Ecuación: ac = omega^2 * R = v^2 / R
-
-        Returns:
-            float: Aceleración centrípeta (m/s^2).
-        """
-        return (self.velocidad_angular() ** 2) * self.radio
+        return (self.velocidad_angular_inicial ** 2) * self.radio
 
     def periodo(self) -> float:
         """
@@ -102,14 +140,3 @@ class MovimientoCircularUniforme:
         if self.velocidad_angular_inicial == 0:
             return 0.0  # Frecuencia cero si la velocidad angular es cero
         return self.velocidad_angular_inicial / (2 * math.pi)
-
-    def graficar(self, t_max: float, num_points: int = 100):
-        """
-        Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo
-        y aceleración centrípeta vs. tiempo para MCU. También grafica la trayectoria circular.
-
-        Args:
-            t_max (float): Tiempo máximo para la simulación (s).
-            num_points (int): Número de puntos a generar para el gráfico.
-        """
-        plot_mcu(self, t_max, num_points)
