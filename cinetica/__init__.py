@@ -4,6 +4,8 @@ Cinetica - Una librería para cálculos de cinemática
 
 __version__ = "0.10.5"
 
+from .units import ureg, Q_
+
 from .cinematica import (
     circular,
     espacial,

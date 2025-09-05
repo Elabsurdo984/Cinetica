@@ -3,58 +3,66 @@ Módulo que implementa el Movimiento Rectilíneo Uniforme (MRU)
 """
 
 from ..base_movimiento import Movimiento
+from ...units import ureg, Q_
 
 class MovimientoRectilineoUniforme(Movimiento):
     """
     Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme (MRU).
     """
 
-    def __init__(self, posicion_inicial: float = 0.0, velocidad_inicial: float = 0.0):
+    def __init__(self, posicion_inicial: Q_ = 0.0 * ureg.meter, velocidad_inicial: Q_ = 0.0 * ureg.meter / ureg.second):
         """
         Inicializa el objeto MovimientoRectilineoUniforme con condiciones iniciales.
 
         Args:
-            posicion_inicial (float): Posición inicial del objeto (m).
-            velocidad_inicial (float): Velocidad inicial del objeto (m/s).
+            posicion_inicial (Q_): Posición inicial del objeto (m).
+            velocidad_inicial (Q_): Velocidad inicial del objeto (m/s).
         """
+        if not isinstance(posicion_inicial, Q_):
+            posicion_inicial = Q_(posicion_inicial, ureg.meter)
+        if not isinstance(velocidad_inicial, Q_):
+            velocidad_inicial = Q_(velocidad_inicial, ureg.meter / ureg.second)
+
         self.posicion_inicial = posicion_inicial
         self.velocidad_inicial = velocidad_inicial
 
-    def posicion(self, tiempo: float) -> float:
+    def posicion(self, tiempo: Q_) -> Q_:
         """
         Calcula la posición en MRU.
         Ecuación: x = x0 + v * t
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (Q_): Tiempo transcurrido (s).
 
         Returns:
-            float: Posición final (m).
+            Q_: Posición final (m).
         """
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
-    def velocidad(self, tiempo: float = None) -> float:
+    def velocidad(self, tiempo: Q_ = None) -> Q_:
         """
         Obtiene la velocidad en MRU.
         En MRU la velocidad es constante.
 
         Args:
-            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Velocidad (m/s).
+            Q_: Velocidad (m/s).
         """
         return self.velocidad_inicial
 
-    def aceleracion(self, tiempo: float = None) -> float:
+    def aceleracion(self, tiempo: Q_ = None) -> Q_:
         """
         Obtiene la aceleración en MRU.
         En MRU la aceleración es siempre 0.
 
         Args:
-            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Aceleración (m/s²).
+            Q_: Aceleración (m/s²).
         """
-        return 0.0
+        return 0.0 * ureg.meter / ureg.second**2

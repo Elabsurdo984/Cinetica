@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.6 - 2025-09-05
+
+### Added
+- Se implementó un sistema de unidades con `pint` para mejorar el manejo de las unidades en los cálculos físicos.
+- Se creó el módulo `cinetica/units.py` para la gestión del registro de unidades.
+- Se integró `pint` en `cinetica/cinematica/rectilineo/movimiento_rectilineo_uniforme.py`, permitiendo el uso de cantidades con unidades en sus métodos.
+
 ## 0.10.5 - 2025-09-05
 
 ### Fixed

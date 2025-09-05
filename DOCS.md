@@ -16,6 +16,52 @@ La librería se organiza en paquetes y módulos, reflejando una estructura más 
 - `dinamica`: Carpeta para futuros módulos relacionados con la dinámica.
 - `graficos`: Funciones para la visualización de los movimientos.
 
+## Sistema de Unidades con `pint`
+
+La librería `Cinetica` ahora integra `pint` para un manejo robusto de unidades en los cálculos físicos. Esto permite definir cantidades con unidades y asegura la consistencia dimensional en las operaciones.
+
+### Uso Básico de Unidades
+
+Para utilizar el sistema de unidades, importa `ureg` (Unit Registry) y `Q_` (Quantity) desde `cinetica.units`.
+
+```python
+from cinetica.units import ureg, Q_
+
+# Definir cantidades con unidades
+longitud = 10 * ureg.meter
+tiempo = 5 * ureg.second
+velocidad = 20 * ureg.meter / ureg.second
+
+# Realizar operaciones con unidades
+distancia_recorrida = velocidad * tiempo
+print(f"Distancia recorrida: {distancia_recorrida}") # Output: 100 meter
+
+# Conversión de unidades
+distancia_en_kilometros = distancia_recorrida.to(ureg.kilometer)
+print(f"Distancia en kilómetros: {distancia_en_kilometros}") # Output: 0.1 kilometer
+```
+
+### Integración en Módulos
+
+Los módulos de `Cinetica` que han sido actualizados para usar `pint` ahora aceptan y retornan objetos `pint.Quantity`. Por ejemplo, en `MovimientoRectilineoUniforme`:
+
+```python
+from cinetica.cinematica.rectilineo import MovimientoRectilineoUniforme
+from cinetica.units import ureg
+
+# Crear una instancia con cantidades y unidades
+mru = MovimientoRectilineoUniforme(posicion_inicial=10 * ureg.meter, velocidad_inicial=5 * ureg.meter / ureg.second)
+
+# Calcular posición con un tiempo con unidades
+posicion_final = mru.posicion(2 * ureg.second)
+print(f"Posición final: {posicion_final}") # Output: 20 meter
+
+# También se pueden pasar valores sin unidades (se asumirán las unidades base por defecto)
+mru_sin_unidades = MovimientoRectilineoUniforme(posicion_inicial=10, velocidad_inicial=5)
+posicion_final_sin_unidades = mru_sin_unidades.posicion(2)
+print(f"Posición final (sin unidades): {posicion_final_sin_unidades}") # Output: 20 meter
+```
+
 ## Módulos y Clases
 
 ### 1. Movimiento Rectilíneo (`cinetica.cinematica.rectilineo`)
