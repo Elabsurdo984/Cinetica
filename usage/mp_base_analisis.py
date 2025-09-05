@@ -1,9 +1,8 @@
-from cinetica.cinematica.parabolico.base import MovimientoParabolicoBase
-from cinetica.cinematica.parabolico.analisis import MovimientoParabolicoAnalisis
+from cinetica.cinematica import parabolico
 
 # Lanzamiento con velocidad inicial de 20 m/s y ángulo de 45 grados
-mp_base = MovimientoParabolicoBase(velocidad_inicial=20.0, angulo_grados=45)
-mp_analisis = MovimientoParabolicoAnalisis(mp_base)
+mp_base = parabolico.base.MovimientoParabolicoBase(velocidad_inicial=20.0, angulo_grados=45)
+mp_analisis = parabolico.analisis.MovimientoParabolicoAnalisis(mp_base)
 
 # Calcular posición a los 1.5 segundos
 pos_x, pos_y = mp_base.posicion(tiempo=1.5)
@@ -20,4 +19,4 @@ alcance_maximo = mp_analisis.alcance_maximo()
 print(f"MP - Tiempo de vuelo: {tiempo_vuelo:.2f} s")
 print(f"MP - Altura máxima: {altura_maxima:.2f} m")
 print(f"MP - Alcance máximo: {alcance_maximo:.2f} m")
-mp_base.graficar(t_max=4) # Ejemplo de graficación
+# mp_base.graficar(t_max=4) # Graficación se manejará por una clase Graficador separada

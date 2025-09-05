@@ -1,5 +1,5 @@
 import numpy as np
-from cinetica.cinematica.espacial.movimiento_espacial import MovimientoEspacial
+from cinetica.cinematica import espacial
 
 def main():
     """
@@ -13,7 +13,7 @@ def main():
     aceleracion_constante = np.array([0.0, 0.0, -9.81]) # Aceleración de la gravedad en Z
 
     # Crear una instancia de MovimientoEspacial
-    movimiento_3d = MovimientoEspacial(
+    movimiento_3d = espacial.movimiento_espacial.MovimientoEspacial(
         posicion_inicial=posicion_inicial,
         velocidad_inicial=velocidad_inicial,
         aceleracion_constante=aceleracion_constante

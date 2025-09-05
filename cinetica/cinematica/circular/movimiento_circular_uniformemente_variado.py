@@ -31,6 +31,150 @@ class MovimientoCircularUniformementeVariado(Movimiento):
 
     def posicion_angular(self, tiempo: float) -> float:
         """
+        Calcula la posición angular en función del tiempo.
+        θ = θ₀ + ω₀ * t + (1/2) * α * t²
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Posición angular (rad).
+        """
+        return (
+            self.posicion_angular_inicial +
+            self.velocidad_angular_inicial * tiempo +
+            0.5 * self.aceleracion_angular_inicial * tiempo**2
+        )
+
+    def velocidad_angular(self, tiempo: float) -> float:
+        """
+        Calcula la velocidad angular en función del tiempo.
+        ω = ω₀ + α * t
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Velocidad angular (rad/s).
+        """
+        return self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
+
+    def aceleracion_angular(self, tiempo: float = None) -> float:
+        """
+        Obtiene la aceleración angular (constante en MCUV).
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+
+        Returns:
+            float: Aceleración angular (rad/s²).
+        """
+        return self.aceleracion_angular_inicial
+
+    def velocidad_tangencial(self, tiempo: float) -> float:
+        """
+        Calcula la velocidad tangencial.
+        v = ω * R
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Velocidad tangencial (m/s).
+        """
+        return self.velocidad_angular(tiempo) * self.radio
+
+    def aceleracion_tangencial(self, tiempo: float = None) -> float:
+        """
+        Calcula la aceleración tangencial.
+        aₜ = α * R
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+
+        Returns:
+            float: Aceleración tangencial (m/s²).
+        """
+        return self.aceleracion_angular_inicial * self.radio
+
+    def aceleracion_centripeta(self, tiempo: float) -> float:
+        """
+        Calcula la aceleración centrípeta.
+        aₙ = ω² * R
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Aceleración centrípeta (m/s²).
+        """
+        return self.velocidad_angular(tiempo)**2 * self.radio
+
+    def aceleracion_total(self, tiempo: float) -> float:
+        """
+        Calcula la magnitud de la aceleración total.
+        a = √(aₜ² + aₙ²)
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            float: Aceleración total (m/s²).
+        """
+        at = self.aceleracion_tangencial()
+        an = self.aceleracion_centripeta(tiempo)
+        return math.sqrt(at**2 + an**2)
+
+    def posicion(self, tiempo: float) -> np.ndarray:
+        """
+        Calcula la posición cartesiana en función del tiempo.
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            np.ndarray: Vector de posición [x, y] (m).
+        """
+        theta = self.posicion_angular(tiempo)
+        x = self.radio * math.cos(theta)
+        y = self.radio * math.sin(theta)
+        return np.array([x, y])
+
+    def velocidad(self, tiempo: float) -> np.ndarray:
+        """
+        Calcula el vector velocidad en función del tiempo.
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            np.ndarray: Vector velocidad [vx, vy] (m/s).
+        """
+        theta = self.posicion_angular(tiempo)
+        v = self.velocidad_tangencial(tiempo)
+        vx = -v * math.sin(theta)
+        vy = v * math.cos(theta)
+        return np.array([vx, vy])
+
+    def aceleracion(self, tiempo: float) -> np.ndarray:
+        """
+        Calcula el vector aceleración en función del tiempo.
+
+        Args:
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            np.ndarray: Vector aceleración [ax, ay] (m/s²).
+        """
+        theta = self.posicion_angular(tiempo)
+        at = self.aceleracion_tangencial()
+        an = self.aceleracion_centripeta(tiempo)
+        ax = -an * math.cos(theta) - at * math.sin(theta)
+        ay = -an * math.sin(theta) + at * math.cos(theta)
+        return np.array([ax, ay])
+
+    def posicion_angular(self, tiempo: float) -> float:
+        """
         Calcula la posición angular en MCUV.
         Ecuación: theta = theta0 + omega0 * t + 0.5 * alpha * t^2
 

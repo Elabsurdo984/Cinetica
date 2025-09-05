@@ -1,6 +1,8 @@
-import math
+"""
+Módulo que implementa el Movimiento Rectilíneo Uniforme (MRU)
+"""
+
 from ..base_movimiento import Movimiento
-# from ..graficos.graficador import plot_mru # This will be handled by a separate Graficador class
 
 class MovimientoRectilineoUniforme(Movimiento):
     """
@@ -28,32 +30,31 @@ class MovimientoRectilineoUniforme(Movimiento):
 
         Returns:
             float: Posición final (m).
-        
-        Raises:
-            ValueError: Si el tiempo es negativo.
         """
-        if tiempo < 0:
-            raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
-    def velocidad(self, tiempo: float) -> float:
+    def velocidad(self, tiempo: float = None) -> float:
         """
-        Calcula la velocidad en MRU (es constante).
-        Ecuación: v = v0
+        Obtiene la velocidad en MRU.
+        En MRU la velocidad es constante.
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
             float: Velocidad (m/s).
         """
         return self.velocidad_inicial
 
-    def aceleracion(self, tiempo: float) -> float:
+    def aceleracion(self, tiempo: float = None) -> float:
         """
-        Calcula la aceleración en MRU (es cero).
+        Obtiene la aceleración en MRU.
+        En MRU la aceleración es siempre 0.
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Aceleración (m/s^2).
+            float: Aceleración (m/s²).
         """
         return 0.0

@@ -1,8 +1,8 @@
-from cinetica.cinematica.oscilatorio.movimiento_armonico_simple import MovimientoArmonicoSimple
+from cinetica.cinematica import oscilatorio
 import math
 
 # M.A.S. con amplitud de 0.1m, frecuencia angular de 2*pi rad/s (f=1Hz)
-mas = MovimientoArmonicoSimple(amplitud=0.1, frecuencia_angular=2 * math.pi)
+mas = oscilatorio.movimiento_armonico_simple.MovimientoArmonicoSimple(amplitud=0.1, frecuencia_angular=2 * math.pi)
 
 # Posición, velocidad y aceleración a los 0.25s
 tiempo = 0.25

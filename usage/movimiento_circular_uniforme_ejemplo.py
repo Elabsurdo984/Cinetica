@@ -1,8 +1,8 @@
-from cinetica.cinematica.circular.movimiento_circular_uniforme import MovimientoCircularUniforme
+from cinetica.cinematica import circular
 import math
 
 # MCU con radio de 2m y velocidad angular de pi/2 rad/s
-mcu = MovimientoCircularUniforme(radio=2.0, velocidad_angular_inicial=math.pi/2)
+mcu = circular.movimiento_circular_uniforme.MovimientoCircularUniforme(radio=2.0, velocidad_angular_inicial=math.pi/2)
 
 # Posición angular a los 1s
 pos_angular_mcu = mcu.posicion_angular(tiempo=1.0)

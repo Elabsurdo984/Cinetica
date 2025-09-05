@@ -1,14 +1,14 @@
-from cinetica.cinematica.rectilineo.movimiento_rectilineo_uniformemente_variado import MovimientoRectilineoUniformementeVariado
+from cinetica.cinematica import rectilineo
 
 # MRUV
-mruv = MovimientoRectilineoUniformementeVariado(posicion_inicial=0.0, velocidad_inicial=10.0, aceleracion_inicial=2.0)
+mruv = rectilineo.movimiento_rectilineo_uniformemente_variado.MovimientoRectilineoUniformementeVariado(posicion_inicial=0.0, velocidad_inicial=10.0, aceleracion_inicial=2.0)
 posicion_mruv = mruv.posicion(tiempo=3.0)
 velocidad_mruv = mruv.velocidad(tiempo=3.0)
 aceleracion_mruv = mruv.aceleracion(tiempo=3.0)
 print(f"MRUV - Posición a los 3s: {posicion_mruv} m, Velocidad: {velocidad_mruv} m/s, Aceleración: {aceleracion_mruv} m/s^2")
 
 # MRUV sin tiempo
-mruv_sin_tiempo = MovimientoRectilineoUniformementeVariado(posicion_inicial=0.0, velocidad_inicial=0.0, aceleracion_inicial=2.0)
+mruv_sin_tiempo = rectilineo.movimiento_rectilineo_uniformemente_variado.MovimientoRectilineoUniformementeVariado(posicion_inicial=0.0, velocidad_inicial=0.0, aceleracion_inicial=2.0)
 velocidad_final_sin_tiempo = mruv_sin_tiempo.velocidad_sin_tiempo(posicion_final=16.0)
 print(f"MRUV - Velocidad final sin tiempo (para posición 16m): {velocidad_final_sin_tiempo} m/s")
 

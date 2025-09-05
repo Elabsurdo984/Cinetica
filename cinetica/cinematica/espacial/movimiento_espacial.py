@@ -29,6 +29,28 @@ class MovimientoEspacial(Movimiento):
         self.velocidad_inicial = np.array(velocidad_inicial, dtype=float)
         self.aceleracion_constante = np.array(aceleracion_constante, dtype=float)
 
+    def graficar(self, t_max: float = 10.0, num_points: int = 100):
+        """
+        Grafica la trayectoria del movimiento en 3D.
+
+        Args:
+            t_max (float): Tiempo máximo a graficar (s).
+            num_points (int): Número de puntos a graficar.
+        """
+        import matplotlib.pyplot as plt
+
+        t = np.linspace(0, t_max, num_points)
+        posiciones = np.array([self.posicion(ti) for ti in t])
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot(posiciones[:, 0], posiciones[:, 1], posiciones[:, 2])
+        ax.set_xlabel('X (m)')
+        ax.set_ylabel('Y (m)')
+        ax.set_zlabel('Z (m)')
+        ax.set_title('Trayectoria en 3D')
+        plt.show()
+
     def posicion(self, tiempo: float) -> np.ndarray:
         """
         Calcula el vector de posición en un tiempo dado.
@@ -65,19 +87,28 @@ class MovimientoEspacial(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_constante * tiempo
 
-    def aceleracion(self, tiempo: float) -> np.ndarray:
+    def aceleracion(self, tiempo: float = None) -> np.ndarray:
         """
         Retorna el vector de aceleración (es constante).
         Ecuación: a = a_constante
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
             np.ndarray: Vector de aceleración (m/s^2).
         """
         # La aceleración es constante, no depende del tiempo
         return self.aceleracion_constante
+
+    def magnitud_aceleracion(self) -> float:
+        """
+        Calcula la magnitud del vector aceleración.
+
+        Returns:
+            float: Magnitud de la aceleración (m/s²).
+        """
+        return float(np.linalg.norm(self.aceleracion_constante))
 
     def magnitud_velocidad(self, tiempo: float) -> float:
         """

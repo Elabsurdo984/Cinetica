@@ -1,7 +1,8 @@
 import math
-from ..graficos.graficador import plot_parabolico
+# from ..graficos.graficador import plot_parabolico # Graficación se manejará por una clase Graficador separada
+from ..base_movimiento import Movimiento
 
-class MovimientoParabolicoBase:
+class MovimientoParabolicoBase(Movimiento):
     """
     Clase base para simular trayectorias en Movimiento Parabólico.
     Se asume que el lanzamiento se realiza desde el origen (0,0) y la gravedad actúa hacia abajo.
@@ -73,12 +74,15 @@ class MovimientoParabolicoBase:
         velocidad_y = self.velocidad_inicial_y - (self.gravedad * tiempo)
         return (velocidad_x, velocidad_y)
 
-    def graficar(self, t_max: float, num_points: int = 100):
+    def aceleracion(self, tiempo: float) -> tuple[float, float]:
         """
-        Genera y muestra el gráfico de la trayectoria (y vs. x) para Movimiento Parabólico.
+        Calcula la aceleración (ax, ay) del proyectil en un tiempo dado.
 
         Args:
-            t_max (float): Tiempo máximo para la simulación (s).
-            num_points (int): Número de puntos a generar para el gráfico.
+            tiempo (float): Tiempo transcurrido (s).
+
+        Returns:
+            tuple: Una tupla (ax, ay) con las componentes de la aceleración (m/s^2).
         """
-        plot_parabolico(self, t_max, num_points)
+        # La aceleración en X es 0, y en Y es -gravedad
+        return (0.0, -self.gravedad)

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.5 - 2025-09-05
+
+### Fixed
+- Se solucionó un problema de importación circular que impedía el uso correcto de los módulos de la librería
+- Se reorganizó la estructura de importaciones en `cinetica/__init__.py` para mejorar la modularidad
+- Se actualizaron las importaciones en los archivos de ejemplo para seguir las mejores prácticas
+
 ## 0.10.4 - 2025-09-05
 
 ### Added

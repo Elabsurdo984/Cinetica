@@ -29,14 +29,14 @@ class MovimientoCircularUniforme(Movimiento):
 
     def posicion_angular(self, tiempo: float) -> float:
         """
-        Calcula la posición angular en MCU.
-        Ecuación: theta = theta0 + omega * t
+        Calcula la posición angular en función del tiempo.
+        θ = θ₀ + ω * t
 
         Args:
             tiempo (float): Tiempo transcurrido (s).
 
         Returns:
-            float: Posición angular final (radianes).
+            float: Posición angular (rad).
         
         Raises:
             ValueError: Si el tiempo es negativo.
@@ -44,6 +44,44 @@ class MovimientoCircularUniforme(Movimiento):
         if tiempo < 0:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
+
+    def velocidad_angular(self, tiempo: float = None) -> float:
+        """
+        Obtiene la velocidad angular (constante en MCU).
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+
+        Returns:
+            float: Velocidad angular (rad/s).
+        """
+        return self.velocidad_angular_inicial
+
+    def velocidad_tangencial(self, tiempo: float = None) -> float:
+        """
+        Calcula la velocidad tangencial.
+        v = ω * R
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+
+        Returns:
+            float: Velocidad tangencial (m/s).
+        """
+        return self.velocidad_angular_inicial * self.radio
+
+    def aceleracion_centripeta(self, tiempo: float = None) -> float:
+        """
+        Calcula la aceleración centrípeta.
+        aₙ = ω² * R = v² / R
+
+        Args:
+            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+
+        Returns:
+            float: Aceleración centrípeta (m/s²).
+        """
+        return self.velocidad_angular_inicial**2 * self.radio
 
     def posicion(self, tiempo: float) -> np.ndarray:
         """

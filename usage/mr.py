@@ -1,7 +1,7 @@
-from cinetica.cinematica.relativo.velocidad_relativa import MovimientoRelativo
+from cinetica.cinematica import relativo
 import numpy as np
 
-mr = MovimientoRelativo()
+mr = relativo.velocidad_relativa.MovimientoRelativo()
 
 # Velocidades de los objetos
 v_tren = [50, 0] # Tren moviéndose en el eje X a 50 km/h
