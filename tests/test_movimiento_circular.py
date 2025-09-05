@@ -1,6 +1,6 @@
 import pytest
-from cinetica.cinematica.circular.mcu import MovimientoCircularUniforme
-from cinetica.cinematica.circular.mcuv import MovimientoCircularUniformementeVariado
+from cinetica.cinematica.circular.movimiento_circular_uniforme import MovimientoCircularUniforme
+from cinetica.cinematica.circular.movimiento_circular_uniformemente_variado import MovimientoCircularUniformementeVariado
 import math
 
 def test_mcu_init_valid_params():

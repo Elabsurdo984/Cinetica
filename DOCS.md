@@ -7,11 +7,11 @@
 La librería se organiza en paquetes y módulos, reflejando una estructura más modular:
 
 - `cinematica`: Contiene todos los módulos relacionados con la cinemática.
-  - `circular`: Movimiento Circular Uniforme (MCU) y Movimiento Circular Uniformemente Variado (MCUV).
+  - `circular`: Movimiento Circular Uniforme y Movimiento Circular Uniformemente Variado.
   - `espacial`: Movimiento en 3D con vectores de posición, velocidad y aceleración.
-  - `oscilatorio`: Movimiento Armónico Simple (MAS) y Movimiento Armónico Complejo (MAC).
+  - `oscilatorio`: Movimiento Armónico Simple y Movimiento Armónico Complejo.
   - `parabolico`: Movimiento Parabólico (Base y Análisis).
-  - `rectilineo`: Movimiento Rectilíneo Uniforme (MRU) y Movimiento Rectilíneo Uniformemente Variado (MRUV).
+  - `rectilineo`: Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado.
   - `relativo`: Cálculo de velocidades relativas.
 - `dinamica`: Carpeta para futuros módulos relacionados con la dinámica.
 - `graficos`: Funciones para la visualización de los movimientos.
@@ -22,28 +22,28 @@ La librería se organiza en paquetes y módulos, reflejando una estructura más 
 
 Este módulo maneja los movimientos en una sola dimensión con velocidad constante o aceleración constante.
 
-#### `MovimientoRectilineoUniforme` (MRU)
+#### `MovimientoRectilineoUniforme`
 
 Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme.
 
 - **`__init__(self, posicion_inicial: float = 0.0, velocidad_inicial: float = 0.0)`**:
-    Inicializa el objeto MRU.
+    Inicializa el objeto Movimiento Rectilíneo Uniforme.
     - `posicion_inicial` (m): Posición inicial.
     - `velocidad_inicial` (m/s): Velocidad inicial (constante).
 - **`posicion(self, tiempo: float) -> float`**:
-    Calcula la posición en MRU. Ecuación: `x = x0 + v * t`.
+    Calcula la posición en Movimiento Rectilíneo Uniforme. Ecuación: `x = x0 + v * t`.
     - `tiempo` (s): Tiempo transcurrido.
 - **`velocidad(self) -> float`**:
-    Calcula la velocidad en MRU (es constante). Ecuación: `v = v0`.
+    Calcula la velocidad en Movimiento Rectilíneo Uniforme (es constante). Ecuación: `v = v0`.
 - **`graficar(self, t_max: float, num_points: int = 100)`**:
-    Genera gráficos de posición vs. tiempo y velocidad vs. tiempo.
+    Genera gráficos de posición vs. tiempo y velocidad vs. tiempo para Movimiento Rectilíneo Uniforme.
 
-#### `MovimientoRectilineoUniformementeVariado` (MRUV)
+#### `MovimientoRectilineoUniformementeVariado`
 
 Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniformemente Variado.
 
 - **`__init__(self, posicion_inicial: float = 0.0, velocidad_inicial: float = 0.0, aceleracion_inicial: float = 0.0)`**:
-    Inicializa el objeto MRUV.
+    Inicializa el objeto Movimiento Rectilíneo Uniformemente Variado.
     - `posicion_inicial` (m): Posición inicial.
     - `velocidad_inicial` (m/s): Velocidad inicial.
     - `aceleracion_inicial` (m/s^2): Aceleración inicial (constante).
@@ -101,7 +101,7 @@ Clase para calcular propiedades de análisis en Movimiento Parabólico.
 
 Este módulo aborda los movimientos a lo largo de una trayectoria circular.
 
-#### `MovimientoCircularUniforme` (MCU)
+#### `MovimientoCircularUniforme`
 
 Clase para calcular y simular Movimiento Circular Uniforme.
 
@@ -125,7 +125,7 @@ Clase para calcular y simular Movimiento Circular Uniforme.
 - **`graficar(self, t_max: float, num_points: int = 100)`**:
     Genera gráficos de posición angular, velocidad angular, aceleración centrípeta y trayectoria.
 
-#### `MovimientoCircularUniformementeVariado` (MCUV)
+#### `MovimientoCircularUniformementeVariado`
 
 Clase para calcular y simular Movimiento Circular Uniformemente Variado.
 
@@ -162,7 +162,7 @@ Clase para calcular y simular Movimiento Circular Uniformemente Variado.
 
 Este módulo se centra en los movimientos periódicos.
 
-#### `MovimientoArmonicoSimple` (MAS)
+#### `MovimientoArmonicoSimple`
 
 Clase para calcular posición, velocidad y aceleración en un Movimiento Armónico Simple.
 
@@ -188,7 +188,7 @@ Clase para calcular posición, velocidad y aceleración en un Movimiento Armóni
 - **`energia_total(self, masa, constante_elastica)`**:
     Calcula la energía mecánica total. Ecuación: `E = 0.5 * k * A^2`.
 
-#### `MovimientoArmonicoComplejo` (MAC)
+#### `MovimientoArmonicoComplejo`
 
 Representa un Movimiento Armónico Complejo como la superposición de múltiples Movimientos Armónicos Simples.
 

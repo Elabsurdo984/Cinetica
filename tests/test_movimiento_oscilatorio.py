@@ -1,6 +1,6 @@
 import pytest
 import math
-from cinetica.cinematica.oscilatorio.mas import MovimientoArmonicoSimple
+from cinetica.cinematica.oscilatorio.movimiento_armonico_simple import MovimientoArmonicoSimple
 
 def test_mas_init():
     mas = MovimientoArmonicoSimple(amplitud=0.5, frecuencia_angular=2 * math.pi, fase_inicial=math.pi/2)

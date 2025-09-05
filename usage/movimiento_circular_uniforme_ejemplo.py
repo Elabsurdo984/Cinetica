@@ -1,4 +1,4 @@
-from cinetica.cinematica.circular.mcu import MovimientoCircularUniforme
+from cinetica.cinematica.circular.movimiento_circular_uniforme import MovimientoCircularUniforme
 import math
 
 # MCU con radio de 2m y velocidad angular de pi/2 rad/s

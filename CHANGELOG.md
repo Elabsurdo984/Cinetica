@@ -1,6 +1,9 @@
 # Changelog
 
+## 0.10.3 - 2025-09-05
 
+### Changed
+- Se cambio la nomenclatura de los archivos haciendolos mas facil de entender
 
 ## 0.10.0 - 2025-09-03
 

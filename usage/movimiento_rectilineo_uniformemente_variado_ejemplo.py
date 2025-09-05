@@ -1,4 +1,4 @@
-from cinetica.cinematica.rectilineo.mruv import MovimientoRectilineoUniformementeVariado
+from cinetica.cinematica.rectilineo.movimiento_rectilineo_uniformemente_variado import MovimientoRectilineoUniformementeVariado
 
 # MRUV
 mruv = MovimientoRectilineoUniformementeVariado(posicion_inicial=0.0, velocidad_inicial=10.0, aceleracion_inicial=2.0)
