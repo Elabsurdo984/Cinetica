@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.12.2 - 2025-09-06
+
+### Fixed
+- **Importación circular corregida** - Solucionado `ImportError: cannot import name 'graficos' from partially initialized module`
+- **Estructura de importaciones** - Separado `graficos` de `cinematica` para evitar conflictos de nombres
+- **Organización de módulos** - `graficos` ahora se importa directamente desde la raíz del paquete
+
+### Technical
+- Removido `graficos` de las importaciones de `cinetica.cinematica.__init__.py`
+- Agregado `from . import graficos` en `cinetica.__init__.py` principal
+- Versión actualizada a 0.12.2
+
 ## 0.12.1 - 2025-09-06
 
 ### Fixed

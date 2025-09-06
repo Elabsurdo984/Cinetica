@@ -2,7 +2,7 @@
 Cinetica - Una librería para cálculos de cinemática
 """
 
-__version__ = "0.12.1"
+__version__ = "0.12.2"
 
 from .units import ureg, Q_
 
@@ -13,8 +13,8 @@ from .cinematica import (
     parabolico,
     rectilineo,
     relativo,
-    graficos,
 )
+from . import graficos
 
 __all__ = [
     "circular",

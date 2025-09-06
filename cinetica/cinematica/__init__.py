@@ -4,7 +4,6 @@ from . import oscilatorio
 from . import parabolico
 from . import rectilineo
 from . import relativo
-from . import graficos
 from .base_movimiento import Movimiento
 
 __all__ = [
@@ -14,6 +13,5 @@ __all__ = [
     "parabolico",
     "rectilineo",
     "relativo",
-    "graficos",
     "Movimiento",
 ]
