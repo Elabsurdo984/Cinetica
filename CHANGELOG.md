@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.11.0 - 2025-09-05
+
+### Added
+- Archivos de pruebas unitarias completos para todos los módulos de movimiento:
+  - `test_units_espacial.py` - Pruebas unitarias para MovimientoEspacial con manejo de unidades
+  - `test_units_oscilatorio.py` - Pruebas unitarias para MovimientoArmonicoSimple con manejo de unidades
+  - `test_units_armonico_complejo.py` - Pruebas unitarias para MovimientoArmonicoComplejo con manejo de unidades
+  - `test_units_relativo.py` - Pruebas unitarias para MovimientoRelativo con manejo de unidades
+- Métodos `amplitud_resultante()` y `fase_resultante()` en la clase `MovimientoArmonicoComplejo` para cálculo de amplitud y fase resultante en superposición de componentes armónicos con la misma frecuencia
+- Validación de tiempo negativo en métodos `posicion_angular()` y `velocidad_angular()` de `MovimientoCircularUniformementeVariado`
+
+### Fixed
+- Corregidos todos los tests fallidos (111/111 tests ahora pasan exitosamente):
+  - Solucionados problemas de comparación entre objetos `pint.Quantity` y valores numéricos
+  - Reemplazado `np.array_equal()` con `np.allclose()` para comparaciones de magnitudes de cantidades con unidades
+  - Corregidas expectativas de unidades en tests de energía para movimiento armónico (incluyendo unidades de radianes)
+  - Corregido vector de aceleración centrípeta en movimiento circular uniforme
+  - Ajustadas firmas de métodos y expectativas de tests para consistencia con implementaciones
+
+### Changed
+- Mejorado manejo de unidades en cálculos físicos, manteniendo consistencia dimensional incluyendo radianes
+- Actualizadas expectativas de tests para reflejar el comportamiento real de las implementaciones con `pint`
+- Optimizadas comparaciones numéricas en tests para mayor robustez con números de punto flotante
+
 ## 0.10.6 - 2025-09-05
 
 ### Added

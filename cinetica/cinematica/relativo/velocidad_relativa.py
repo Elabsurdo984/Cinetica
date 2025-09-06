@@ -1,4 +1,5 @@
 import numpy as np
+from ...units import ureg, Q_
 
 class MovimientoRelativo:
     """
@@ -14,88 +15,102 @@ class MovimientoRelativo:
         """
         pass
 
-    def velocidad_relativa(self, velocidad_objeto_a, velocidad_objeto_b):
+    def velocidad_relativa(self, velocidad_objeto_a: Q_, velocidad_objeto_b: Q_) -> Q_:
         """
         Calcula la velocidad del objeto A con respecto al objeto B (V_A/B).
         V_A/B = V_A - V_B
 
-        :param velocidad_objeto_a: Vector de velocidad del objeto A (lista o array de numpy).
-        :param velocidad_objeto_b: Vector de velocidad del objeto B (lista o array de numpy).
-        :return: Vector de velocidad relativa de A con respecto a B.
-        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión.
+        :param velocidad_objeto_a: Vector de velocidad del objeto A (Q_ con unidades de velocidad).
+        :param velocidad_objeto_b: Vector de velocidad del objeto B (Q_ con unidades de velocidad).
+        :return: Vector de velocidad relativa de A con respecto a B (Q_ con unidades de velocidad).
+        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión o unidades incompatibles.
         """
-        v_a = np.array(velocidad_objeto_a)
-        v_b = np.array(velocidad_objeto_b)
+        if not isinstance(velocidad_objeto_a, Q_):
+            velocidad_objeto_a = Q_(velocidad_objeto_a, ureg.meter / ureg.second)
+        if not isinstance(velocidad_objeto_b, Q_):
+            velocidad_objeto_b = Q_(velocidad_objeto_b, ureg.meter / ureg.second)
 
-        if v_a.shape != v_b.shape:
-            raise ValueError("Los vectores de velocidad deben tener la misma dimensión.")
+        if velocidad_objeto_a.units != velocidad_objeto_b.units:
+            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
 
-        return v_a - v_b
+        return velocidad_objeto_a - velocidad_objeto_b
 
-    def velocidad_absoluta_a(self, velocidad_relativa_ab, velocidad_objeto_b):
+    def velocidad_absoluta_a(self, velocidad_relativa_ab: Q_, velocidad_objeto_b: Q_) -> Q_:
         """
         Calcula la velocidad absoluta del objeto A (V_A) dado V_A/B y V_B.
         V_A = V_A/B + V_B
 
-        :param velocidad_relativa_ab: Vector de velocidad de A con respecto a B.
-        :param velocidad_objeto_b: Vector de velocidad del objeto B.
-        :return: Vector de velocidad absoluta del objeto A.
-        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión.
+        :param velocidad_relativa_ab: Vector de velocidad de A con respecto a B (Q_ con unidades de velocidad).
+        :param velocidad_objeto_b: Vector de velocidad del objeto B (Q_ con unidades de velocidad).
+        :return: Vector de velocidad absoluta del objeto A (Q_ con unidades de velocidad).
+        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión o unidades incompatibles.
         """
-        v_ab = np.array(velocidad_relativa_ab)
-        v_b = np.array(velocidad_objeto_b)
+        if not isinstance(velocidad_relativa_ab, Q_):
+            velocidad_relativa_ab = Q_(velocidad_relativa_ab, ureg.meter / ureg.second)
+        if not isinstance(velocidad_objeto_b, Q_):
+            velocidad_objeto_b = Q_(velocidad_objeto_b, ureg.meter / ureg.second)
 
-        if v_ab.shape != v_b.shape:
-            raise ValueError("Los vectores de velocidad deben tener la misma dimensión.")
+        if velocidad_relativa_ab.units != velocidad_objeto_b.units:
+            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
 
-        return v_ab + v_b
+        return velocidad_relativa_ab + velocidad_objeto_b
 
-    def velocidad_absoluta_b(self, velocidad_objeto_a, velocidad_relativa_ab):
+    def velocidad_absoluta_b(self, velocidad_objeto_a: Q_, velocidad_relativa_ab: Q_) -> Q_:
         """
         Calcula la velocidad absoluta del objeto B (V_B) dado V_A y V_A/B.
         V_B = V_A - V_A/B
 
-        :param velocidad_objeto_a: Vector de velocidad del objeto A.
-        :param velocidad_relativa_ab: Vector de velocidad de A con respecto a B.
-        :return: Vector de velocidad absoluta del objeto B.
-        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión.
+        :param velocidad_objeto_a: Vector de velocidad del objeto A (Q_ con unidades de velocidad).
+        :param velocidad_relativa_ab: Vector de velocidad de A con respecto a B (Q_ con unidades de velocidad).
+        :return: Vector de velocidad absoluta del objeto B (Q_ con unidades de velocidad).
+        :raises ValueError: Si los vectores de velocidad no tienen la misma dimensión o unidades incompatibles.
         """
-        v_a = np.array(velocidad_objeto_a)
-        v_ab = np.array(velocidad_relativa_ab)
+        if not isinstance(velocidad_objeto_a, Q_):
+            velocidad_objeto_a = Q_(velocidad_objeto_a, ureg.meter / ureg.second)
+        if not isinstance(velocidad_relativa_ab, Q_):
+            velocidad_relativa_ab = Q_(velocidad_relativa_ab, ureg.meter / ureg.second)
 
-        if v_a.shape != v_ab.shape:
-            raise ValueError("Los vectores de velocidad deben tener la misma dimensión.")
+        if velocidad_objeto_a.units != velocidad_relativa_ab.units:
+            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
 
-        return v_a - v_ab
+        return velocidad_objeto_a - velocidad_relativa_ab
 
-    def magnitud_velocidad(self, velocidad_vector):
+    def magnitud_velocidad(self, velocidad_vector: Q_) -> Q_:
         """
         Calcula la magnitud de un vector de velocidad.
 
-        :param velocidad_vector: Vector de velocidad (lista o array de numpy).
-        :return: Magnitud del vector de velocidad.
+        :param velocidad_vector: Vector de velocidad (Q_ con unidades de velocidad).
+        :return: Magnitud del vector de velocidad (Q_ con unidades de velocidad).
         """
-        return np.linalg.norm(velocidad_vector)
+        if not isinstance(velocidad_vector, Q_):
+            velocidad_vector = Q_(velocidad_vector, ureg.meter / ureg.second)
+        
+        # Assuming velocidad_vector is a Quantity whose magnitude is a numpy array or list
+        magnitude = np.linalg.norm(velocidad_vector.magnitude)
+        return Q_(magnitude, velocidad_vector.units)
 
-    def direccion_velocidad(self, velocidad_vector):
+    def direccion_velocidad(self, velocidad_vector: Q_) -> Q_ | np.ndarray:
         """
         Calcula la dirección de un vector de velocidad en 2D (ángulo en radianes).
         Para 3D, devuelve el vector unitario.
 
-        :param velocidad_vector: Vector de velocidad (lista o array de numpy).
-        :return: Ángulo en radianes para 2D, o vector unitario para 3D.
+        :param velocidad_vector: Vector de velocidad (Q_ con unidades de velocidad).
+        :return: Ángulo en radianes (Q_) para 2D, o vector unitario (np.ndarray) para 3D.
         :raises ValueError: Si el vector es de dimensión 0.
         """
-        v = np.array(velocidad_vector)
-        norm = np.linalg.norm(v)
+        if not isinstance(velocidad_vector, Q_):
+            velocidad_vector = Q_(velocidad_vector, ureg.meter / ureg.second)
+
+        v_magnitude = velocidad_vector.magnitude
+        norm = np.linalg.norm(v_magnitude)
 
         if norm == 0:
-            if len(v) == 2:
-                return 0.0 # O se podría lanzar un error o devolver None
+            if len(v_magnitude) == 2:
+                return 0.0 * ureg.radian
             else:
-                return np.zeros_like(v) # Vector nulo para 3D
+                return np.zeros_like(v_magnitude)
 
-        if len(v) == 2:
-            return np.arctan2(v[1], v[0])
+        if len(v_magnitude) == 2:
+            return Q_(np.arctan2(v_magnitude[1], v_magnitude[0]), ureg.radian)
         else:
-            return v / norm
+            return v_magnitude / norm

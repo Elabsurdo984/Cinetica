@@ -1,180 +1,195 @@
 import math
 import numpy as np
 from ..base_movimiento import Movimiento
-# from ..graficos.graficador import plot_mcu # This will be handled by a separate Graficador class
+from ...units import ureg, Q_
 
 class MovimientoCircularUniforme(Movimiento):
     """
     Clase para calcular y simular Movimiento Circular Uniforme (MCU).
     """
 
-    def __init__(self, radio: float, posicion_angular_inicial: float = 0.0, velocidad_angular_inicial: float = 0.0):
+    def __init__(self, radio: Q_, posicion_angular_inicial: Q_ = 0.0 * ureg.radian, velocidad_angular_inicial: Q_ = 0.0 * ureg.radian / ureg.second):
         """
         Inicializa el objeto MovimientoCircularUniforme con las condiciones iniciales.
 
         Args:
-            radio (float): Radio de la trayectoria circular (m).
-            posicion_angular_inicial (float): Posición angular inicial (radianes).
-            velocidad_angular_inicial (float): Velocidad angular inicial (rad/s).
+            radio (Q_): Radio de la trayectoria circular (m).
+            posicion_angular_inicial (Q_): Posición angular inicial (radianes).
+            velocidad_angular_inicial (Q_): Velocidad angular inicial (rad/s).
         
         Raises:
             ValueError: Si el radio es menor o igual a cero.
         """
-        if radio <= 0:
+        if not isinstance(radio, Q_):
+            radio = Q_(radio, ureg.meter)
+        if not isinstance(posicion_angular_inicial, Q_):
+            posicion_angular_inicial = Q_(posicion_angular_inicial, ureg.radian)
+        if not isinstance(velocidad_angular_inicial, Q_):
+            velocidad_angular_inicial = Q_(velocidad_angular_inicial, ureg.radian / ureg.second)
+
+        if radio.magnitude <= 0:
             raise ValueError("El radio debe ser un valor positivo.")
 
         self.radio = radio
         self.posicion_angular_inicial = posicion_angular_inicial
         self.velocidad_angular_inicial = velocidad_angular_inicial
 
-    def posicion_angular(self, tiempo: float) -> float:
+    def posicion_angular(self, tiempo: Q_) -> Q_:
         """
         Calcula la posición angular en función del tiempo.
         θ = θ₀ + ω * t
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (Q_): Tiempo transcurrido (s).
 
         Returns:
-            float: Posición angular (rad).
+            Q_: Posición angular (rad).
         
         Raises:
             ValueError: Si el tiempo es negativo.
         """
-        if tiempo < 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
-    def velocidad_angular(self, tiempo: float = None) -> float:
+    def velocidad_angular(self, tiempo: Q_ = None) -> Q_:
         """
         Obtiene la velocidad angular (constante en MCU).
 
         Args:
-            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Velocidad angular (rad/s).
+            Q_: Velocidad angular (rad/s).
         """
         return self.velocidad_angular_inicial
 
-    def velocidad_tangencial(self, tiempo: float = None) -> float:
+    def velocidad_tangencial(self, tiempo: Q_ = None) -> Q_:
         """
         Calcula la velocidad tangencial.
         v = ω * R
 
         Args:
-            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Velocidad tangencial (m/s).
+            Q_: Velocidad tangencial (m/s).
         """
         return self.velocidad_angular_inicial * self.radio
 
-    def aceleracion_centripeta(self, tiempo: float = None) -> float:
+    def aceleracion_centripeta(self, tiempo: Q_ = None) -> Q_:
         """
         Calcula la aceleración centrípeta.
         aₙ = ω² * R = v² / R
 
         Args:
-            tiempo (float, optional): Tiempo transcurrido (s). No afecta al resultado.
+            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
 
         Returns:
-            float: Aceleración centrípeta (m/s²).
+            Q_: Aceleración centrípeta (m/s²).
         """
         return self.velocidad_angular_inicial**2 * self.radio
 
-    def posicion(self, tiempo: float) -> np.ndarray:
+    def posicion(self, tiempo: Q_) -> np.ndarray:
         """
         Calcula la posición (x, y) del objeto en un tiempo dado.
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (Q_): Tiempo transcurrido (s).
 
         Returns:
             np.ndarray: Vector de posición [x, y] (m).
         """
-        if tiempo < 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        theta = self.posicion_angular(tiempo)
+        theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
         x = self.radio * math.cos(theta)
         y = self.radio * math.sin(theta)
-        return np.array([x, y])
+        return Q_(np.array([x.magnitude, y.magnitude]), ureg.meter)
 
-    def velocidad(self, tiempo: float) -> np.ndarray:
+    def velocidad(self, tiempo: Q_) -> Q_:
         """
         Calcula la velocidad (vx, vy) del objeto en un tiempo dado.
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (Q_): Tiempo transcurrido (s).
 
         Returns:
-            np.ndarray: Vector de velocidad [vx, vy] (m/s).
+            Q_: Vector de velocidad [vx, vy] (m/s).
         """
-        if tiempo < 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        omega = self.velocidad_angular_inicial
-        theta = self.posicion_angular(tiempo)
-        vx = -omega * self.radio * math.sin(theta)
-        vy = omega * self.radio * math.cos(theta)
-        return np.array([vx, vy])
+        omega = self.velocidad_angular_inicial.to(ureg.radian/ureg.second).magnitude
+        theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
+        vx = -omega * self.radio.to(ureg.meter).magnitude * math.sin(theta)
+        vy = omega * self.radio.to(ureg.meter).magnitude * math.cos(theta)
+        return Q_(np.array([vx, vy]), ureg.meter / ureg.second)
 
-    def aceleracion(self, tiempo: float) -> np.ndarray:
+    def aceleracion(self, tiempo: Q_) -> Q_:
         """
         Calcula la aceleración (ax, ay) del objeto en un tiempo dado (aceleración centrípeta).
 
         Args:
-            tiempo (float): Tiempo transcurrido (s).
+            tiempo (Q_): Tiempo transcurrido (s).
 
         Returns:
-            np.ndarray: Vector de aceleración [ax, ay] (m/s^2).
+            Q_: Vector de aceleración [ax, ay] (m/s^2).
         """
-        if tiempo < 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        omega = self.velocidad_angular_inicial
-        theta = self.posicion_angular(tiempo)
-        ac = (omega ** 2) * self.radio
+        omega = self.velocidad_angular_inicial.to(ureg.radian/ureg.second).magnitude
+        theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
+        ac = (omega ** 2) * self.radio.to(ureg.meter).magnitude
         ax = -ac * math.cos(theta)
         ay = -ac * math.sin(theta)
-        return np.array([ax, ay])
+        return Q_(np.array([ax, ay]), ureg.meter / ureg.second**2)
 
-    def velocidad_angular_constante(self) -> float:
+    def velocidad_angular_constante(self) -> Q_:
         """
         Retorna la velocidad angular constante en MCU.
         """
         return self.velocidad_angular_inicial
 
-    def aceleracion_centripeta_constante(self) -> float:
+    def aceleracion_centripeta_constante(self) -> Q_:
         """
         Retorna la magnitud de la aceleración centrípeta constante en MCU.
         """
         return (self.velocidad_angular_inicial ** 2) * self.radio
 
-    def periodo(self) -> float:
+    def periodo(self) -> Q_:
         """
         Calcula el período en MCU.
         Ecuación: T = 2 * pi / omega
 
         Returns:
-            float: Período (s).
+            Q_: Período (s).
         
         Notes:
-            Retorna `math.inf` si la velocidad angular inicial es cero.
+            Retorna `math.inf * ureg.second` si la velocidad angular inicial es cero.
         """
-        if self.velocidad_angular_inicial == 0:
-            return math.inf  # Período infinito si la velocidad angular es cero
-        return (2 * math.pi) / self.velocidad_angular_inicial
+        if self.velocidad_angular_inicial.magnitude == 0:
+            return math.inf * ureg.second  # Período infinito si la velocidad angular es cero
+        return (2 * math.pi * ureg.radian) / self.velocidad_angular_inicial
 
-    def frecuencia(self) -> float:
+    def frecuencia(self) -> Q_:
         """
         Calcula la frecuencia en MCU.
         Ecuación: f = 1 / T = omega / (2 * pi)
 
         Returns:
-            float: Frecuencia (Hz).
+            Q_: Frecuencia (Hz).
         
         Notes:
-            Retorna `0.0` si la velocidad angular inicial es cero.
+            Retorna `0.0 * ureg.hertz` si la velocidad angular inicial es cero.
         """
-        if self.velocidad_angular_inicial == 0:
-            return 0.0  # Frecuencia cero si la velocidad angular es cero
-        return self.velocidad_angular_inicial / (2 * math.pi)
+        if self.velocidad_angular_inicial.magnitude == 0:
+            return 0.0 * ureg.hertz  # Frecuencia cero si la velocidad angular es cero
+        return self.velocidad_angular_inicial / (2 * math.pi * ureg.radian)

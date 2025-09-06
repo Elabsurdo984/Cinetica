@@ -1,12 +1,13 @@
 import math
 from ..base_movimiento import Movimiento
+from ...units import ureg, Q_
 
 class MovimientoArmonicoSimple(Movimiento):
     """
     Clase para calcular la posición, velocidad y aceleración en un Movimiento Armónico Simple (M.A.S.).
     """
 
-    def __init__(self, amplitud, frecuencia_angular, fase_inicial=0):
+    def __init__(self, amplitud: Q_, frecuencia_angular: Q_, fase_inicial: Q_ = 0 * ureg.radian):
         """
         Inicializa el objeto de Movimiento Armónico Simple.
 
@@ -14,16 +15,23 @@ class MovimientoArmonicoSimple(Movimiento):
         :param frecuencia_angular: Frecuencia angular (ω) en radianes/segundo.
         :param fase_inicial: Fase inicial (φ) en radianes. Por defecto es 0.
         """
-        if amplitud <= 0:
+        if not isinstance(amplitud, Q_):
+            amplitud = Q_(amplitud, ureg.meter)
+        if not isinstance(frecuencia_angular, Q_):
+            frecuencia_angular = Q_(frecuencia_angular, ureg.radian / ureg.second)
+        if not isinstance(fase_inicial, Q_):
+            fase_inicial = Q_(fase_inicial, ureg.radian)
+
+        if amplitud.magnitude <= 0:
             raise ValueError("La amplitud debe ser un valor positivo.")
-        if frecuencia_angular <= 0:
+        if frecuencia_angular.magnitude <= 0:
             raise ValueError("La frecuencia angular debe ser un valor positivo.")
 
         self.amplitud = amplitud
         self.frecuencia_angular = frecuencia_angular
         self.fase_inicial = fase_inicial
 
-    def posicion(self, tiempo):
+    def posicion(self, tiempo: Q_) -> Q_:
         """
         Calcula la posición (x) en un tiempo dado.
 
@@ -32,9 +40,11 @@ class MovimientoArmonicoSimple(Movimiento):
         :param tiempo: Tiempo (t) en segundos.
         :return: Posición en el tiempo dado.
         """
-        return self.amplitud * math.cos(self.frecuencia_angular * tiempo + self.fase_inicial)
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        return self.amplitud * math.cos((self.frecuencia_angular * tiempo + self.fase_inicial).to(ureg.radian).magnitude)
 
-    def velocidad(self, tiempo):
+    def velocidad(self, tiempo: Q_) -> Q_:
         """
         Calcula la velocidad (v) en un tiempo dado.
 
@@ -43,9 +53,11 @@ class MovimientoArmonicoSimple(Movimiento):
         :param tiempo: Tiempo (t) en segundos.
         :return: Velocidad en el tiempo dado.
         """
-        return -self.amplitud * self.frecuencia_angular * math.sin(self.frecuencia_angular * tiempo + self.fase_inicial)
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        return -self.amplitud * self.frecuencia_angular * math.sin((self.frecuencia_angular * tiempo + self.fase_inicial).to(ureg.radian).magnitude)
 
-    def aceleracion(self, tiempo):
+    def aceleracion(self, tiempo: Q_) -> Q_:
         """
         Calcula la aceleración (a) en un tiempo dado.
 
@@ -54,9 +66,11 @@ class MovimientoArmonicoSimple(Movimiento):
         :param tiempo: Tiempo (t) en segundos.
         :return: Aceleración en el tiempo dado.
         """
-        return -self.amplitud * (self.frecuencia_angular ** 2) * math.cos(self.frecuencia_angular * tiempo + self.fase_inicial)
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        return -self.amplitud * (self.frecuencia_angular ** 2) * math.cos((self.frecuencia_angular * tiempo + self.fase_inicial).to(ureg.radian).magnitude)
 
-    def periodo(self):
+    def periodo(self) -> Q_:
         """
         Calcula el período (T) del movimiento.
 
@@ -64,9 +78,9 @@ class MovimientoArmonicoSimple(Movimiento):
 
         :return: Período del movimiento en segundos.
         """
-        return 2 * math.pi / self.frecuencia_angular
+        return (2 * math.pi * ureg.radian) / self.frecuencia_angular
 
-    def frecuencia(self):
+    def frecuencia(self) -> Q_:
         """
         Calcula la frecuencia (f) del movimiento.
 
@@ -74,9 +88,9 @@ class MovimientoArmonicoSimple(Movimiento):
 
         :return: Frecuencia del movimiento en Hertz.
         """
-        return self.frecuencia_angular / (2 * math.pi)
+        return self.frecuencia_angular / (2 * math.pi * ureg.radian)
 
-    def energia_cinetica(self, tiempo, masa):
+    def energia_cinetica(self, tiempo: Q_, masa: Q_) -> Q_:
         """
         Calcula la energía cinética (Ec) en un tiempo dado.
 
@@ -86,11 +100,16 @@ class MovimientoArmonicoSimple(Movimiento):
         :param masa: Masa del objeto en kg.
         :return: Energía cinética en Joules.
         """
-        if masa <= 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if not isinstance(masa, Q_):
+            masa = Q_(masa, ureg.kilogram)
+
+        if masa.magnitude <= 0:
             raise ValueError("La masa debe ser un valor positivo.")
         return 0.5 * masa * (self.velocidad(tiempo) ** 2)
 
-    def energia_potencial(self, tiempo, constante_elastica):
+    def energia_potencial(self, tiempo: Q_, constante_elastica: Q_) -> Q_:
         """
         Calcula la energía potencial elástica (Ep) en un tiempo dado.
 
@@ -100,11 +119,16 @@ class MovimientoArmonicoSimple(Movimiento):
         :param constante_elastica: Constante elástica (k) en N/m.
         :return: Energía potencial en Joules.
         """
-        if constante_elastica <= 0:
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+        if not isinstance(constante_elastica, Q_):
+            constante_elastica = Q_(constante_elastica, ureg.newton / ureg.meter)
+
+        if constante_elastica.magnitude <= 0:
             raise ValueError("La constante elástica debe ser un valor positivo.")
         return 0.5 * constante_elastica * (self.posicion(tiempo) ** 2)
 
-    def energia_total(self, masa, constante_elastica):
+    def energia_total(self, masa: Q_, constante_elastica: Q_) -> Q_:
         """
         Calcula la energía mecánica total (E) del sistema.
 
@@ -114,6 +138,11 @@ class MovimientoArmonicoSimple(Movimiento):
         :param constante_elastica: Constante elástica (k) en N/m.
         :return: Energía total en Joules.
         """
-        if masa <= 0 or constante_elastica <= 0:
+        if not isinstance(masa, Q_):
+            masa = Q_(masa, ureg.kilogram)
+        if not isinstance(constante_elastica, Q_):
+            constante_elastica = Q_(constante_elastica, ureg.newton / ureg.meter)
+
+        if masa.magnitude <= 0 or constante_elastica.magnitude <= 0:
             raise ValueError("La masa y la constante elástica deben ser valores positivos.")
         return 0.5 * constante_elastica * (self.amplitud ** 2)

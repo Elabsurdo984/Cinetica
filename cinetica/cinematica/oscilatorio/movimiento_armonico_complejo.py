@@ -7,90 +7,171 @@ armónico complejo, que es la superposición de varios movimientos armónicos si
 
 import numpy as np
 from ..base_movimiento import Movimiento
+from ...units import ureg, Q_
 
 class MovimientoArmonicoComplejo(Movimiento):
     """
     Representa un Movimiento Armónico Complejo (MAC) como la superposición
     de múltiples Movimientos Armónicos Simples (MAS).
     """
-    def __init__(self, mas_components):
+    def __init__(self, mas_components: list):
         """
         Inicializa un objeto de Movimiento Armónico Complejo.
 
         Args:
             mas_components (list): Una lista de diccionarios, donde cada diccionario
                                    representa un MAS con las siguientes claves:
-                                   - 'amplitud' (float): Amplitud del MAS.
-                                   - 'frecuencia_angular' (float): Frecuencia angular (omega) del MAS.
-                                   - 'fase_inicial' (float): Fase inicial (phi) del MAS en radianes.
+                                   - 'amplitud' (Q_): Amplitud del MAS (m).
+                                   - 'frecuencia_angular' (Q_): Frecuencia angular (omega) del MAS (rad/s).
+                                   - 'fase_inicial' (Q_): Fase inicial (phi) del MAS en radianes.
         """
         if not isinstance(mas_components, list) or not mas_components:
             raise ValueError("mas_components debe ser una lista no vacía de diccionarios.")
         
+        processed_components = []
         for comp in mas_components:
             if not all(k in comp for k in ['amplitud', 'frecuencia_angular', 'fase_inicial']):
                 raise ValueError("Cada componente MAS debe tener 'amplitud', 'frecuencia_angular' y 'fase_inicial'.")
-            if not all(isinstance(comp[k], (int, float)) for k in ['amplitud', 'frecuencia_angular', 'fase_inicial']):
-                raise ValueError("Los valores de amplitud, frecuencia_angular y fase_inicial deben ser numéricos.")
+            
+            amplitud = comp['amplitud']
+            frecuencia_angular = comp['frecuencia_angular']
+            fase_inicial = comp['fase_inicial']
 
-        self.mas_components = mas_components
+            if not isinstance(amplitud, Q_):
+                amplitud = Q_(amplitud, ureg.meter)
+            if not isinstance(frecuencia_angular, Q_):
+                frecuencia_angular = Q_(frecuencia_angular, ureg.radian / ureg.second)
+            if not isinstance(fase_inicial, Q_):
+                fase_inicial = Q_(fase_inicial, ureg.radian)
+            
+            if amplitud.magnitude <= 0:
+                raise ValueError("La amplitud debe ser un valor positivo.")
+            if frecuencia_angular.magnitude <= 0:
+                raise ValueError("La frecuencia angular debe ser un valor positivo.")
 
-    def posicion(self, tiempo):
+            processed_components.append({
+                'amplitud': amplitud,
+                'frecuencia_angular': frecuencia_angular,
+                'fase_inicial': fase_inicial
+            })
+
+        self.mas_components = processed_components
+
+    def posicion(self, tiempo: Q_) -> Q_:
         """
         Calcula la posición del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float or np.ndarray): El tiempo o array de tiempos en segundos.
+            tiempo (Q_): El tiempo o array de tiempos en segundos.
 
         Returns:
-            float or np.ndarray: La posición total en el tiempo especificado.
+            Q_: La posición total en el tiempo especificado.
         """
-        posiciones = np.zeros_like(np.array(tiempo, dtype=float))
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+
+        posicion_total = 0.0 * ureg.meter
         for comp in self.mas_components:
             A = comp['amplitud']
             omega = comp['frecuencia_angular']
             phi = comp['fase_inicial']
-            posiciones += A * np.cos(omega * tiempo + phi)
-        posicion_total = 0.0
-        for comp in self.mas_components:
-            A = comp['amplitud']
-            omega = comp['frecuencia_angular']
-            phi = comp['fase_inicial']
-            posicion_total += A * np.cos(omega * tiempo + phi)
+            posicion_total += A * np.cos((omega * tiempo + phi).to(ureg.radian).magnitude)
         return posicion_total
 
-    def velocidad(self, tiempo: float) -> float:
+    def velocidad(self, tiempo: Q_) -> Q_:
         """
         Calcula la velocidad del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float): El tiempo en segundos.
+            tiempo (Q_): El tiempo en segundos.
 
         Returns:
-            float: La velocidad total en el tiempo especificado.
+            Q_: La velocidad total en el tiempo especificado.
         """
-        velocidad_total = 0.0
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+
+        velocidad_total = 0.0 * ureg.meter / ureg.second
         for comp in self.mas_components:
             A = comp['amplitud']
             omega = comp['frecuencia_angular']
             phi = comp['fase_inicial']
-            velocidad_total += -A * omega * np.sin(omega * tiempo + phi)
+            velocidad_total += -A * omega * np.sin((omega * tiempo + phi).to(ureg.radian).magnitude)
         return velocidad_total
 
-    def aceleracion(self, tiempo: float) -> float:
+    def aceleracion(self, tiempo: Q_) -> Q_:
         """
         Calcula la aceleración del objeto en un tiempo dado para el MAC.
 
         Args:
-            tiempo (float): El tiempo en segundos.
+            tiempo (Q_): El tiempo en segundos.
 
         Returns:
-            float: La aceleración total en el tiempo especificado.
+            Q_: La aceleración total en el tiempo especificado.
         """
-        aceleracion_total = 0.0
+        if not isinstance(tiempo, Q_):
+            tiempo = Q_(tiempo, ureg.second)
+
+        aceleracion_total = 0.0 * ureg.meter / ureg.second**2
         for comp in self.mas_components:
             A = comp['amplitud']
             omega = comp['frecuencia_angular']
             phi = comp['fase_inicial']
-            aceleracion_total += -A * (omega**2) * np.cos(omega * tiempo + phi)
+            aceleracion_total += -A * (omega**2) * np.cos((omega * tiempo + phi).to(ureg.radian).magnitude)
         return aceleracion_total
+
+    def amplitud_resultante(self) -> Q_:
+        """
+        Calcula la amplitud resultante para componentes de la misma frecuencia.
+        Solo funciona si todos los componentes tienen la misma frecuencia angular.
+        
+        Returns:
+            Q_: Amplitud resultante en metros.
+        """
+        if len(self.mas_components) == 0:
+            return Q_(0.0, ureg.meter)
+        
+        # Check if all components have the same frequency
+        freq_ref = self.mas_components[0]['frecuencia_angular']
+        if not all(comp['frecuencia_angular'].magnitude == freq_ref.magnitude for comp in self.mas_components):
+            raise ValueError("Todos los componentes deben tener la misma frecuencia angular para calcular amplitud resultante.")
+        
+        # Calculate resultant amplitude using phasor addition
+        suma_x = 0.0 * ureg.meter
+        suma_y = 0.0 * ureg.meter
+        
+        for comp in self.mas_components:
+            A = comp['amplitud']
+            phi = comp['fase_inicial']
+            suma_x += A * np.cos(phi.to(ureg.radian).magnitude)
+            suma_y += A * np.sin(phi.to(ureg.radian).magnitude)
+        
+        return ((suma_x ** 2) + (suma_y ** 2)) ** 0.5
+    
+    def fase_resultante(self) -> Q_:
+        """
+        Calcula la fase resultante para componentes de la misma frecuencia.
+        Solo funciona si todos los componentes tienen la misma frecuencia angular.
+        
+        Returns:
+            Q_: Fase resultante en radianes.
+        """
+        if len(self.mas_components) == 0:
+            return Q_(0.0, ureg.radian)
+        
+        # Check if all components have the same frequency
+        freq_ref = self.mas_components[0]['frecuencia_angular']
+        if not all(comp['frecuencia_angular'].magnitude == freq_ref.magnitude for comp in self.mas_components):
+            raise ValueError("Todos los componentes deben tener la misma frecuencia angular para calcular fase resultante.")
+        
+        # Calculate resultant phase using phasor addition
+        suma_x = 0.0
+        suma_y = 0.0
+        
+        for comp in self.mas_components:
+            A = comp['amplitud'].magnitude
+            phi = comp['fase_inicial'].to(ureg.radian).magnitude
+            suma_x += A * np.cos(phi)
+            suma_y += A * np.sin(phi)
+        
+        return Q_(np.arctan2(suma_y, suma_x), ureg.radian)
