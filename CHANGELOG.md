@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.15.0 - 2025-09-06
+
+### Changed
+- **Reorganized test structure** - Implemented a hierarchical and maintainable test organization:
+  - **Unit tests** - Organized by physics module in `tests/unit/cinematica/` with subdirectories for each motion type
+  - **Comprehensive tests** - Moved extensive test suites to `tests/comprehensive/` for complex module testing
+  - **Integration tests** - Created `tests/integration/` directory structure for future cross-module testing
+  - **Test documentation** - Added comprehensive `tests/README.md` with structure guidelines and conventions
+
+### Added
+- **Structured test directories** - Clear separation of test types:
+  - `tests/unit/cinematica/rectilineo/` - Linear motion tests (MRU, MRUV)
+  - `tests/unit/cinematica/circular/` - Circular motion tests (MCU, MCUV)
+  - `tests/unit/cinematica/parabolico/` - Projectile motion tests
+  - `tests/unit/cinematica/oscilatorio/` - Oscillatory motion tests (MAS, MAC)
+  - `tests/unit/cinematica/espacial/` - 3D motion tests
+  - `tests/unit/cinematica/relativo/` - Relative motion tests
+  - `tests/unit/cinematica/graficos/` - Graphics/plotting tests
+- **Test discovery optimization** - Proper `__init__.py` files for all test directories
+- **Test naming conventions** - Standardized naming patterns for different test types
+
+### Technical
+- **228 tests maintained** - All tests continue to pass with 97% coverage after reorganization
+- **Improved maintainability** - Logical grouping makes tests easier to locate, modify, and extend
+- **Developer experience** - Clear structure guidelines for adding new tests
+- **Future-ready architecture** - Prepared structure for integration testing and module interactions
+
 ## 0.14.0 - 2025-09-06
 
 ### Added
