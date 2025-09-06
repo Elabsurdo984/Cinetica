@@ -97,6 +97,68 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
         
         return Q_(math.sqrt(v_squared.magnitude), ureg.meter / ureg.second) * (1 if test_velocity.magnitude >= 0 else -1)
 
+    def tiempo_por_posicion(self, posicion_final: Union[float, Q_]) -> list[Q_]:
+        """
+        Calcula el tiempo necesario para alcanzar una posición final específica.
+        Ecuación: x = x0 + v0 * t + 0.5 * a * t^2
+        Resuelve para t: 0.5 * a * t^2 + v0 * t + (x0 - x) = 0
+
+        Args:
+            posicion_final (Q_): Posición final deseada (m).
+
+        Returns:
+            list[Q_]: Lista de tiempos posibles (s). Puede tener 0, 1 o 2 soluciones.
+        
+        Raises:
+            ValueError: Si no hay soluciones reales.
+        """
+        if not isinstance(posicion_final, Q_):
+            posicion_final = Q_(posicion_final, ureg.meter)
+        
+        # Coeficientes de la ecuación cuadrática: at² + bt + c = 0
+        a = 0.5 * self.aceleracion_inicial
+        b = self.velocidad_inicial
+        c = self.posicion_inicial - posicion_final
+        
+        # Si a = 0, es una ecuación lineal
+        if abs(a.magnitude) < 1e-10:
+            if abs(b.magnitude) < 1e-10:
+                if abs(c.magnitude) < 1e-10:
+                    # Cualquier tiempo es válido (posición constante)
+                    return [Q_(0, ureg.second)]
+                else:
+                    # No hay solución
+                    raise ValueError("No se puede alcanzar la posición final con velocidad y aceleración cero.")
+            else:
+                # Ecuación lineal: bt + c = 0 → t = -c/b
+                t = -c / b
+                if t.magnitude >= 0:
+                    return [t]
+                else:
+                    raise ValueError("El tiempo calculado es negativo.")
+        
+        # Ecuación cuadrática
+        discriminante = b**2 - 4 * a * c
+        
+        if discriminante.magnitude < 0:
+            raise ValueError("No hay soluciones reales para alcanzar la posición final.")
+        
+        sqrt_discriminante = Q_(math.sqrt(discriminante.magnitude), discriminante.units**0.5)
+        
+        t1 = (-b + sqrt_discriminante) / (2 * a)
+        t2 = (-b - sqrt_discriminante) / (2 * a)
+        
+        # Filtrar tiempos negativos
+        tiempos = []
+        if t1.magnitude >= 0:
+            tiempos.append(t1)
+        if t2.magnitude >= 0 and abs(t2.magnitude - t1.magnitude) > 1e-10:
+            tiempos.append(t2)
+        
+        if not tiempos:
+            raise ValueError("Todos los tiempos calculados son negativos.")
+        
+        return sorted(tiempos, key=lambda t: t.magnitude)
 
     def aceleracion(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """

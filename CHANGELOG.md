@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.12.3 - 2025-09-06
+
+### Fixed
+- **Módulo relativo** - Agregado `velocidad_relativa` a `__init__.py` para resolver `AttributeError`
+- **Módulo parabólico** - Agregados `base` y `analisis` a `__init__.py` para resolver `AttributeError`
+- **MRUV método faltante** - Implementado `tiempo_por_posicion()` en `MovimientoRectilineoUniformementeVariado`
+  - Resuelve ecuación cuadrática para encontrar tiempo(s) necesario(s) para alcanzar posición específica
+  - Maneja casos lineales y cuadráticos
+  - Filtra soluciones negativas
+  - Retorna lista ordenada de tiempos válidos
+
+### Technical
+- Corregidos `__init__.py` vacíos en submódulos `relativo` y `parabolico`
+- Agregado método matemáticamente robusto para cálculo de tiempo por posición
+- Versión actualizada a 0.12.3
+
 ## 0.12.2 - 2025-09-06
 
 ### Fixed

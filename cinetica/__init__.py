@@ -2,7 +2,7 @@
 Cinetica - Una librería para cálculos de cinemática
 """
 
-__version__ = "0.12.2"
+__version__ = "0.12.3"
 
 from .units import ureg, Q_
 
