@@ -13,7 +13,7 @@ La librería se organiza en paquetes y módulos, reflejando una estructura más 
   - `parabolico`: Movimiento Parabólico (Base y Análisis).
   - `rectilineo`: Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado.
   - `relativo`: Cálculo de velocidades relativas.
-- `dinamica`: Carpeta para futuros módulos relacionados con la dinámica.
+- `dinamica`: Módulos completos para análisis dinámico incluyendo fuerzas, trabajo y energía.
 - `graficos`: Funciones para la visualización de los movimientos.
 
 ## Sistema de Unidades con `pint`
@@ -322,3 +322,125 @@ pos_espacial = me.posicion(tiempo=2)
 print(f"Posición espacial a los 2s: {pos_espacial}")
 vel_espacial = me.velocidad(tiempo=2)
 print(f"Velocidad espacial a los 2s: {vel_espacial}")
+```
+
+## Módulo de Dinámica (`cinetica.dinamica`)
+
+El módulo de dinámica proporciona herramientas completas para el análisis de fuerzas, trabajo y energía en sistemas mecánicos.
+
+### 7. Leyes de Newton (`cinetica.dinamica.newton`)
+
+#### `LeyesNewton`
+
+Clase para implementar las leyes de Newton y cálculos relacionados con fuerzas y aceleración.
+
+- **`__init__(self)`**: Inicializa una instancia de LeyesNewton.
+- **`segunda_ley(self, masa=None, aceleracion=None, fuerza=None)`**: 
+    Implementa la segunda ley de Newton (F = ma) con cálculo flexible de cualquier parámetro.
+    - Proporciona exactamente dos de los tres parámetros para calcular el tercero.
+    - Soporta valores escalares y vectoriales (numpy arrays).
+    - Maneja unidades automáticamente con pint.
+- **`fuerza_neta(self, fuerzas)`**: 
+    Calcula la fuerza neta de múltiples fuerzas.
+    - Acepta lista de fuerzas escalares o vectoriales.
+    - Retorna la suma vectorial de todas las fuerzas.
+- **`equilibrio(self, fuerzas, tolerancia=1e-10)`**: 
+    Verifica si un sistema está en equilibrio.
+    - Retorna True si la fuerza neta es menor que la tolerancia.
+- **`peso(self, masa, gravedad=9.81)`**: 
+    Calcula el peso de un objeto.
+    - Ecuación: W = m * g
+- **`fuerza_centripeta(self, masa, velocidad, radio)`**: 
+    Calcula la fuerza centrípeta.
+    - Ecuación: Fc = m * v² / r
+
+### 8. Análisis de Fuerzas (`cinetica.dinamica.fuerzas`)
+
+#### `AnalisisFuerzas`
+
+Clase para análisis completo de diferentes tipos de fuerzas en sistemas físicos.
+
+- **`__init__(self)`**: Inicializa una instancia de AnalisisFuerzas.
+- **`friccion_estatica(self, normal, coeficiente)`**: 
+    Calcula la fuerza de fricción estática máxima.
+    - Ecuación: fs = μs * N
+- **`friccion_cinetica(self, normal, coeficiente)`**: 
+    Calcula la fuerza de fricción cinética.
+    - Ecuación: fk = μk * N
+- **`fuerza_elastica(self, constante, deformacion)`**: 
+    Calcula la fuerza elástica según la ley de Hooke.
+    - Ecuación: Fe = k * x
+- **`fuerza_gravitacional(self, masa1, masa2, distancia, G=6.67430e-11)`**: 
+    Calcula la fuerza gravitacional entre dos masas.
+    - Ecuación: Fg = G * m1 * m2 / r²
+- **`descomponer_fuerza(self, magnitud, angulo)`**: 
+    Descompone una fuerza en componentes rectangulares.
+    - Retorna (Fx, Fy) donde Fx = F*cos(θ), Fy = F*sen(θ)
+- **`magnitud_y_direccion(self, Fx, Fy)`**: 
+    Calcula magnitud y dirección desde componentes.
+    - Retorna (magnitud, ángulo)
+- **`plano_inclinado(self, peso, angulo)`**: 
+    Descompone el peso en un plano inclinado.
+    - Retorna (componente_paralela, componente_perpendicular)
+- **`tension_cuerda(self, masa, aceleracion=0, angulo=0, gravedad=9.81)`**: 
+    Calcula la tensión en una cuerda.
+    - Considera aceleración del sistema y ángulo con la vertical.
+
+### 9. Trabajo y Energía (`cinetica.dinamica.trabajo_energia`)
+
+#### `TrabajoEnergia`
+
+Clase para cálculos de trabajo, energía y potencia en sistemas mecánicos.
+
+- **`__init__(self)`**: Inicializa una instancia de TrabajoEnergia.
+- **`trabajo_fuerza_constante(self, fuerza, desplazamiento, angulo=0)`**: 
+    Calcula el trabajo realizado por una fuerza constante.
+    - Ecuación: W = F * d * cos(θ)
+- **`trabajo_vectorial(self, fuerza, desplazamiento)`**: 
+    Calcula el trabajo usando el producto punto de vectores.
+    - Ecuación: W = F⃗ · d⃗
+- **`energia_cinetica(self, masa, velocidad)`**: 
+    Calcula la energía cinética.
+    - Ecuación: Ec = ½ * m * v²
+- **`energia_potencial_gravitacional(self, masa, altura, gravedad=9.81)`**: 
+    Calcula la energía potencial gravitacional.
+    - Ecuación: Ep = m * g * h
+- **`energia_potencial_elastica(self, constante, deformacion)`**: 
+    Calcula la energía potencial elástica.
+    - Ecuación: Ep = ½ * k * x²
+- **`energia_mecanica_total(self, energia_cinetica, energia_potencial)`**: 
+    Calcula la energía mecánica total.
+    - Ecuación: Em = Ec + Ep
+- **`teorema_trabajo_energia(self, masa, velocidad_inicial, velocidad_final)`**: 
+    Aplica el teorema trabajo-energía.
+    - Ecuación: Wneto = ΔEc = Ecf - Eci
+- **`potencia(self, trabajo, tiempo)`**: 
+    Calcula la potencia promedio.
+    - Ecuación: P = W / t
+- **`potencia_instantanea(self, fuerza, velocidad)`**: 
+    Calcula la potencia instantánea.
+    - Ecuación: P = F * v
+
+### Ejemplo de Uso del Módulo de Dinámica
+
+```python
+from cinetica.dinamica import LeyesNewton, AnalisisFuerzas, TrabajoEnergia
+import math
+
+# Leyes de Newton
+newton = LeyesNewton()
+fuerza = newton.segunda_ley(masa=10, aceleracion=5)  # F = 50 N
+print(f"Fuerza: {fuerza}")
+
+# Análisis de fuerzas
+fuerzas = AnalisisFuerzas()
+f_friccion = fuerzas.friccion_cinetica(normal=200, coeficiente=0.3)  # 60 N
+Fx, Fy = fuerzas.descomponer_fuerza(magnitud=100, angulo=math.pi/4)
+print(f"Componentes: Fx={Fx:.2f}, Fy={Fy:.2f}")
+
+# Trabajo y energía
+te = TrabajoEnergia()
+trabajo = te.trabajo_fuerza_constante(fuerza=50, desplazamiento=10)  # 500 J
+energia_cinetica = te.energia_cinetica(masa=5, velocidad=10)  # 250 J
+print(f"Trabajo: {trabajo}, Energía cinética: {energia_cinetica}")
+```

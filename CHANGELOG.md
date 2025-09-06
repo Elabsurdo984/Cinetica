@@ -1,5 +1,53 @@
 # Changelog
 
+## 0.18.0 - 2025-09-06
+
+### Added
+- **Complete Dynamics Module**: Comprehensive implementation of classical mechanics dynamics
+  - **Newton's Laws Module** (`cinetica.dinamica.newton`):
+    - `LeyesNewton` class implementing Newton's second law with flexible parameter solving
+    - Net force calculation from multiple forces (scalar and vectorial)
+    - Equilibrium analysis with customizable tolerance
+    - Weight calculation with configurable gravity
+    - Centripetal force calculations
+  - **Forces Analysis Module** (`cinetica.dinamica.fuerzas`):
+    - `AnalisisFuerzas` class for comprehensive force analysis
+    - Static and kinetic friction calculations
+    - Elastic force calculations (Hooke's law)
+    - Gravitational force between masses
+    - Force decomposition into rectangular components
+    - Inclined plane analysis
+    - Tension calculations in ropes and cables
+  - **Work and Energy Module** (`cinetica.dinamica.trabajo_energia`):
+    - `TrabajoEnergia` class for work and energy calculations
+    - Work calculation for constant forces and vectorial forces
+    - Kinetic, gravitational, and elastic potential energy
+    - Total mechanical energy calculations
+    - Work-energy theorem implementation
+    - Power calculations (average and instantaneous)
+
+### Enhanced
+- **Package Structure**: Added complete dynamics module to main package exports
+- **Unit Testing**: 79 comprehensive unit tests covering all dynamics functionality
+- **Documentation**: Extensive docstrings with examples for all dynamics methods
+- **Usage Examples**: Complete example file demonstrating all dynamics capabilities
+
+### Technical Features
+- **Full Pint Integration**: All dynamics calculations support units with automatic conversions
+- **Vector Support**: NumPy array support for multidimensional force and motion calculations
+- **Input Validation**: Comprehensive error handling and parameter validation
+- **API Consistency**: Consistent design patterns matching existing kinematics modules
+
+### Files Added
+- `cinetica/dinamica/__init__.py` - Dynamics module exports
+- `cinetica/dinamica/newton.py` - Newton's laws implementation
+- `cinetica/dinamica/fuerzas.py` - Force analysis tools
+- `cinetica/dinamica/trabajo_energia.py` - Work and energy calculations
+- `tests/unit/dinamica/` - Complete test suite for dynamics
+- `usage/ejemplo_dinamica.py` - Comprehensive usage examples
+
+This major release extends Cinetica from pure kinematics to comprehensive mechanical analysis, enabling complete physics simulations including forces, work, energy, and dynamics.
+
 ## 0.17.0 - 2025-09-06
 
 ### Added

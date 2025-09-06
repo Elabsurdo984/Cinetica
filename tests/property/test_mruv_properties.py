@@ -20,16 +20,16 @@ class TestMRUVProperties:
     def test_mruv_kinematic_equation_consistency(self, posicion_inicial, velocidad_inicial, aceleracion, tiempo):
         """Property: Position should follow kinematic equation x = x₀ + v₀t + ½at²."""
         assume(abs(aceleracion) > 1e-12 or abs(velocidad_inicial) > 1e-12)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=posicion_inicial * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         posicion = mruv.posicion(tiempo * ureg.second)
         expected = posicion_inicial + velocidad_inicial * tiempo + 0.5 * aceleracion * tiempo**2
-        
+
         assert abs(posicion.magnitude - expected) < 1e-10
 
     @given(
@@ -46,10 +46,10 @@ class TestMRUVProperties:
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         velocidad = mruv.velocidad(tiempo * ureg.second)
         expected = velocidad_inicial + aceleracion * tiempo
-        
+
         assert abs(velocidad.magnitude - expected) < 1e-10
 
     @given(
@@ -66,7 +66,7 @@ class TestMRUVProperties:
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         accel_calculated = mruv.aceleracion(tiempo * ureg.second)
         assert abs(accel_calculated.magnitude - aceleracion) < 1e-12
 
@@ -81,24 +81,24 @@ class TestMRUVProperties:
     def test_mruv_average_velocity_formula(self, posicion_inicial, velocidad_inicial, aceleracion, tiempo1, tiempo2):
         """Property: Average velocity should equal (v₁ + v₂)/2 for MRUV."""
         assume(abs(tiempo2 - tiempo1) > 1e-6)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=posicion_inicial * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         pos1 = mruv.posicion(tiempo1 * ureg.second)
         pos2 = mruv.posicion(tiempo2 * ureg.second)
         vel1 = mruv.velocidad(tiempo1 * ureg.second)
         vel2 = mruv.velocidad(tiempo2 * ureg.second)
-        
+
         # Average velocity from displacement
         avg_vel_displacement = (pos2.magnitude - pos1.magnitude) / (tiempo2 - tiempo1)
-        
+
         # Average velocity from velocities
         avg_vel_formula = (vel1.magnitude + vel2.magnitude) / 2
-        
+
         assert abs(avg_vel_displacement - avg_vel_formula) < 1e-10
 
     @given(
@@ -125,7 +125,7 @@ class TestMRUVProperties:
             # The method returns signed velocity, so we need to handle both positive and negative cases
             calculated_velocity = mruv.velocidad_sin_tiempo(target_position * ureg.meter)
             expected_velocity_magnitude = math.sqrt(vel_squared)
-            
+
             # Check if the magnitude matches (velocity can be positive or negative)
             assert abs(abs(calculated_velocity.magnitude) - expected_velocity_magnitude) < 1e-10
 
@@ -139,16 +139,16 @@ class TestMRUVProperties:
     def test_mruv_time_calculation_consistency(self, posicion_inicial, velocidad_inicial, aceleracion, target_position):
         """Property: Time calculation should be consistent with position calculation."""
         assume(abs(target_position - posicion_inicial) > 1e-6)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=posicion_inicial * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         try:
             tiempos = mruv.tiempo_por_posicion(target_position * ureg.meter)
-            
+
             # Test each valid positive time
             for tiempo in tiempos:
                 if tiempo.magnitude >= 0:
@@ -168,27 +168,27 @@ class TestMRUVProperties:
     def test_mruv_energy_considerations(self, posicion_inicial, velocidad_inicial, aceleracion, tiempo):
         """Property: Kinetic energy change should equal work done by constant force."""
         assume(abs(aceleracion) > 1e-12)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=posicion_inicial * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         # Initial and final velocities
         v0 = velocidad_inicial
         vf = mruv.velocidad(tiempo * ureg.second).magnitude
-        
+
         # Initial and final positions
         x0 = posicion_inicial
         xf = mruv.posicion(tiempo * ureg.second).magnitude
-        
+
         # Change in kinetic energy (per unit mass)
         delta_ke = 0.5 * (vf**2 - v0**2)
-        
+
         # Work done by force (per unit mass): W = F*d = a*d
         work_done = aceleracion * (xf - x0)
-        
+
         assert abs(delta_ke - work_done) < 1e-9
 
     @given(
@@ -200,19 +200,19 @@ class TestMRUVProperties:
     def test_mruv_reduces_to_mru_when_acceleration_zero(self, velocidad_inicial, aceleracion, tiempo):
         """Property: MRUV should reduce to MRU when acceleration is zero."""
         assume(abs(aceleracion) < 1e-12)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=0 * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         # Position should be linear: x = v₀*t
         posicion = mruv.posicion(tiempo * ureg.second)
         expected_position = velocidad_inicial * tiempo
-        
+
         assert abs(posicion.magnitude - expected_position) < 1e-10
-        
+
         # Velocity should be constant
         velocidad = mruv.velocidad(tiempo * ureg.second)
         assert abs(velocidad.magnitude - velocidad_inicial) < 1e-12
@@ -231,11 +231,11 @@ class TestMRUVProperties:
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         posicion = mruv.posicion(tiempo * ureg.second)
         velocidad = mruv.velocidad(tiempo * ureg.second)
         aceleracion_calc = mruv.aceleracion(tiempo * ureg.second)
-        
+
         # Check units
         assert posicion.units == ureg.meter
         assert velocidad.units == ureg.meter / ureg.second
@@ -252,23 +252,23 @@ class TestMRUVProperties:
     def test_mruv_time_reversal_symmetry(self, posicion_inicial, velocidad_inicial, aceleracion, tiempo1, tiempo2):
         """Property: Physics equations should be consistent under time transformations."""
         assume(abs(tiempo2 - tiempo1) > 1e-6)
-        
+
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=posicion_inicial * ureg.meter,
             velocidad_inicial=velocidad_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         # Calculate positions at two different times
         pos1 = mruv.posicion(tiempo1 * ureg.second)
         pos2 = mruv.posicion(tiempo2 * ureg.second)
-        
+
         # Calculate velocities at those times
         vel1 = mruv.velocidad(tiempo1 * ureg.second)
         vel2 = mruv.velocidad(tiempo2 * ureg.second)
-        
+
         # The change in velocity should equal acceleration times time interval
         delta_v = vel2.magnitude - vel1.magnitude
         expected_delta_v = aceleracion * (tiempo2 - tiempo1)
-        
+
         assert abs(delta_v - expected_delta_v) < 1e-10
