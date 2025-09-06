@@ -12,7 +12,7 @@ from cinetica.units import ureg, Q_
 
 class TestMCUParametrized:
     """Parametrized tests for MCU (Uniform Circular Motion)."""
-    
+
     @pytest.mark.parametrize("radio, pos_ang_inicial, vel_ang_inicial", [
         # With units
         (10 * ureg.meter, 0.5 * ureg.radian, 2 * ureg.radian / ureg.second),
@@ -30,16 +30,16 @@ class TestMCUParametrized:
             posicion_angular_inicial=pos_ang_inicial,
             velocidad_angular_inicial=vel_ang_inicial
         )
-        
+
         # Check that values are properly converted to units
         expected_radio = radio if hasattr(radio, 'units') else radio * ureg.meter
         expected_pos = pos_ang_inicial if hasattr(pos_ang_inicial, 'units') else pos_ang_inicial * ureg.radian
         expected_vel = vel_ang_inicial if hasattr(vel_ang_inicial, 'units') else vel_ang_inicial * ureg.radian / ureg.second
-        
+
         assert mcu.radio == expected_radio
         assert mcu.posicion_angular_inicial == expected_pos
         assert mcu.velocidad_angular_inicial == expected_vel
-    
+
     @pytest.mark.parametrize("radio, pos_ang_inicial, vel_ang_inicial, tiempo, expected_pos_ang", [
         # With units
         (10 * ureg.meter, 0 * ureg.radian, 2 * ureg.radian / ureg.second, 1 * ureg.second, 2 * ureg.radian),
@@ -55,7 +55,7 @@ class TestMCUParametrized:
         mcu = MovimientoCircularUniforme(radio, pos_ang_inicial, vel_ang_inicial)
         pos_ang = mcu.posicion_angular(tiempo)
         assert abs(pos_ang - expected_pos_ang) < 1e-10 * ureg.radian
-    
+
     @pytest.mark.parametrize("radio, vel_ang_inicial, expected_vel_tang", [
         # With units
         (10 * ureg.meter, 2 * ureg.radian / ureg.second, 20 * ureg.meter / ureg.second),
@@ -71,7 +71,7 @@ class TestMCUParametrized:
         mcu = MovimientoCircularUniforme(radio, 0, vel_ang_inicial)
         vel_tang = mcu.velocidad_tangencial()
         assert abs(vel_tang - expected_vel_tang) < 1e-10 * ureg.meter / ureg.second
-    
+
     @pytest.mark.parametrize("radio, vel_ang_inicial, expected_acc_centripeta", [
         # With units
         (10 * ureg.meter, 2 * ureg.radian / ureg.second, 40 * ureg.meter / ureg.second**2),
@@ -91,7 +91,7 @@ class TestMCUParametrized:
 
 class TestMCUVParametrized:
     """Parametrized tests for MCUV (Uniformly Accelerated Circular Motion)."""
-    
+
     @pytest.mark.parametrize("radio, pos_ang_inicial, vel_ang_inicial, acc_ang", [
         # With units
         (10 * ureg.meter, 0 * ureg.radian, 2 * ureg.radian / ureg.second, 1 * ureg.radian / ureg.second**2),
@@ -110,13 +110,13 @@ class TestMCUVParametrized:
             velocidad_angular_inicial=vel_ang_inicial,
             aceleracion_angular_inicial=acc_ang
         )
-        
+
         # Check that values are properly converted to units
         expected_radio = radio if hasattr(radio, 'units') else radio * ureg.meter
         expected_pos = pos_ang_inicial if hasattr(pos_ang_inicial, 'units') else pos_ang_inicial * ureg.radian
         expected_vel = vel_ang_inicial if hasattr(vel_ang_inicial, 'units') else vel_ang_inicial * ureg.radian / ureg.second
         expected_acc = acc_ang if hasattr(acc_ang, 'units') else acc_ang * ureg.radian / ureg.second**2
-        
+
         assert mcuv.radio == expected_radio
         assert mcuv.posicion_angular_inicial == expected_pos
         assert mcuv.velocidad_angular_inicial == expected_vel
@@ -125,7 +125,7 @@ class TestMCUVParametrized:
 
 class TestCircularMotionUnitConversions:
     """Parametrized tests for unit conversions in circular motion."""
-    
+
     @pytest.mark.parametrize("radio_mm, vel_ang_rpm", [
         (1000, 60),  # 1m radius, 60 RPM
         (500, 120),  # 0.5m radius, 120 RPM
@@ -135,16 +135,16 @@ class TestCircularMotionUnitConversions:
         """Test MCU with different unit systems (mm, RPM)."""
         # Convert RPM to rad/s: RPM * 2π / 60
         vel_ang_rad_s = vel_ang_rpm * 2 * math.pi / 60
-        
+
         mcu = MovimientoCircularUniforme(
             radio=radio_mm * ureg.millimeter,
             posicion_angular_inicial=0 * ureg.radian,
             velocidad_angular_inicial=vel_ang_rpm * ureg.revolution / ureg.minute
         )
-        
+
         # Check that internal conversion works
         assert mcu.radio.to(ureg.meter).magnitude == radio_mm / 1000
-        
+
         # Tangential velocity should be consistent
         vel_tang = mcu.velocidad_tangencial()
         expected_vel_tang = (radio_mm / 1000) * vel_ang_rad_s * ureg.meter / ureg.second
@@ -153,7 +153,7 @@ class TestCircularMotionUnitConversions:
 
 class TestCircularMotionEdgeCases:
     """Parametrized tests for circular motion edge cases."""
-    
+
     @pytest.mark.parametrize("tiempo", [
         -1 * ureg.second,
         -5 * ureg.second,
@@ -168,7 +168,7 @@ class TestCircularMotionEdgeCases:
         )
         with pytest.raises(ValueError, match="El tiempo no puede ser negativo"):
             mcu.posicion_angular(tiempo)
-    
+
     @pytest.mark.parametrize("radio", [
         -1 * ureg.meter,
         -5 * ureg.meter,
@@ -182,7 +182,7 @@ class TestCircularMotionEdgeCases:
                 posicion_angular_inicial=0 * ureg.radian,
                 velocidad_angular_inicial=2 * ureg.radian / ureg.second
             )
-    
+
     @pytest.mark.parametrize("radio, vel_ang, tiempo_values", [
         (1, 0, [0, 1, 5, 10]),  # Zero angular velocity
         (10, 1, [0, math.pi, 2*math.pi, 4*math.pi]),  # Multiple revolutions
@@ -195,7 +195,7 @@ class TestCircularMotionEdgeCases:
             posicion_angular_inicial=0 * ureg.radian,
             velocidad_angular_inicial=vel_ang * ureg.radian / ureg.second
         )
-        
+
         for t in tiempo_values:
             pos_ang = mcu.posicion_angular(t * ureg.second)
             expected_pos = vel_ang * t * ureg.radian

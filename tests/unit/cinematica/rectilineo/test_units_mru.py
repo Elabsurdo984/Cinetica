@@ -7,7 +7,7 @@ from cinetica.units import ureg, Q_
 
 class TestMRUParametrized:
     """Parametrized tests for MRU with different unit configurations."""
-    
+
     @pytest.mark.parametrize("pos_inicial, vel_inicial, tiempo, expected_pos", [
         # With units
         (10 * ureg.meter, 5 * ureg.meter / ureg.second, 2 * ureg.second, 20 * ureg.meter),
@@ -21,12 +21,12 @@ class TestMRUParametrized:
     def test_mru_posicion_parametrized(self, pos_inicial, vel_inicial, tiempo, expected_pos):
         """Test MRU position calculation with various parameters."""
         mru = MovimientoRectilineoUniforme(
-            posicion_inicial=pos_inicial, 
+            posicion_inicial=pos_inicial,
             velocidad_inicial=vel_inicial
         )
         pos = mru.posicion(tiempo)
         assert pos == expected_pos
-    
+
     @pytest.mark.parametrize("pos_inicial, vel_inicial, expected_vel", [
         # With units
         (10 * ureg.meter, 5 * ureg.meter / ureg.second, 5 * ureg.meter / ureg.second),
@@ -45,7 +45,7 @@ class TestMRUParametrized:
         )
         vel = mru.velocidad()
         assert vel == expected_vel
-    
+
     @pytest.mark.parametrize("pos_inicial, vel_inicial", [
         # With units
         (10 * ureg.meter, 5 * ureg.meter / ureg.second),
@@ -66,7 +66,7 @@ class TestMRUParametrized:
 
 class TestMRUUnitConversions:
     """Parametrized tests for unit conversions in MRU."""
-    
+
     @pytest.mark.parametrize("pos_inicial, vel_inicial, tiempo, pos_unit, vel_unit, time_unit", [
         # Different length units
         (1000 * ureg.millimeter, 2 * ureg.meter / ureg.second, 1 * ureg.second, ureg.millimeter, ureg.meter / ureg.second, ureg.second),
@@ -79,11 +79,11 @@ class TestMRUUnitConversions:
             posicion_inicial=pos_inicial,
             velocidad_inicial=vel_inicial
         )
-        
+
         # Position calculation should work with mixed units
         pos = mru.posicion(tiempo)
         assert pos.dimensionality == ureg.meter.dimensionality
-        
+
         # Velocity should maintain its units
         vel = mru.velocidad()
         assert vel.dimensionality == (ureg.meter / ureg.second).dimensionality
@@ -91,7 +91,7 @@ class TestMRUUnitConversions:
 
 class TestMRUEdgeCases:
     """Parametrized tests for MRU edge cases."""
-    
+
     @pytest.mark.parametrize("tiempo", [
         -1 * ureg.second,
         -5 * ureg.second,
@@ -107,7 +107,7 @@ class TestMRUEdgeCases:
         pos = mru.posicion(tiempo)
         expected = 10 * ureg.meter + 5 * ureg.meter / ureg.second * tiempo
         assert pos == expected
-    
+
     @pytest.mark.parametrize("pos_inicial, vel_inicial, tiempo_values", [
         (0, 0, [0, 1, 5, 10]),  # Zero initial conditions
         (100, 0, [0, 1, 5, 10]),  # Zero velocity
@@ -119,7 +119,7 @@ class TestMRUEdgeCases:
             posicion_inicial=pos_inicial * ureg.meter,
             velocidad_inicial=vel_inicial * ureg.meter / ureg.second
         )
-        
+
         for t in tiempo_values:
             pos = mru.posicion(t * ureg.second)
             expected = (pos_inicial + vel_inicial * t) * ureg.meter

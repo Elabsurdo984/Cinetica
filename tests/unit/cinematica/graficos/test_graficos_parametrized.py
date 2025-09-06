@@ -31,16 +31,16 @@ class TestPlottingParametrized:
         mock_fig = Mock()
         mock_axs = [Mock(), Mock()]  # Array of mock axes for subplots
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         # Create MRU object
         mru = MovimientoRectilineoUniforme(
             posicion_inicial=pos_inicial * ureg.meter,
             velocidad_inicial=vel_inicial * ureg.meter / ureg.second
         )
-        
+
         # Call plotting function
         plot_mru(mru, tiempo_max * ureg.second, num_puntos)
-        
+
         # Verify that subplots were created and plotting functions were called
         mock_plt.subplots.assert_called_once()
         mock_plt.show.assert_called_once()
@@ -58,17 +58,17 @@ class TestPlottingParametrized:
         mock_fig = Mock()
         mock_axs = [Mock(), Mock(), Mock()]  # Array of mock axes for 3 subplots
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         # Create MRUV object
         mruv = MovimientoRectilineoUniformementeVariado(
             posicion_inicial=pos_inicial * ureg.meter,
             velocidad_inicial=vel_inicial * ureg.meter / ureg.second,
             aceleracion_inicial=aceleracion * ureg.meter / ureg.second**2
         )
-        
+
         # Call plotting function
         plot_mruv(mruv, tiempo_max * ureg.second)
-        
+
         # Verify that subplots were created and plotting functions were called
         mock_plt.subplots.assert_called_once()
         mock_plt.show.assert_called_once()
@@ -86,17 +86,17 @@ class TestPlottingParametrized:
         mock_fig = Mock()
         mock_axs = [Mock(), Mock(), Mock()]  # Array of mock axes for 3 subplots
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         # Create MCU object
         mcu = MovimientoCircularUniforme(
             radio=radio * ureg.meter,
             posicion_angular_inicial=0 * ureg.radian,
             velocidad_angular_inicial=vel_angular * ureg.radian / ureg.second
         )
-        
+
         # Call plotting function
         plot_mcu(mcu, tiempo_max * ureg.second, num_points)
-        
+
         # Verify that subplots were created and plotting functions were called
         # MCU plotting creates one subplot figure and one standalone figure
         mock_plt.subplots.assert_called_once()
@@ -117,19 +117,19 @@ class TestPlottingParametrized:
         mock_fig = Mock()
         mock_axs = Mock()  # Single axis for spatial motion plot
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         # Create spatial movement object (ensure 3D vectors)
         posicion_inicial = [0, 0, 0]  # Always 3D
         velocidad_inicial = velocidad_components  # Already 3D from parametrize
-        
+
         espacial = MovimientoEspacial(
             posicion_inicial=posicion_inicial,
             velocidad_inicial=velocidad_inicial
         )
-        
+
         # Call plotting function
         plot_movimiento_espacial(espacial, tiempo_max * ureg.second)
-        
+
         # Verify that figure was created and plotting functions were called
         mock_plt.figure.assert_called_once()
         mock_plt.show.assert_called_once()
@@ -149,7 +149,7 @@ class TestPlottingErrorHandling:
             posicion_inicial=0 * ureg.meter,
             velocidad_inicial=5 * ureg.meter / ureg.second
         )
-        
+
         with pytest.raises(expected_error):
             plot_mru(mru, tiempo_max * ureg.second)
 
@@ -163,12 +163,12 @@ class TestPlottingErrorHandling:
         mock_fig = Mock()
         mock_axs = [Mock(), Mock()]  # Array of mock axes for subplots
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         mru = MovimientoRectilineoUniforme(
             posicion_inicial=0 * ureg.meter,
             velocidad_inicial=5 * ureg.meter / ureg.second
         )
-        
+
         with pytest.raises(expected_error):
             plot_mru(mru, 5 * ureg.second, num_puntos)
 
@@ -188,13 +188,13 @@ class TestPlottingStyleConfiguration:
         """Test style configuration with various parameters."""
         # Mock rcParams as a dictionary
         mock_plt.rcParams = {}
-        
+
         # Call configuration function
         configurar_estilo_grafico()
-        
+
         # Verify style.use was called
         mock_plt.style.use.assert_called_once_with("seaborn-v0_8-darkgrid")
-        
+
         # Verify rcParams were set
         expected_params = {
             "figure.figsize": [10, 6],
@@ -206,7 +206,7 @@ class TestPlottingStyleConfiguration:
             "font.size": 10,
             "axes.titlesize": 11,
         }
-        
+
         for key, value in expected_params.items():
             assert mock_plt.rcParams[key] == value
 
@@ -227,16 +227,16 @@ class TestPlottingDataValidation:
         mock_fig = Mock()
         mock_axs = [Mock(), Mock()]  # Array of mock axes for subplots
         mock_plt.subplots.return_value = (mock_fig, mock_axs)
-        
+
         pos_inicial, vel_inicial = motion_params
         mru = MovimientoRectilineoUniforme(
             posicion_inicial=pos_inicial * ureg.meter,
             velocidad_inicial=vel_inicial * ureg.meter / ureg.second
         )
-        
+
         # Call plotting function
         plot_mru(mru, tiempo_max * ureg.second, expected_data_points)
-        
+
         # Verify that subplots were created and plotting functions were called
         mock_plt.subplots.assert_called_once()
         mock_plt.show.assert_called_once()
@@ -253,18 +253,18 @@ class TestPlottingDataValidation:
             posicion_angular_inicial=0 * ureg.radian,
             velocidad_angular_inicial=vel_angular * ureg.radian / ureg.second
         )
-        
+
         for t in tiempo_values:
             # Angular position should follow θ = ω*t
             pos_angular = mcu.posicion_angular(t * ureg.second)
             expected_pos = vel_angular * t * ureg.radian
             assert abs(pos_angular - expected_pos) < 1e-10 * ureg.radian
-            
+
             # Tangential velocity should be constant: v = ω*r
             vel_tangencial = mcu.velocidad_tangencial()
             expected_vel = vel_angular * radio * ureg.meter / ureg.second
             assert abs(vel_tangencial - expected_vel) < 1e-10 * ureg.meter / ureg.second
-            
+
             # Centripetal acceleration should be constant: a = ω²*r
             acc_centripeta = mcu.aceleracion_centripeta()
             expected_acc = vel_angular**2 * radio * ureg.meter / ureg.second**2

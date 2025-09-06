@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.17.0 - 2025-09-06
+
+### Added
+- **Property-based testing with Hypothesis** - Implemented comprehensive property-based testing throughout the physics library:
+  - **MRU property tests** - Automated validation of uniform linear motion properties (position linearity, constant velocity, zero acceleration)
+  - **MRUV property tests** - Extensive property verification for uniformly accelerated motion (kinematic equations, energy conservation, time reversal symmetry)
+  - **MCU property tests** - Circular motion property validation (angular position linearity, velocity perpendicularity, energy conservation, period-frequency relationships)
+  - **Spatial motion property tests** - 3D motion property verification (vector kinematics, superposition principle, energy-work theorem)
+  - **Physics law validation** - Automatic verification of fundamental physics principles across wide parameter ranges
+  - **Edge case discovery** - Hypothesis automatically finds corner cases and boundary conditions
+
+### Enhanced
+- **Test robustness** - Property-based tests verify physics laws across automatically generated input scenarios
+- **Coverage expansion** - Each property test validates hundreds of parameter combinations automatically
+- **Physics accuracy** - Ensures implementations respect fundamental physics principles and invariants
+- **Regression protection** - Any future changes breaking physics laws will be immediately detected
+
+### Technical
+- **Hypothesis integration** - Added hypothesis>=6.0.0 dependency for property-based testing
+- **39 property-based tests** - Comprehensive test suite covering all major physics modules
+- **Automatic test case generation** - Hypothesis strategies generate diverse, realistic physics scenarios
+- **Numerical precision handling** - Proper tolerance management for floating-point physics calculations
+- **Units consistency validation** - Property tests verify dimensional correctness across all calculations
+
+### Infrastructure
+- **Updated .gitignore** - Added .hypothesis/ directory to ignore Hypothesis database files
+- **Test organization** - Property-based tests organized in tests/property/ directory structure
+- **Version management** - Updated to 0.17.0 reflecting major testing infrastructure improvements
+
 ## 0.16.0 - 2025-09-06
 
 ### Added

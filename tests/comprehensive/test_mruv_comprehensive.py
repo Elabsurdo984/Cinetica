@@ -204,7 +204,7 @@ class TestMRUVVelocidadSinTiempo:
             velocidad_inicial=5,
             aceleracion_inicial=2
         )
-        
+
         vel = mruv.velocidad_sin_tiempo(16)
         # Using v² = v₀² + 2a(x - x₀): v² = 5² + 2(2)(16) = 25 + 64 = 89, so v = √89
         expected = math.sqrt(89) * ureg.meter / ureg.second

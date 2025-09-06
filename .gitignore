@@ -25,3 +25,6 @@ venv/
 # More
 .coverage
 .mypy
+
+# Hypothesis
+.hypothesis/
