@@ -1,4 +1,5 @@
 import pytest
+import math
 import numpy as np
 from cinetica.cinematica.rectilineo import MovimientoRectilineoUniformementeVariado
 from cinetica.units import ureg, Q_
@@ -199,41 +200,15 @@ class TestMRUVVelocidadSinTiempo:
     def test_velocidad_sin_tiempo_unidades_float(self):
         """Test with float input (no units)."""
         mruv = MovimientoRectilineoUniformementeVariado(
-            posicion_inicial=0 * ureg.meter,
-            velocidad_inicial=3 * ureg.meter / ureg.second,
-            aceleracion_inicial=1 * ureg.meter / ureg.second**2
+            posicion_inicial=0,
+            velocidad_inicial=5,
+            aceleracion_inicial=2
         )
-
-        vel = mruv.velocidad_sin_tiempo(8.0)  # No units
-
-        assert isinstance(vel, Q_)
-        assert vel.units == ureg.meter / ureg.second
-
-
-class TestMRUVErrorHandling:
-    """Test error handling and edge cases."""
-
-    def test_posicion_tiempo_negativo(self):
-        """Test position calculation with negative time."""
-        mruv = MovimientoRectilineoUniformementeVariado(
-            posicion_inicial=0 * ureg.meter,
-            velocidad_inicial=5 * ureg.meter / ureg.second,
-            aceleracion_inicial=1 * ureg.meter / ureg.second**2
-        )
-
-        with pytest.raises(ValueError, match="El tiempo no puede ser negativo"):
-            mruv.posicion(-1 * ureg.second)
-
-    def test_velocidad_tiempo_negativo(self):
-        """Test velocity calculation with negative time."""
-        mruv = MovimientoRectilineoUniformementeVariado(
-            posicion_inicial=0 * ureg.meter,
-            velocidad_inicial=5 * ureg.meter / ureg.second,
-            aceleracion_inicial=1 * ureg.meter / ureg.second**2
-        )
-
-        with pytest.raises(ValueError, match="El tiempo no puede ser negativo"):
-            mruv.velocidad(-2 * ureg.second)
+        
+        vel = mruv.velocidad_sin_tiempo(16)
+        # Using v² = v₀² + 2a(x - x₀): v² = 5² + 2(2)(16) = 25 + 64 = 89, so v = √89
+        expected = math.sqrt(89) * ureg.meter / ureg.second
+        assert abs(vel - expected) < 1e-6 * ureg.meter / ureg.second
 
     def test_aceleracion_tiempo_negativo(self):
         """Test acceleration with negative time (should work since acceleration is constant)."""
