@@ -2,6 +2,7 @@
 Módulo que implementa el Movimiento Rectilíneo Uniforme (MRU)
 """
 
+from typing import Union, Optional
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
@@ -10,7 +11,7 @@ class MovimientoRectilineoUniforme(Movimiento):
     Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme (MRU).
     """
 
-    def __init__(self, posicion_inicial: Q_ = 0.0 * ureg.meter, velocidad_inicial: Q_ = 0.0 * ureg.meter / ureg.second):
+    def __init__(self, posicion_inicial: Union[float, Q_] = 0.0 * ureg.meter, velocidad_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second) -> None:
         """
         Inicializa el objeto MovimientoRectilineoUniforme con condiciones iniciales.
 
@@ -26,7 +27,7 @@ class MovimientoRectilineoUniforme(Movimiento):
         self.posicion_inicial = posicion_inicial
         self.velocidad_inicial = velocidad_inicial
 
-    def posicion(self, tiempo: Q_) -> Q_:
+    def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición en MRU.
         Ecuación: x = x0 + v * t
@@ -41,7 +42,7 @@ class MovimientoRectilineoUniforme(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         return self.posicion_inicial + self.velocidad_inicial * tiempo
 
-    def velocidad(self, tiempo: Q_ = None) -> Q_:
+    def velocidad(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Obtiene la velocidad en MRU.
         En MRU la velocidad es constante.
@@ -54,7 +55,7 @@ class MovimientoRectilineoUniforme(Movimiento):
         """
         return self.velocidad_inicial
 
-    def aceleracion(self, tiempo: Q_ = None) -> Q_:
+    def aceleracion(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Obtiene la aceleración en MRU.
         En MRU la aceleración es siempre 0.

@@ -1,4 +1,5 @@
 import math
+from typing import Union, Optional
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
@@ -7,7 +8,7 @@ class MovimientoArmonicoSimple(Movimiento):
     Clase para calcular la posición, velocidad y aceleración en un Movimiento Armónico Simple (M.A.S.).
     """
 
-    def __init__(self, amplitud: Q_, frecuencia_angular: Q_, fase_inicial: Q_ = 0 * ureg.radian):
+    def __init__(self, amplitud: Union[float, Q_], frecuencia_angular: Union[float, Q_], fase_inicial: Union[float, Q_] = 0 * ureg.radian) -> None:
         """
         Inicializa el objeto de Movimiento Armónico Simple.
 
@@ -31,7 +32,7 @@ class MovimientoArmonicoSimple(Movimiento):
         self.frecuencia_angular = frecuencia_angular
         self.fase_inicial = fase_inicial
 
-    def posicion(self, tiempo: Q_) -> Q_:
+    def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición (x) en un tiempo dado.
 
@@ -44,7 +45,7 @@ class MovimientoArmonicoSimple(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         return self.amplitud * math.cos((self.frecuencia_angular * tiempo + self.fase_inicial).to(ureg.radian).magnitude)
 
-    def velocidad(self, tiempo: Q_) -> Q_:
+    def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la velocidad (v) en un tiempo dado.
 
@@ -57,7 +58,7 @@ class MovimientoArmonicoSimple(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         return -self.amplitud * self.frecuencia_angular * math.sin((self.frecuencia_angular * tiempo + self.fase_inicial).to(ureg.radian).magnitude)
 
-    def aceleracion(self, tiempo: Q_) -> Q_:
+    def aceleracion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la aceleración (a) en un tiempo dado.
 
@@ -90,7 +91,7 @@ class MovimientoArmonicoSimple(Movimiento):
         """
         return self.frecuencia_angular / (2 * math.pi * ureg.radian)
 
-    def energia_cinetica(self, tiempo: Q_, masa: Q_) -> Q_:
+    def energia_cinetica(self, tiempo: Union[float, Q_], masa: Union[float, Q_]) -> Q_:
         """
         Calcula la energía cinética (Ec) en un tiempo dado.
 
@@ -109,7 +110,7 @@ class MovimientoArmonicoSimple(Movimiento):
             raise ValueError("La masa debe ser un valor positivo.")
         return 0.5 * masa * (self.velocidad(tiempo) ** 2)
 
-    def energia_potencial(self, tiempo: Q_, constante_elastica: Q_) -> Q_:
+    def energia_potencial(self, tiempo: Union[float, Q_], constante_elastica: Union[float, Q_]) -> Q_:
         """
         Calcula la energía potencial elástica (Ep) en un tiempo dado.
 
@@ -128,7 +129,7 @@ class MovimientoArmonicoSimple(Movimiento):
             raise ValueError("La constante elástica debe ser un valor positivo.")
         return 0.5 * constante_elastica * (self.posicion(tiempo) ** 2)
 
-    def energia_total(self, masa: Q_, constante_elastica: Q_) -> Q_:
+    def energia_total(self, masa: Union[float, Q_], constante_elastica: Union[float, Q_]) -> Q_:
         """
         Calcula la energía mecánica total (E) del sistema.
 

@@ -1,4 +1,5 @@
 import math
+from typing import Union, Optional
 import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
@@ -8,8 +9,8 @@ class MovimientoCircularUniformementeVariado(Movimiento):
     Clase para calcular y simular Movimiento Circular Uniformemente Variado (MCUV).
     """
 
-    def __init__(self, radio: Q_, posicion_angular_inicial: Q_ = 0.0 * ureg.radian,
-                 velocidad_angular_inicial: Q_ = 0.0 * ureg.radian / ureg.second, aceleracion_angular_inicial: Q_ = 0.0 * ureg.radian / ureg.second**2):
+    def __init__(self, radio: Union[float, Q_], posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian,
+                 velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second, aceleracion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second**2) -> None:
         """
         Inicializa el objeto MovimientoCircularUniformementeVariado con las condiciones iniciales.
 
@@ -39,7 +40,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         self.velocidad_angular_inicial = velocidad_angular_inicial
         self.aceleracion_angular_inicial = aceleracion_angular_inicial
 
-    def posicion_angular(self, tiempo: Q_) -> Q_:
+    def posicion_angular(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición angular en función del tiempo.
         θ = θ₀ + ω₀ * t + (1/2) * α * t²

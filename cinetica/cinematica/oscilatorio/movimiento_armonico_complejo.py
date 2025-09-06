@@ -5,6 +5,7 @@ Este módulo define clases y funciones para simular y analizar el movimiento
 armónico complejo, que es la superposición de varios movimientos armónicos simples.
 """
 
+from typing import List, Dict, Union, Optional, Any
 import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
@@ -14,7 +15,7 @@ class MovimientoArmonicoComplejo(Movimiento):
     Representa un Movimiento Armónico Complejo (MAC) como la superposición
     de múltiples Movimientos Armónicos Simples (MAS).
     """
-    def __init__(self, mas_components: list):
+    def __init__(self, mas_components: List[Dict[str, Union[float, Q_]]]) -> None:
         """
         Inicializa un objeto de Movimiento Armónico Complejo.
 
@@ -57,7 +58,7 @@ class MovimientoArmonicoComplejo(Movimiento):
 
         self.mas_components = processed_components
 
-    def posicion(self, tiempo: Q_) -> Q_:
+    def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición del objeto en un tiempo dado para el MAC.
 
@@ -78,7 +79,7 @@ class MovimientoArmonicoComplejo(Movimiento):
             posicion_total += A * np.cos((omega * tiempo + phi).to(ureg.radian).magnitude)
         return posicion_total
 
-    def velocidad(self, tiempo: Q_) -> Q_:
+    def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la velocidad del objeto en un tiempo dado para el MAC.
 
@@ -99,7 +100,7 @@ class MovimientoArmonicoComplejo(Movimiento):
             velocidad_total += -A * omega * np.sin((omega * tiempo + phi).to(ureg.radian).magnitude)
         return velocidad_total
 
-    def aceleracion(self, tiempo: Q_) -> Q_:
+    def aceleracion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la aceleración del objeto en un tiempo dado para el MAC.
 

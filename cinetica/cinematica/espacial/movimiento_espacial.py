@@ -1,3 +1,4 @@
+from typing import Union, Optional
 import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
@@ -9,9 +10,9 @@ class MovimientoEspacial(Movimiento):
     """
 
     def __init__(self,
-                 posicion_inicial: Q_ = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter),
-                 velocidad_inicial: Q_ = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter / ureg.second),
-                 aceleracion_constante: Q_ = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter / ureg.second**2)):
+                 posicion_inicial: Union[np.ndarray, Q_] = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter),
+                 velocidad_inicial: Union[np.ndarray, Q_] = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter / ureg.second),
+                 aceleracion_constante: Union[np.ndarray, Q_] = Q_(np.array([0.0, 0.0, 0.0]), ureg.meter / ureg.second**2)) -> None:
         """
         Inicializa el objeto MovimientoEspacial con vectores de condiciones iniciales.
 
@@ -37,7 +38,7 @@ class MovimientoEspacial(Movimiento):
         self.velocidad_inicial = velocidad_inicial
         self.aceleracion_constante = aceleracion_constante
 
-    def graficar(self, t_max: Q_ = 10.0 * ureg.second, num_points: int = 100):
+    def graficar(self, t_max: Union[float, Q_] = 10.0 * ureg.second, num_points: int = 100) -> None:
         """
         Grafica la trayectoria del movimiento en 3D.
 
@@ -62,7 +63,7 @@ class MovimientoEspacial(Movimiento):
         ax.set_title('Trayectoria en 3D')
         plt.show()
 
-    def posicion(self, tiempo: Q_) -> Q_:
+    def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula el vector de posición en un tiempo dado.
         Ecuación: r = r0 + v0 * t + 0.5 * a * t^2
@@ -82,7 +83,7 @@ class MovimientoEspacial(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo + 0.5 * self.aceleracion_constante * (tiempo ** 2)
 
-    def velocidad(self, tiempo: Q_) -> Q_:
+    def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula el vector de velocidad en un tiempo dado.
         Ecuación: v = v0 + a * t
@@ -102,7 +103,7 @@ class MovimientoEspacial(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_constante * tiempo
 
-    def aceleracion(self, tiempo: Q_ = None) -> Q_:
+    def aceleracion(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Retorna el vector de aceleración (es constante).
         Ecuación: a = a_constante
@@ -125,7 +126,7 @@ class MovimientoEspacial(Movimiento):
         """
         return Q_(np.linalg.norm(self.aceleracion_constante.magnitude), self.aceleracion_constante.units)
 
-    def magnitud_velocidad(self, tiempo: Q_) -> Q_:
+    def magnitud_velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la magnitud de la velocidad en un tiempo dado.
 

@@ -1,4 +1,5 @@
 import math
+from typing import Union, Optional
 import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
@@ -8,7 +9,7 @@ class MovimientoCircularUniforme(Movimiento):
     Clase para calcular y simular Movimiento Circular Uniforme (MCU).
     """
 
-    def __init__(self, radio: Q_, posicion_angular_inicial: Q_ = 0.0 * ureg.radian, velocidad_angular_inicial: Q_ = 0.0 * ureg.radian / ureg.second):
+    def __init__(self, radio: Union[float, Q_], posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian, velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second) -> None:
         """
         Inicializa el objeto MovimientoCircularUniforme con las condiciones iniciales.
 
@@ -34,7 +35,7 @@ class MovimientoCircularUniforme(Movimiento):
         self.posicion_angular_inicial = posicion_angular_inicial
         self.velocidad_angular_inicial = velocidad_angular_inicial
 
-    def posicion_angular(self, tiempo: Q_) -> Q_:
+    def posicion_angular(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición angular en función del tiempo.
         θ = θ₀ + ω * t
@@ -54,7 +55,7 @@ class MovimientoCircularUniforme(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_angular_inicial + self.velocidad_angular_inicial * tiempo
 
-    def velocidad_angular(self, tiempo: Q_ = None) -> Q_:
+    def velocidad_angular(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Obtiene la velocidad angular (constante en MCU).
 
@@ -66,7 +67,7 @@ class MovimientoCircularUniforme(Movimiento):
         """
         return self.velocidad_angular_inicial
 
-    def velocidad_tangencial(self, tiempo: Q_ = None) -> Q_:
+    def velocidad_tangencial(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Calcula la velocidad tangencial.
         v = ω * R
@@ -79,7 +80,7 @@ class MovimientoCircularUniforme(Movimiento):
         """
         return self.velocidad_angular_inicial * self.radio
 
-    def aceleracion_centripeta(self, tiempo: Q_ = None) -> Q_:
+    def aceleracion_centripeta(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Calcula la aceleración centrípeta.
         aₙ = ω² * R = v² / R
@@ -92,7 +93,7 @@ class MovimientoCircularUniforme(Movimiento):
         """
         return self.velocidad_angular_inicial**2 * self.radio
 
-    def posicion(self, tiempo: Q_) -> np.ndarray:
+    def posicion(self, tiempo: Union[float, Q_]) -> np.ndarray:
         """
         Calcula la posición (x, y) del objeto en un tiempo dado.
 
@@ -111,7 +112,7 @@ class MovimientoCircularUniforme(Movimiento):
         y = self.radio * math.sin(theta)
         return Q_(np.array([x.magnitude, y.magnitude]), ureg.meter)
 
-    def velocidad(self, tiempo: Q_) -> Q_:
+    def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la velocidad (vx, vy) del objeto en un tiempo dado.
 
@@ -131,7 +132,7 @@ class MovimientoCircularUniforme(Movimiento):
         vy = omega * self.radio.to(ureg.meter).magnitude * math.cos(theta)
         return Q_(np.array([vx, vy]), ureg.meter / ureg.second)
 
-    def aceleracion(self, tiempo: Q_) -> Q_:
+    def aceleracion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la aceleración (ax, ay) del objeto en un tiempo dado (aceleración centrípeta).
 

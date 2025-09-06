@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.12.0 - 2025-09-06
+
+### Added
+- **Type hints completos** en toda la API de la librería para mejor soporte de IDEs y detección temprana de errores
+- **Configuración de mypy** con archivo `mypy.ini` para validación estática de tipos
+- **Dependencias de desarrollo** en `pyproject.toml` incluyendo mypy, pytest, black, flake8, y pre-commit
+- **Sistema de tipos robusto** usando `TYPE_CHECKING` para compatibilidad con herramientas de análisis estático
+
+### Changed
+- **Mejorados todos los módulos** con type hints profesionales:
+  - `units.py` - Sistema de tipos base con TypeAlias para Quantity
+  - `base_movimiento.py` - Clase abstracta con tipos Union para flexibilidad
+  - Módulos de movimiento rectilíneo (MRU/MRUV) con tipos Optional y Union
+  - Módulos de movimiento circular (MCU/MCUV) con tipos para vectores numpy
+  - Módulo de movimiento espacial con tipos para arrays 3D
+  - Módulos de movimiento armónico (simple y complejo) con tipos para listas y diccionarios
+  - Módulo de movimiento relativo con tipos para vectores de velocidad
+- **Documentación mejorada** con docstrings que incluyen información de tipos en formato NumPy
+- **Compatibilidad mejorada** con herramientas de desarrollo modernas
+
+### Technical
+- **157 tests pasando** sin errores después de la implementación de type hints
+- **Configuración de mypy** balanceada entre strictness y practicidad
+- **Soporte completo para pint.Quantity** en el sistema de tipos
+- **Validación automática** de tipos en tiempo de desarrollo
+
 ## 0.11.0 - 2025-09-05
 
 ### Added

@@ -1,3 +1,4 @@
+from typing import Union, Optional
 import numpy as np
 from ...units import ureg, Q_
 
@@ -7,7 +8,7 @@ class MovimientoRelativo:
     Permite trabajar con vectores de velocidad en 2D o 3D.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Inicializa la clase MovimientoRelativo.
         No requiere parámetros iniciales ya que los vectores de velocidad
@@ -15,7 +16,7 @@ class MovimientoRelativo:
         """
         pass
 
-    def velocidad_relativa(self, velocidad_objeto_a: Q_, velocidad_objeto_b: Q_) -> Q_:
+    def velocidad_relativa(self, velocidad_objeto_a: Union[np.ndarray, Q_], velocidad_objeto_b: Union[np.ndarray, Q_]) -> Q_:
         """
         Calcula la velocidad del objeto A con respecto al objeto B (V_A/B).
         V_A/B = V_A - V_B
@@ -35,7 +36,7 @@ class MovimientoRelativo:
 
         return velocidad_objeto_a - velocidad_objeto_b
 
-    def velocidad_absoluta_a(self, velocidad_relativa_ab: Q_, velocidad_objeto_b: Q_) -> Q_:
+    def velocidad_absoluta_a(self, velocidad_relativa_ab: Union[np.ndarray, Q_], velocidad_objeto_b: Union[np.ndarray, Q_]) -> Q_:
         """
         Calcula la velocidad absoluta del objeto A (V_A) dado V_A/B y V_B.
         V_A = V_A/B + V_B
@@ -55,7 +56,7 @@ class MovimientoRelativo:
 
         return velocidad_relativa_ab + velocidad_objeto_b
 
-    def velocidad_absoluta_b(self, velocidad_objeto_a: Q_, velocidad_relativa_ab: Q_) -> Q_:
+    def velocidad_absoluta_b(self, velocidad_objeto_a: Union[np.ndarray, Q_], velocidad_relativa_ab: Union[np.ndarray, Q_]) -> Q_:
         """
         Calcula la velocidad absoluta del objeto B (V_B) dado V_A y V_A/B.
         V_B = V_A - V_A/B
@@ -75,7 +76,7 @@ class MovimientoRelativo:
 
         return velocidad_objeto_a - velocidad_relativa_ab
 
-    def magnitud_velocidad(self, velocidad_vector: Q_) -> Q_:
+    def magnitud_velocidad(self, velocidad_vector: Union[np.ndarray, Q_]) -> Q_:
         """
         Calcula la magnitud de un vector de velocidad.
 
@@ -89,7 +90,7 @@ class MovimientoRelativo:
         magnitude = np.linalg.norm(velocidad_vector.magnitude)
         return Q_(magnitude, velocidad_vector.units)
 
-    def direccion_velocidad(self, velocidad_vector: Q_) -> Q_ | np.ndarray:
+    def direccion_velocidad(self, velocidad_vector: Union[np.ndarray, Q_]) -> Union[Q_, np.ndarray]:
         """
         Calcula la dirección de un vector de velocidad en 2D (ángulo en radianes).
         Para 3D, devuelve el vector unitario.

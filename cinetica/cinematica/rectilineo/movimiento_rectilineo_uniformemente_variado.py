@@ -1,4 +1,5 @@
 import math
+from typing import Union, Optional
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
@@ -7,7 +8,7 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
     Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniformemente Variado (MRUV).
     """
 
-    def __init__(self, posicion_inicial: Q_ = 0.0 * ureg.meter, velocidad_inicial: Q_ = 0.0 * ureg.meter / ureg.second, aceleracion_inicial: Q_ = 0.0 * ureg.meter / ureg.second**2):
+    def __init__(self, posicion_inicial: Union[float, Q_] = 0.0 * ureg.meter, velocidad_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second, aceleracion_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second**2) -> None:
         """
         Inicializa el objeto MovimientoRectilineoUniformementeVariado con condiciones iniciales.
 
@@ -27,7 +28,7 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
         self.velocidad_inicial = velocidad_inicial
         self.aceleracion_inicial = aceleracion_inicial
 
-    def posicion(self, tiempo: Q_) -> Q_:
+    def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la posición en MRUV.
         Ecuación: x = x0 + v0 * t + 0.5 * a * t^2
@@ -47,7 +48,7 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.posicion_inicial + self.velocidad_inicial * tiempo + 0.5 * self.aceleracion_inicial * (tiempo ** 2)
 
-    def velocidad(self, tiempo: Q_) -> Q_:
+    def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
         Calcula la velocidad en MRUV.
         Ecuación: v = v0 + a * t
@@ -67,7 +68,7 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
         return self.velocidad_inicial + self.aceleracion_inicial * tiempo
 
-    def velocidad_sin_tiempo(self, posicion_final: Q_) -> Q_:
+    def velocidad_sin_tiempo(self, posicion_final: Union[float, Q_]) -> Q_:
         """
         Calcula la velocidad usando la ecuación v^2 = v0^2 + 2*a*Δx.
         Esta ecuación es útil cuando no se conoce el tiempo.
@@ -97,7 +98,7 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
         return Q_(math.sqrt(v_squared.magnitude), ureg.meter / ureg.second) * (1 if test_velocity.magnitude >= 0 else -1)
 
 
-    def aceleracion(self, tiempo: Q_ = None) -> Q_:
+    def aceleracion(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
         Calcula la aceleración en MRUV (es constante).
         Ecuación: a = a0
