@@ -6,12 +6,17 @@ from typing import Union, Optional
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
+
 class MovimientoRectilineoUniforme(Movimiento):
     """
     Clase para calcular posición y velocidad en Movimiento Rectilíneo Uniforme (MRU).
     """
 
-    def __init__(self, posicion_inicial: Union[float, Q_] = 0.0 * ureg.meter, velocidad_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second) -> None:
+    def __init__(
+        self,
+        posicion_inicial: Union[float, Q_] = 0.0 * ureg.meter,
+        velocidad_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second,
+    ) -> None:
         """
         Inicializa el objeto MovimientoRectilineoUniforme con condiciones iniciales.
 

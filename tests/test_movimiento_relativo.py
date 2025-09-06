@@ -3,6 +3,7 @@ import numpy as np
 from cinetica.cinematica.relativo.velocidad_relativa import MovimientoRelativo
 from cinetica.units import ureg
 
+
 def test_velocidad_relativa_2d():
     mr = MovimientoRelativo()
     v_a = [10, 0]
@@ -20,6 +21,7 @@ def test_velocidad_relativa_2d():
     v_rel = mr.velocidad_relativa(v_a, v_b)
     assert np.allclose(v_rel.magnitude, [0, -5])
 
+
 def test_velocidad_relativa_3d():
     mr = MovimientoRelativo()
     v_a = [10, 5, 3]
@@ -27,12 +29,14 @@ def test_velocidad_relativa_3d():
     v_rel = mr.velocidad_relativa(v_a, v_b)
     assert np.allclose(v_rel.magnitude, [8, 4, 2])
 
+
 def test_velocidad_relativa_dimension_mismatch():
     mr = MovimientoRelativo()
     v_a = [10, 0]
     v_b = [2, 0, 0]
     with pytest.raises(ValueError):
         mr.velocidad_relativa(v_a, v_b)
+
 
 def test_velocidad_absoluta_a():
     mr = MovimientoRelativo()
@@ -46,6 +50,7 @@ def test_velocidad_absoluta_a():
     v_a = mr.velocidad_absoluta_a(v_rel_ab, v_b)
     assert np.allclose(v_a.magnitude, [10, 5, 3])
 
+
 def test_velocidad_absoluta_b():
     mr = MovimientoRelativo()
     v_a = [10, 0]
@@ -58,6 +63,7 @@ def test_velocidad_absoluta_b():
     v_b = mr.velocidad_absoluta_b(v_a, v_rel_ab)
     assert np.allclose(v_b.magnitude, [2, 3, 2])
 
+
 def test_magnitud_velocidad():
     mr = MovimientoRelativo()
     v = [3, 4]
@@ -69,25 +75,29 @@ def test_magnitud_velocidad():
     v = [0, 0]
     assert mr.magnitud_velocidad(v).magnitude == pytest.approx(0.0)
 
+
 def test_direccion_velocidad_2d():
     mr = MovimientoRelativo()
     v = [1, 0]
     assert mr.direccion_velocidad(v).magnitude == pytest.approx(0.0)
 
     v = [0, 1]
-    assert mr.direccion_velocidad(v).magnitude == pytest.approx(np.pi/2)
+    assert mr.direccion_velocidad(v).magnitude == pytest.approx(np.pi / 2)
 
     v = [-1, 0]
     assert mr.direccion_velocidad(v).magnitude == pytest.approx(np.pi)
 
     v = [0, -1]
-    assert mr.direccion_velocidad(v).magnitude == pytest.approx(-np.pi/2)
+    assert mr.direccion_velocidad(v).magnitude == pytest.approx(-np.pi / 2)
 
     v = [1, 1]
-    assert mr.direccion_velocidad(v).magnitude == pytest.approx(np.pi/4)
+    assert mr.direccion_velocidad(v).magnitude == pytest.approx(np.pi / 4)
 
     v = [0, 0]
-    assert mr.direccion_velocidad(v).magnitude == pytest.approx(0.0) # Opcional: definir comportamiento para vector nulo
+    assert mr.direccion_velocidad(v).magnitude == pytest.approx(
+        0.0
+    )  # Opcional: definir comportamiento para vector nulo
+
 
 def test_direccion_velocidad_3d():
     mr = MovimientoRelativo()
@@ -98,7 +108,7 @@ def test_direccion_velocidad_3d():
     assert np.allclose(mr.direccion_velocidad(v), [0, 1, 0])
 
     v = [1, 1, 1]
-    expected_unit_vector = np.array([1/np.sqrt(3), 1/np.sqrt(3), 1/np.sqrt(3)])
+    expected_unit_vector = np.array([1 / np.sqrt(3), 1 / np.sqrt(3), 1 / np.sqrt(3)])
     assert np.allclose(mr.direccion_velocidad(v), expected_unit_vector)
 
     v = [0, 0, 0]

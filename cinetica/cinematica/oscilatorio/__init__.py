@@ -8,8 +8,4 @@ from .movimiento_armonico_complejo import MovimientoArmonicoComplejo
 # Alias para compatibilidad con los tests
 mac = movimiento_armonico_complejo
 
-__all__ = [
-    'MovimientoArmonicoSimple',
-    'MovimientoArmonicoComplejo',
-    'mac'
-]
+__all__ = ["MovimientoArmonicoSimple", "MovimientoArmonicoComplejo", "mac"]

@@ -1,6 +1,6 @@
 [project]
 name = "cinetica"
-version = "0.12.3"
+version = "0.12.4"
 description = "A Python library for physics modules."
 authors = [
     { name = "Elabsurdo984", email = "matiassfernandez00@gmail.com" },
@@ -47,3 +47,23 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["cinetica", "cinetica.cinematica", "cinetica.cinematica.circular", "cinetica.cinematica.espacial", "cinetica.cinematica.oscilatorio", "cinetica.cinematica.parabolico", "cinetica.cinematica.rectilineo", "cinetica.cinematica.relativo", "cinetica.dinamica", "cinetica.graficos"]
+
+[tool.black]
+line-length = 88
+target-version = ['py313']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

@@ -4,12 +4,18 @@ import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
+
 class MovimientoCircularUniforme(Movimiento):
     """
     Clase para calcular y simular Movimiento Circular Uniforme (MCU).
     """
 
-    def __init__(self, radio: Union[float, Q_], posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian, velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second) -> None:
+    def __init__(
+        self,
+        radio: Union[float, Q_],
+        posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian,
+        velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second,
+    ) -> None:
         """
         Inicializa el objeto MovimientoCircularUniforme con las condiciones iniciales.
 
@@ -17,7 +23,7 @@ class MovimientoCircularUniforme(Movimiento):
             radio (Q_): Radio de la trayectoria circular (m).
             posicion_angular_inicial (Q_): Posición angular inicial (radianes).
             velocidad_angular_inicial (Q_): Velocidad angular inicial (rad/s).
-        
+
         Raises:
             ValueError: Si el radio es menor o igual a cero.
         """
@@ -26,7 +32,9 @@ class MovimientoCircularUniforme(Movimiento):
         if not isinstance(posicion_angular_inicial, Q_):
             posicion_angular_inicial = Q_(posicion_angular_inicial, ureg.radian)
         if not isinstance(velocidad_angular_inicial, Q_):
-            velocidad_angular_inicial = Q_(velocidad_angular_inicial, ureg.radian / ureg.second)
+            velocidad_angular_inicial = Q_(
+                velocidad_angular_inicial, ureg.radian / ureg.second
+            )
 
         if radio.magnitude <= 0:
             raise ValueError("El radio debe ser un valor positivo.")
@@ -45,7 +53,7 @@ class MovimientoCircularUniforme(Movimiento):
 
         Returns:
             Q_: Posición angular (rad).
-        
+
         Raises:
             ValueError: Si el tiempo es negativo.
         """
@@ -126,7 +134,7 @@ class MovimientoCircularUniforme(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        omega = self.velocidad_angular_inicial.to(ureg.radian/ureg.second).magnitude
+        omega = self.velocidad_angular_inicial.to(ureg.radian / ureg.second).magnitude
         theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
         vx = -omega * self.radio.to(ureg.meter).magnitude * math.sin(theta)
         vy = omega * self.radio.to(ureg.meter).magnitude * math.cos(theta)
@@ -146,9 +154,9 @@ class MovimientoCircularUniforme(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        omega = self.velocidad_angular_inicial.to(ureg.radian/ureg.second).magnitude
+        omega = self.velocidad_angular_inicial.to(ureg.radian / ureg.second).magnitude
         theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
-        ac = (omega ** 2) * self.radio.to(ureg.meter).magnitude
+        ac = (omega**2) * self.radio.to(ureg.meter).magnitude
         ax = -ac * math.cos(theta)
         ay = -ac * math.sin(theta)
         return Q_(np.array([ax, ay]), ureg.meter / ureg.second**2)
@@ -163,7 +171,7 @@ class MovimientoCircularUniforme(Movimiento):
         """
         Retorna la magnitud de la aceleración centrípeta constante en MCU.
         """
-        return (self.velocidad_angular_inicial ** 2) * self.radio
+        return (self.velocidad_angular_inicial**2) * self.radio
 
     def periodo(self) -> Q_:
         """
@@ -172,12 +180,14 @@ class MovimientoCircularUniforme(Movimiento):
 
         Returns:
             Q_: Período (s).
-        
+
         Notes:
             Retorna `math.inf * ureg.second` si la velocidad angular inicial es cero.
         """
         if self.velocidad_angular_inicial.magnitude == 0:
-            return math.inf * ureg.second  # Período infinito si la velocidad angular es cero
+            return (
+                math.inf * ureg.second
+            )  # Período infinito si la velocidad angular es cero
         return (2 * math.pi * ureg.radian) / self.velocidad_angular_inicial
 
     def frecuencia(self) -> Q_:
@@ -187,7 +197,7 @@ class MovimientoCircularUniforme(Movimiento):
 
         Returns:
             Q_: Frecuencia (Hz).
-        
+
         Notes:
             Retorna `0.0 * ureg.hertz` si la velocidad angular inicial es cero.
         """

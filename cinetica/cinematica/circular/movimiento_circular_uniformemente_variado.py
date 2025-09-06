@@ -4,13 +4,21 @@ import numpy as np
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
+
 class MovimientoCircularUniformementeVariado(Movimiento):
     """
     Clase para calcular y simular Movimiento Circular Uniformemente Variado (MCUV).
     """
 
-    def __init__(self, radio: Union[float, Q_], posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian,
-                 velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second, aceleracion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second**2) -> None:
+    def __init__(
+        self,
+        radio: Union[float, Q_],
+        posicion_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian,
+        velocidad_angular_inicial: Union[float, Q_] = 0.0 * ureg.radian / ureg.second,
+        aceleracion_angular_inicial: Union[float, Q_] = 0.0
+        * ureg.radian
+        / ureg.second**2,
+    ) -> None:
         """
         Inicializa el objeto MovimientoCircularUniformementeVariado con las condiciones iniciales.
 
@@ -19,7 +27,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
             posicion_angular_inicial (Q_): Posición angular inicial (radianes).
             velocidad_angular_inicial (Q_): Velocidad angular inicial (rad/s).
             aceleracion_angular_inicial (Q_): Aceleración angular inicial (rad/s^2).
-        
+
         Raises:
             ValueError: Si el radio es menor o igual a cero.
         """
@@ -28,9 +36,13 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         if not isinstance(posicion_angular_inicial, Q_):
             posicion_angular_inicial = Q_(posicion_angular_inicial, ureg.radian)
         if not isinstance(velocidad_angular_inicial, Q_):
-            velocidad_angular_inicial = Q_(velocidad_angular_inicial, ureg.radian / ureg.second)
+            velocidad_angular_inicial = Q_(
+                velocidad_angular_inicial, ureg.radian / ureg.second
+            )
         if not isinstance(aceleracion_angular_inicial, Q_):
-            aceleracion_angular_inicial = Q_(aceleracion_angular_inicial, ureg.radian / ureg.second**2)
+            aceleracion_angular_inicial = Q_(
+                aceleracion_angular_inicial, ureg.radian / ureg.second**2
+            )
 
         if radio.magnitude <= 0:
             raise ValueError("El radio debe ser un valor positivo.")
@@ -50,7 +62,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
 
         Returns:
             Q_: Posición angular (rad).
-        
+
         Raises:
             ValueError: Si el tiempo es negativo.
         """
@@ -59,9 +71,9 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
         return (
-            self.posicion_angular_inicial +
-            self.velocidad_angular_inicial * tiempo +
-            0.5 * self.aceleracion_angular_inicial * tiempo**2
+            self.posicion_angular_inicial
+            + self.velocidad_angular_inicial * tiempo
+            + 0.5 * self.aceleracion_angular_inicial * tiempo**2
         )
 
     def velocidad_angular(self, tiempo: Q_) -> Q_:
@@ -74,7 +86,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
 
         Returns:
             Q_: Velocidad angular (rad/s).
-        
+
         Raises:
             ValueError: Si el tiempo es negativo.
         """
@@ -82,7 +94,9 @@ class MovimientoCircularUniformementeVariado(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         if tiempo.magnitude < 0:
             raise ValueError("El tiempo no puede ser negativo.")
-        return self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
+        return (
+            self.velocidad_angular_inicial + self.aceleracion_angular_inicial * tiempo
+        )
 
     def aceleracion_angular(self, tiempo: Q_ = None) -> Q_:
         """
@@ -137,7 +151,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
-        return self.velocidad_angular(tiempo)**2 * self.radio
+        return self.velocidad_angular(tiempo) ** 2 * self.radio
 
     def aceleracion_total(self, tiempo: Q_) -> Q_:
         """
@@ -154,7 +168,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
             tiempo = Q_(tiempo, ureg.second)
         at = self.aceleracion_tangencial()
         an = self.aceleracion_centripeta(tiempo)
-        return (at**2 + an**2)**0.5
+        return (at**2 + an**2) ** 0.5
 
     def posicion(self, tiempo: Q_) -> np.ndarray:
         """
@@ -186,7 +200,7 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
         theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
-        v = self.velocidad_tangencial(tiempo).to(ureg.meter/ureg.second).magnitude
+        v = self.velocidad_tangencial(tiempo).to(ureg.meter / ureg.second).magnitude
         vx = -v * math.sin(theta)
         vy = v * math.cos(theta)
         return np.array([vx, vy]) * ureg.meter / ureg.second
@@ -203,9 +217,11 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
-        
-        omega = self.velocidad_angular(tiempo).to(ureg.radian/ureg.second).magnitude
-        alpha = self.aceleracion_angular_inicial.to(ureg.radian/ureg.second**2).magnitude
+
+        omega = self.velocidad_angular(tiempo).to(ureg.radian / ureg.second).magnitude
+        alpha = self.aceleracion_angular_inicial.to(
+            ureg.radian / ureg.second**2
+        ).magnitude
         theta = self.posicion_angular(tiempo).to(ureg.radian).magnitude
         radio_magnitude = self.radio.to(ureg.meter).magnitude
 
@@ -214,8 +230,8 @@ class MovimientoCircularUniformementeVariado(Movimiento):
         at_y = alpha * radio_magnitude * math.cos(theta)
 
         # Aceleración centrípeta
-        ac_x = - (omega ** 2) * radio_magnitude * math.cos(theta)
-        ac_y = - (omega ** 2) * radio_magnitude * math.sin(theta)
+        ac_x = -(omega**2) * radio_magnitude * math.cos(theta)
+        ac_y = -(omega**2) * radio_magnitude * math.sin(theta)
 
         ax = at_x + ac_x
         ay = at_y + ac_y

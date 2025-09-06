@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.12.4 - 2025-09-06
+
+### Added
+- **Comprehensive linting setup** - Implemented complete code quality infrastructure:
+  - **Black** code formatter configuration in `pyproject.toml` (line-length 88, Python 3.13 target)
+  - **Flake8** linter with `.flake8` config file (Black-compatible settings, max-complexity 10)
+  - **MyPy** type checker already configured in `mypy.ini` for static type validation
+  - **Pre-commit hooks** setup with `.pre-commit-config.yaml` for automated quality checks
+  - **Custom lint script** `lint.py` for running all tools with `--fix` option for auto-formatting
+- **Development documentation** - Updated `README.md` with comprehensive linting instructions and development setup guide
+
+### Changed
+- **Code formatting improvements** - Applied Black formatting to example files for consistent code style
+- **Enhanced development workflow** - Added automated tools for maintaining code quality and consistency
+
+### Technical
+- **All 157 tests passing** - Verified functionality remains intact after linting setup
+- **Development dependencies** - Updated `pyproject.toml` with linting tools (black>=23.0.0, flake8>=6.0.0, mypy>=1.0.0, pre-commit>=3.0.0)
+- **Automated quality assurance** - Pre-commit hooks ensure code quality before commits
+- **Version consistency** - Updated version to 0.12.4 across all relevant files
+
 ## 0.12.3 - 2025-09-06
 
 ### Fixed

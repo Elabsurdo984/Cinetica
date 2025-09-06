@@ -2,6 +2,7 @@ import math
 from .base import MovimientoParabolicoBase
 from ...units import ureg, Q_
 
+
 class MovimientoParabolicoAnalisis:
     """
     Clase para calcular propiedades de análisis en Movimiento Parabólico,
@@ -23,13 +24,17 @@ class MovimientoParabolicoAnalisis:
 
         Returns:
             Q_: Tiempo total de vuelo (s).
-        
+
         Notes:
             Retorna `0.0 * ureg.second` si el ángulo de lanzamiento es 0 grados.
         """
-        if self.base_movimiento.angulo_radianes.magnitude == 0: # Si el ángulo es 0, no hay tiempo de vuelo vertical
+        if (
+            self.base_movimiento.angulo_radianes.magnitude == 0
+        ):  # Si el ángulo es 0, no hay tiempo de vuelo vertical
             return 0.0 * ureg.second
-        return (2 * self.base_movimiento.velocidad_inicial_y) / self.base_movimiento.gravedad
+        return (
+            2 * self.base_movimiento.velocidad_inicial_y
+        ) / self.base_movimiento.gravedad
 
     def altura_maxima(self) -> Q_:
         """
@@ -37,13 +42,17 @@ class MovimientoParabolicoAnalisis:
 
         Returns:
             Q_: Altura máxima (m).
-        
+
         Notes:
             Retorna `0.0 * ureg.meter` si el ángulo de lanzamiento es 0 grados.
         """
-        if self.base_movimiento.angulo_radianes.magnitude == 0: # Si el ángulo es 0, la altura máxima es 0
+        if (
+            self.base_movimiento.angulo_radianes.magnitude == 0
+        ):  # Si el ángulo es 0, la altura máxima es 0
             return 0.0 * ureg.meter
-        return (self.base_movimiento.velocidad_inicial_y ** 2) / (2 * self.base_movimiento.gravedad)
+        return (self.base_movimiento.velocidad_inicial_y**2) / (
+            2 * self.base_movimiento.gravedad
+        )
 
     def alcance_maximo(self) -> Q_:
         """

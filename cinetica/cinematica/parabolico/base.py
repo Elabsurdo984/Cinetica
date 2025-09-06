@@ -2,13 +2,19 @@ import math
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
 
+
 class MovimientoParabolicoBase(Movimiento):
     """
     Clase base para simular trayectorias en Movimiento Parabólico.
     Se asume que el lanzamiento se realiza desde el origen (0,0) y la gravedad actúa hacia abajo.
     """
 
-    def __init__(self, velocidad_inicial: Q_, angulo_grados: Q_, gravedad: Q_ = 9.81 * ureg.meter / ureg.second**2):
+    def __init__(
+        self,
+        velocidad_inicial: Q_,
+        angulo_grados: Q_,
+        gravedad: Q_ = 9.81 * ureg.meter / ureg.second**2,
+    ):
         """
         Inicializa el objeto MovimientoParabolicoBase con las condiciones iniciales.
 
@@ -16,7 +22,7 @@ class MovimientoParabolicoBase(Movimiento):
             velocidad_inicial (Q_): Magnitud de la velocidad inicial (m/s).
             angulo_grados (Q_): Ángulo de lanzamiento con respecto a la horizontal (grados).
             gravedad (Q_): Aceleración debido a la gravedad (m/s^2).
-        
+
         Raises:
             ValueError: Si la velocidad inicial es negativa, el ángulo no está entre 0 y 90 grados, o la gravedad es menor o igual a cero.
         """
@@ -38,8 +44,12 @@ class MovimientoParabolicoBase(Movimiento):
         self.angulo_radianes = angulo_grados.to(ureg.radian)
         self.gravedad = gravedad
 
-        self.velocidad_inicial_x = self.velocidad_inicial * math.cos(self.angulo_radianes.magnitude)
-        self.velocidad_inicial_y = self.velocidad_inicial * math.sin(self.angulo_radianes.magnitude)
+        self.velocidad_inicial_x = self.velocidad_inicial * math.cos(
+            self.angulo_radianes.magnitude
+        )
+        self.velocidad_inicial_y = self.velocidad_inicial * math.sin(
+            self.angulo_radianes.magnitude
+        )
 
     def posicion(self, tiempo: Q_) -> tuple[Q_, Q_]:
         """
@@ -50,7 +60,7 @@ class MovimientoParabolicoBase(Movimiento):
 
         Returns:
             tuple: Una tupla (x, y) con las coordenadas de la posición (m).
-        
+
         Raises:
             ValueError: Si el tiempo es negativo.
         """
@@ -60,7 +70,9 @@ class MovimientoParabolicoBase(Movimiento):
             raise ValueError("El tiempo no puede ser negativo.")
 
         posicion_x = self.velocidad_inicial_x * tiempo
-        posicion_y = (self.velocidad_inicial_y * tiempo) - (0.5 * self.gravedad * (tiempo ** 2))
+        posicion_y = (self.velocidad_inicial_y * tiempo) - (
+            0.5 * self.gravedad * (tiempo**2)
+        )
         return (posicion_x, posicion_y)
 
     def velocidad(self, tiempo: Q_) -> tuple[Q_, Q_]:
@@ -72,7 +84,7 @@ class MovimientoParabolicoBase(Movimiento):
 
         Returns:
             tuple: Una tupla (vx, vy) con las componentes de la velocidad (m/s).
-        
+
         Raises:
             ValueError: Si el tiempo es negativo.
         """

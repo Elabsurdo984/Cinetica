@@ -2,6 +2,7 @@ from typing import Union, Optional
 import numpy as np
 from ...units import ureg, Q_
 
+
 class MovimientoRelativo:
     """
     Clase para calcular velocidades relativas entre objetos.
@@ -16,7 +17,11 @@ class MovimientoRelativo:
         """
         pass
 
-    def velocidad_relativa(self, velocidad_objeto_a: Union[np.ndarray, Q_], velocidad_objeto_b: Union[np.ndarray, Q_]) -> Q_:
+    def velocidad_relativa(
+        self,
+        velocidad_objeto_a: Union[np.ndarray, Q_],
+        velocidad_objeto_b: Union[np.ndarray, Q_],
+    ) -> Q_:
         """
         Calcula la velocidad del objeto A con respecto al objeto B (V_A/B).
         V_A/B = V_A - V_B
@@ -32,11 +37,17 @@ class MovimientoRelativo:
             velocidad_objeto_b = Q_(velocidad_objeto_b, ureg.meter / ureg.second)
 
         if velocidad_objeto_a.units != velocidad_objeto_b.units:
-            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
+            raise ValueError(
+                "Las unidades de los vectores de velocidad deben ser compatibles."
+            )
 
         return velocidad_objeto_a - velocidad_objeto_b
 
-    def velocidad_absoluta_a(self, velocidad_relativa_ab: Union[np.ndarray, Q_], velocidad_objeto_b: Union[np.ndarray, Q_]) -> Q_:
+    def velocidad_absoluta_a(
+        self,
+        velocidad_relativa_ab: Union[np.ndarray, Q_],
+        velocidad_objeto_b: Union[np.ndarray, Q_],
+    ) -> Q_:
         """
         Calcula la velocidad absoluta del objeto A (V_A) dado V_A/B y V_B.
         V_A = V_A/B + V_B
@@ -52,11 +63,17 @@ class MovimientoRelativo:
             velocidad_objeto_b = Q_(velocidad_objeto_b, ureg.meter / ureg.second)
 
         if velocidad_relativa_ab.units != velocidad_objeto_b.units:
-            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
+            raise ValueError(
+                "Las unidades de los vectores de velocidad deben ser compatibles."
+            )
 
         return velocidad_relativa_ab + velocidad_objeto_b
 
-    def velocidad_absoluta_b(self, velocidad_objeto_a: Union[np.ndarray, Q_], velocidad_relativa_ab: Union[np.ndarray, Q_]) -> Q_:
+    def velocidad_absoluta_b(
+        self,
+        velocidad_objeto_a: Union[np.ndarray, Q_],
+        velocidad_relativa_ab: Union[np.ndarray, Q_],
+    ) -> Q_:
         """
         Calcula la velocidad absoluta del objeto B (V_B) dado V_A y V_A/B.
         V_B = V_A - V_A/B
@@ -72,7 +89,9 @@ class MovimientoRelativo:
             velocidad_relativa_ab = Q_(velocidad_relativa_ab, ureg.meter / ureg.second)
 
         if velocidad_objeto_a.units != velocidad_relativa_ab.units:
-            raise ValueError("Las unidades de los vectores de velocidad deben ser compatibles.")
+            raise ValueError(
+                "Las unidades de los vectores de velocidad deben ser compatibles."
+            )
 
         return velocidad_objeto_a - velocidad_relativa_ab
 
@@ -85,12 +104,14 @@ class MovimientoRelativo:
         """
         if not isinstance(velocidad_vector, Q_):
             velocidad_vector = Q_(velocidad_vector, ureg.meter / ureg.second)
-        
+
         # Assuming velocidad_vector is a Quantity whose magnitude is a numpy array or list
         magnitude = np.linalg.norm(velocidad_vector.magnitude)
         return Q_(magnitude, velocidad_vector.units)
 
-    def direccion_velocidad(self, velocidad_vector: Union[np.ndarray, Q_]) -> Union[Q_, np.ndarray]:
+    def direccion_velocidad(
+        self, velocidad_vector: Union[np.ndarray, Q_]
+    ) -> Union[Q_, np.ndarray]:
         """
         Calcula la dirección de un vector de velocidad en 2D (ángulo en radianes).
         Para 3D, devuelve el vector unitario.

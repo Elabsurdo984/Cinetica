@@ -1,7 +1,9 @@
 from cinetica.cinematica import parabolico
 
 # Lanzamiento con velocidad inicial de 20 m/s y ángulo de 45 grados
-mp_base = parabolico.base.MovimientoParabolicoBase(velocidad_inicial=20.0, angulo_grados=45)
+mp_base = parabolico.base.MovimientoParabolicoBase(
+    velocidad_inicial=20.0, angulo_grados=45
+)
 mp_analisis = parabolico.analisis.MovimientoParabolicoAnalisis(mp_base)
 
 # Calcular posición a los 1.5 segundos
