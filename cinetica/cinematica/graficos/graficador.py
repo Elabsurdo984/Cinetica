@@ -405,7 +405,7 @@ def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
     Examples
     --------
     >>> from cinetica.cinematica.circular import MovimientoCircularUniformementeVariado
-    >>> mcuv = MovimientoCircularUniformementeVariado(radio=2, velocidad_angular_inicial=0, 
+    >>> mcuv = MovimientoCircularUniformementeVariado(radio=2, velocidad_angular_inicial=0,
     ...                                               aceleracion_angular=0.5, posicion_angular_inicial=0)
     >>> plot_mcuv(mcuv, t_max=10)
     # Muestra todos los gráficos temporales para MCUV

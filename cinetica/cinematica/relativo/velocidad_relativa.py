@@ -283,7 +283,7 @@ class MovimientoRelativo:
         >>> angulo = mr.direccion_velocidad(v_2d)
         >>> print(f"Ángulo: {angulo}")
         Ángulo: 0.7854 radian  # π/4 radianes = 45°
-        
+
         >>> v_3d = [1, 0, 0]  # vector 3D
         >>> unitario = mr.direccion_velocidad(v_3d)
         >>> print(f"Vector unitario: {unitario}")

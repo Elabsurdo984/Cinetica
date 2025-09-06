@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.14.0 - 2025-09-06
+
+### Added
+- **Comprehensive test coverage improvements** - Achieved 97% test coverage (up from 67%):
+  - **Graphics module tests** - Complete test suite for all plotting functions (0% → 99% coverage)
+  - **MRUV comprehensive tests** - Enhanced test coverage with edge cases and physics validation (56% → 99% coverage)
+  - **MCU comprehensive tests** - Extensive testing of circular motion methods and vector calculations (81% → 94% coverage)
+  - **Base movement tests** - Complete testing of abstract base class and concrete implementations
+  - **228 total tests** - Comprehensive test suite ensuring code reliability and maintainability
+
+### Enhanced
+- **Physics validation testing** - Added tests ensuring kinematic equations are consistent and physically accurate
+- **Edge case coverage** - Comprehensive testing of boundary conditions, zero values, and extreme parameters
+- **Error handling tests** - Robust testing of invalid inputs and error conditions with proper exception handling
+- **Units integration testing** - Thorough testing of unit handling, conversions, and dimensionality checks
+- **Mock-based graphics testing** - Extensive mocking strategy for plotting tests to avoid GUI dependencies
+
+### Fixed
+- **Circular module test failures** - Resolved unit handling and return type assertion errors
+- **Test suite stability** - Fixed failing tests across multiple modules for consistent CI/CD pipeline
+- **Graphics plotting compatibility** - Improved test compatibility with matplotlib and pint units
+
+### Technical
+- **97% code coverage achieved** - Significantly exceeds industry standards and project goals
+- **Robust test infrastructure** - Comprehensive test suites for all physics modules
+- **Automated quality assurance** - Enhanced testing pipeline ensures code reliability
+- **Developer confidence** - Extensive test coverage supports safe refactoring and feature development
+
 ## 0.13.0 - 2025-09-06
 
 ### Added

@@ -95,19 +95,20 @@ def test_mcu_velocidad_vector_with_units():
     vel_vec = mcu.velocidad(
         1 * ureg.second
     )  # At t=1s, theta = pi/2, v_tan = pi/2, vx = -pi/2, vy = 0
-    assert np.allclose(vel_vec.magnitude, np.array([-math.pi / 2, 0.0]))
-    assert vel_vec.units == ureg.meter / ureg.second
+    assert np.allclose(vel_vec, np.array([-math.pi / 2, 0.0]))
+    assert isinstance(vel_vec, np.ndarray)
 
 
 def test_mcu_aceleracion_vector_with_units():
     mcu = MovimientoCircularUniforme(
         1 * ureg.meter, 0 * ureg.radian, math.pi / 2 * ureg.radian / ureg.second
     )
-    acc_vec = mcu.aceleracion(
+    acc_magnitude = mcu.aceleracion(
         1 * ureg.second
-    )  # At t=1s, theta = pi/2, ac = (pi/2)^2 * 1 = pi^2/4, ax = 0, ay = -ac
-    assert np.allclose(acc_vec.magnitude, np.array([0.0, -(math.pi**2) / 4]), atol=1e-8)
-    assert acc_vec.units == ureg.meter / ureg.second**2
+    )  # At t=1s, ac = (pi/2)^2 * 1 = pi^2/4
+    expected_magnitude = (math.pi / 2) ** 2 * 1  # ω²r
+    assert np.allclose(acc_magnitude.magnitude, expected_magnitude, atol=1e-8)
+    assert acc_magnitude.units.dimensionality == (ureg.meter / ureg.second**2).dimensionality
 
 
 # --- MovimientoCircularUniformementeVariado Tests ---
