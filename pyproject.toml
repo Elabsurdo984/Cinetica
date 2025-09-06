@@ -1,6 +1,6 @@
 [project]
 name = "cinetica"
-version = "0.12.0"
+version = "0.12.1"
 description = "A Python library for physics modules."
 authors = [
     { name = "Elabsurdo984", email = "matiassfernandez00@gmail.com" },
@@ -11,6 +11,20 @@ dependencies = [
     "pint>=0.23"
 ]
 
+requires-python = ">=3.13"
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["physics", "library", "science"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
 [project.optional-dependencies]
 dev = [
     "mypy>=1.0.0",
@@ -19,18 +33,6 @@ dev = [
     "black>=23.0.0",
     "flake8>=6.0.0",
     "pre-commit>=3.0.0"
-]
-requires-python = ">=3.13"
-readme = "README.md"
-license = { file = "LICENSE" }
-keywords = ["physics", "library", "science"]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering :: Physics",
 ]
 
 [project.urls]
@@ -44,4 +46,4 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["cinetica"]
+packages = ["cinetica", "cinetica.cinematica", "cinetica.cinematica.circular", "cinetica.cinematica.espacial", "cinetica.cinematica.oscilatorio", "cinetica.cinematica.parabolico", "cinetica.cinematica.rectilineo", "cinetica.cinematica.relativo", "cinetica.dinamica", "cinetica.graficos"]

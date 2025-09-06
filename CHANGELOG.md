@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.12.1 - 2025-09-06
+
+### Fixed
+- **Estructura de paquete corregida** - Solucionado `ModuleNotFoundError: No module named 'cinetica.cinematica'`
+- **Configuración de setuptools** - Agregados todos los subpaquetes en `pyproject.toml` para instalación completa
+- **Inclusión de módulos** - Ahora se incluyen correctamente todos los submódulos:
+  - `cinetica.cinematica` y todos sus subpaquetes
+  - `cinetica.dinamica`
+  - `cinetica.graficos`
+
+### Technical
+- Corregida configuración `[tool.setuptools]` para incluir estructura completa de paquetes
+- Versión actualizada a 0.12.1 en todos los archivos relevantes
+
 ## 0.12.0 - 2025-09-06
 
 ### Added
