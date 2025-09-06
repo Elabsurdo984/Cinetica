@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.13.0 - 2025-09-06
+
+### Added
+- **Comprehensive NumPy-style docstrings** - Complete documentation overhaul across all physics modules:
+  - **Rectilíneo module** - Updated MRU and MRUV classes with detailed parameter descriptions, examples, and physics formulations
+  - **Circular module** - Enhanced MCU and MCUV classes with comprehensive method documentation and mathematical equations
+  - **Parabólico module** - Improved projectile motion classes with detailed trajectory analysis documentation
+  - **Oscilatorio module** - Updated MAS and MAC classes with harmonic motion theory and practical examples
+  - **Espacial module** - Enhanced 3D motion class with vector mathematics and kinematic equations
+  - **Relativo module** - Comprehensive relative motion documentation with velocity transformation examples
+  - **Gráficos module** - Updated all plotting functions with detailed parameter descriptions and usage examples
+
+### Changed
+- **Documentation standard** - All docstrings now follow NumPy documentation style with standardized sections:
+  - **Parameters** - Detailed type annotations and unit specifications
+  - **Returns** - Clear return type documentation with units
+  - **Raises** - Comprehensive exception documentation
+  - **Examples** - Realistic usage examples with proper units
+  - **Notes** - Physics theory and mathematical formulations
+- **Code maintainability** - Enhanced developer experience with consistent, professional documentation
+- **API clarity** - Improved understanding of method behavior and expected inputs/outputs
+
+### Technical
+- **157+ docstrings updated** - Systematic conversion from basic to NumPy-style documentation
+- **Consistent formatting** - Standardized documentation structure across all modules
+- **Enhanced examples** - Added practical usage patterns with pint units
+- **Physics context** - Included mathematical equations and physical interpretations
+- **Version consistency** - Updated to 0.13.0 reflecting major documentation improvements
+
 ## 0.12.4 - 2025-09-06
 
 ### Added
@@ -256,7 +285,7 @@
 - Módulo `MovimientoCircular` para cálculos de MCU y MCUV.
 - Tests unitarios para la clase `MovimientoCircular`.
 - Documentación de uso para `MovimientoCircular` en `README.md`.
-  
+
 ## 0.2.0 - 2025-08-24
 
 ### Added

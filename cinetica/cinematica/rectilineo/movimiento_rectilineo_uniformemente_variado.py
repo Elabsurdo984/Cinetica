@@ -6,7 +6,47 @@ from ...units import ureg, Q_
 
 class MovimientoRectilineoUniformementeVariado(Movimiento):
     """
-    Clase para calcular posición, velocidad y aceleración en Movimiento Rectilíneo Uniformemente Variado (MRUV).
+    Movimiento Rectilíneo Uniformemente Variado (MRUV).
+
+    Implementa los cálculos para un objeto que se mueve en línea recta
+    con aceleración constante. En este tipo de movimiento, la velocidad
+    cambia uniformemente con el tiempo y la posición varía cuadráticamente.
+
+    Parameters
+    ----------
+    posicion_inicial : float or pint.Quantity, optional
+        Posición inicial del objeto en metros. Default es 0.0 m.
+    velocidad_inicial : float or pint.Quantity, optional
+        Velocidad inicial del objeto en m/s. Default es 0.0 m/s.
+    aceleracion_inicial : float or pint.Quantity, optional
+        Aceleración constante del objeto en m/s². Default es 0.0 m/s².
+
+    Attributes
+    ----------
+    posicion_inicial : pint.Quantity
+        Posición inicial del objeto con unidades de longitud.
+    velocidad_inicial : pint.Quantity
+        Velocidad inicial del objeto con unidades de velocidad.
+    aceleracion_inicial : pint.Quantity
+        Aceleración constante del objeto con unidades de aceleración.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.rectilineo import MovimientoRectilineoUniformementeVariado
+    >>> mruv = MovimientoRectilineoUniformementeVariado(
+    ...     posicion_inicial=0, velocidad_inicial=10, aceleracion_inicial=2
+    ... )
+    >>> posicion_final = mruv.posicion(tiempo=5)
+    >>> print(f"Posición a los 5s: {posicion_final}")
+    Posición a los 5s: 75.0 meter
+
+    Notes
+    -----
+    Las ecuaciones fundamentales del MRUV son:
+    - Posición: x(t) = x₀ + v₀·t + ½·a·t²
+    - Velocidad: v(t) = v₀ + a·t
+    - Aceleración: a(t) = a₀ (constante)
+    - Velocidad sin tiempo: v² = v₀² + 2·a·Δx
     """
 
     def __init__(
@@ -16,12 +56,32 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
         aceleracion_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second**2,
     ) -> None:
         """
-        Inicializa el objeto MovimientoRectilineoUniformementeVariado con condiciones iniciales.
+        Inicializa una instancia de Movimiento Rectilíneo Uniformemente Variado.
 
-        Args:
-            posicion_inicial (Q_): Posición inicial del objeto (m).
-            velocidad_inicial (Q_): Velocidad inicial del objeto (m/s).
-            aceleracion_inicial (Q_): Aceleración inicial del objeto (m/s^2).
+        Parameters
+        ----------
+        posicion_inicial : float or pint.Quantity, optional
+            Posición inicial del objeto en metros. Si se proporciona un float,
+            se asume que está en metros. Default es 0.0 m.
+        velocidad_inicial : float or pint.Quantity, optional
+            Velocidad inicial del objeto en m/s. Si se proporciona un float,
+            se asume que está en m/s. Default es 0.0 m/s.
+        aceleracion_inicial : float or pint.Quantity, optional
+            Aceleración constante del objeto en m/s². Si se proporciona un float,
+            se asume que está en m/s². Default es 0.0 m/s².
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado()
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=10, velocidad_inicial=5, aceleracion_inicial=2
+        ... )
+        >>> from cinetica.units import ureg
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=10 * ureg.meter,
+        ...     velocidad_inicial=5 * ureg.meter / ureg.second,
+        ...     aceleracion_inicial=2 * ureg.meter / ureg.second**2
+        ... )
         """
         if not isinstance(posicion_inicial, Q_):
             posicion_inicial = Q_(posicion_inicial, ureg.meter)
@@ -36,17 +96,35 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
-        Calcula la posición en MRUV.
-        Ecuación: x = x0 + v0 * t + 0.5 * a * t^2
+        Calcula la posición del objeto en un tiempo dado.
 
-        Args:
-            tiempo (Q_): Tiempo transcurrido (s).
+        Utiliza la ecuación fundamental del MRUV: x(t) = x₀ + v₀·t + ½·a·t²
 
-        Returns:
-            Q_: Posición final (m).
+        Parameters
+        ----------
+        tiempo : float or pint.Quantity
+            Tiempo transcurrido desde el inicio del movimiento, en segundos.
+            Si se proporciona un float, se asume que está en segundos.
+            Debe ser un valor no negativo.
 
-        Raises:
-            ValueError: Si el tiempo es negativo.
+        Returns
+        -------
+        pint.Quantity
+            Posición del objeto en el tiempo especificado, con unidades de longitud.
+
+        Raises
+        ------
+        ValueError
+            Si el tiempo proporcionado es negativo.
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=0, velocidad_inicial=10, aceleracion_inicial=2
+        ... )
+        >>> pos = mruv.posicion(tiempo=5)
+        >>> print(f"Posición: {pos}")
+        Posición: 75.0 meter
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
@@ -60,17 +138,35 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
-        Calcula la velocidad en MRUV.
-        Ecuación: v = v0 + a * t
+        Calcula la velocidad del objeto en un tiempo dado.
 
-        Args:
-            tiempo (Q_): Tiempo transcurrido (s).
+        Utiliza la ecuación fundamental del MRUV: v(t) = v₀ + a·t
 
-        Returns:
-            Q_: Velocidad final (m/s).
+        Parameters
+        ----------
+        tiempo : float or pint.Quantity
+            Tiempo transcurrido desde el inicio del movimiento, en segundos.
+            Si se proporciona un float, se asume que está en segundos.
+            Debe ser un valor no negativo.
 
-        Raises:
-            ValueError: Si el tiempo es negativo.
+        Returns
+        -------
+        pint.Quantity
+            Velocidad del objeto en el tiempo especificado, con unidades de velocidad.
+
+        Raises
+        ------
+        ValueError
+            Si el tiempo proporcionado es negativo.
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     velocidad_inicial=10, aceleracion_inicial=2
+        ... )
+        >>> vel = mruv.velocidad(tiempo=5)
+        >>> print(f"Velocidad: {vel}")
+        Velocidad: 20.0 meter / second
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
@@ -80,14 +176,37 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def velocidad_sin_tiempo(self, posicion_final: Union[float, Q_]) -> Q_:
         """
-        Calcula la velocidad usando la ecuación v^2 = v0^2 + 2*a*Δx.
-        Esta ecuación es útil cuando no se conoce el tiempo.
+        Calcula la velocidad final sin conocer el tiempo.
 
-        Args:
-            posicion_final (Q_): Posición final (m).
+        Utiliza la ecuación cinemática: v² = v₀² + 2·a·Δx
+        donde Δx = x_final - x_inicial
 
-        Returns:
-            Q_: Velocidad (m/s).
+        Parameters
+        ----------
+        posicion_final : float or pint.Quantity
+            Posición final deseada en metros. Si se proporciona un float,
+            se asume que está en metros.
+
+        Returns
+        -------
+        pint.Quantity
+            Velocidad final necesaria para alcanzar la posición especificada,
+            con unidades de velocidad.
+
+        Raises
+        ------
+        ValueError
+            Si el discriminante es negativo (velocidad resultante sería imaginaria),
+            lo que indica que la posición final no es alcanzable con los parámetros dados.
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=0, velocidad_inicial=0, aceleracion_inicial=2
+        ... )
+        >>> vel_final = mruv.velocidad_sin_tiempo(posicion_final=50)
+        >>> print(f"Velocidad final: {vel_final}")
+        Velocidad final: 14.142135623730951 meter / second
         """
         if not isinstance(posicion_final, Q_):
             posicion_final = Q_(posicion_final, ureg.meter)
@@ -113,18 +232,51 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def tiempo_por_posicion(self, posicion_final: Union[float, Q_]) -> list[Q_]:
         """
-        Calcula el tiempo necesario para alcanzar una posición final específica.
-        Ecuación: x = x0 + v0 * t + 0.5 * a * t^2
-        Resuelve para t: 0.5 * a * t^2 + v0 * t + (x0 - x) = 0
+        Calcula el tiempo necesario para alcanzar una posición específica.
 
-        Args:
-            posicion_final (Q_): Posición final deseada (m).
+        Resuelve la ecuación cuadrática derivada de x(t) = x₀ + v₀·t + ½·a·t²
+        reorganizada como: ½·a·t² + v₀·t + (x₀ - x_final) = 0
 
-        Returns:
-            list[Q_]: Lista de tiempos posibles (s). Puede tener 0, 1 o 2 soluciones.
+        Parameters
+        ----------
+        posicion_final : float or pint.Quantity
+            Posición objetivo que se desea alcanzar, en metros.
+            Si se proporciona un float, se asume que está en metros.
 
-        Raises:
-            ValueError: Si no hay soluciones reales.
+        Returns
+        -------
+        list of pint.Quantity
+            Lista de tiempos válidos (no negativos) en segundos para alcanzar
+            la posición objetivo. Puede contener 0, 1 o 2 soluciones dependiendo
+            de los parámetros físicos del movimiento.
+
+        Raises
+        ------
+        ValueError
+            Si no existen soluciones reales (discriminante negativo), lo que
+            indica que la posición objetivo no es alcanzable con los parámetros dados.
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=0, velocidad_inicial=0, aceleracion_inicial=2
+        ... )
+        >>> tiempos = mruv.tiempo_por_posicion(16)
+        >>> print(f"Tiempos: {tiempos}")
+        Tiempos: [4.0 second]
+
+        >>> mruv2 = MovimientoRectilineoUniformementeVariado(
+        ...     posicion_inicial=0, velocidad_inicial=10, aceleracion_inicial=-2
+        ... )
+        >>> tiempos2 = mruv2.tiempo_por_posicion(12)
+        >>> print(f"Tiempos: {tiempos2}")
+        Tiempos: [1.27 second, 3.73 second]
+
+        Notes
+        -----
+        Para movimientos con aceleración cero (MRU), la ecuación se reduce a lineal.
+        En casos con aceleración no nula, pueden existir dos soluciones válidas
+        correspondientes a los momentos de "ida" y "vuelta" por la posición objetivo.
         """
         if not isinstance(posicion_final, Q_):
             posicion_final = Q_(posicion_final, ureg.meter)
@@ -182,13 +334,26 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def aceleracion(self, tiempo: Optional[Union[float, Q_]] = None) -> Q_:
         """
-        Calcula la aceleración en MRUV (es constante).
-        Ecuación: a = a0
+        Obtiene la aceleración del objeto en cualquier momento.
 
-        Args:
-            tiempo (Q_, optional): Tiempo transcurrido (s). No afecta al resultado.
+        En el MRUV, la aceleración es constante e independiente del tiempo.
 
-        Returns:
-            Q_: Aceleración (m/s^2).
+        Parameters
+        ----------
+        tiempo : float, pint.Quantity, or None, optional
+            Tiempo transcurrido en segundos. Este parámetro no afecta el resultado
+            ya que la aceleración es constante en MRUV. Default es None.
+
+        Returns
+        -------
+        pint.Quantity
+            Aceleración constante del objeto, con unidades de aceleración.
+
+        Examples
+        --------
+        >>> mruv = MovimientoRectilineoUniformementeVariado(aceleracion_inicial=2)
+        >>> acel = mruv.aceleracion()
+        >>> print(f"Aceleración: {acel}")
+        Aceleración: 2.0 meter / second ** 2
         """
         return self.aceleracion_inicial

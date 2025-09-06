@@ -13,20 +13,84 @@ from ...units import ureg, Q_
 
 class MovimientoArmonicoComplejo(Movimiento):
     """
-    Representa un Movimiento Armónico Complejo (MAC) como la superposición
-    de múltiples Movimientos Armónicos Simples (MAS).
+    Representa un Movimiento Armónico Complejo (MAC).
+
+    El Movimiento Armónico Complejo es la superposición de múltiples
+    Movimientos Armónicos Simples (MAS) con diferentes amplitudes,
+    frecuencias y fases iniciales. Permite modelar oscilaciones complejas
+    que resultan de la combinación de varios movimientos periódicos.
+
+    Parameters
+    ----------
+    mas_components : list of dict
+        Lista de diccionarios que definen los componentes MAS.
+        Cada diccionario debe contener las claves:
+        - 'amplitud': Amplitud del componente
+        - 'frecuencia_angular': Frecuencia angular del componente
+        - 'fase_inicial': Fase inicial del componente
+
+    Attributes
+    ----------
+    mas_components : list of dict
+        Lista procesada de componentes MAS con unidades apropiadas.
+
+    Examples
+    --------
+    >>> componentes = [
+    ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+    ...     {'amplitud': 0.05, 'frecuencia_angular': 4*math.pi, 'fase_inicial': math.pi/2}
+    ... ]
+    >>> mac = MovimientoArmonicoComplejo(componentes)
+    >>> pos = mac.posicion(tiempo=0.5)
+
+    Notes
+    -----
+    El MAC es útil para modelar:
+    - Ondas complejas (suma de armónicos)
+    - Vibraciones en sistemas con múltiples grados de libertad
+    - Señales periódicas complejas
+    - Interferencia de ondas
     """
 
     def __init__(self, mas_components: List[Dict[str, Union[float, Q_]]]) -> None:
         """
-        Inicializa un objeto de Movimiento Armónico Complejo.
+        Inicializa una instancia de Movimiento Armónico Complejo.
 
-        Args:
-            mas_components (list): Una lista de diccionarios, donde cada diccionario
-                                   representa un MAS con las siguientes claves:
-                                   - 'amplitud' (Q_): Amplitud del MAS (m).
-                                   - 'frecuencia_angular' (Q_): Frecuencia angular (omega) del MAS (rad/s).
-                                   - 'fase_inicial' (Q_): Fase inicial (phi) del MAS en radianes.
+        Parameters
+        ----------
+        mas_components : list of dict
+            Lista de diccionarios que definen los componentes MAS.
+            Cada diccionario debe contener exactamente las siguientes claves:
+            - 'amplitud' : float or pint.Quantity
+                Amplitud del componente MAS, en metros.
+            - 'frecuencia_angular' : float or pint.Quantity
+                Frecuencia angular del componente, en rad/s.
+            - 'fase_inicial' : float or pint.Quantity
+                Fase inicial del componente, en radianes.
+
+        Raises
+        ------
+        ValueError
+            Si mas_components no es una lista no vacía, si algún componente
+            no tiene las claves requeridas, o si alguna amplitud o frecuencia
+            angular es menor o igual a cero.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 4*math.pi, 'fase_inicial': math.pi/2}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> from cinetica.units import ureg
+        >>> componentes_con_unidades = [
+        ...     {
+        ...         'amplitud': 0.1 * ureg.meter,
+        ...         'frecuencia_angular': 2*math.pi * ureg.radian / ureg.second,
+        ...         'fase_inicial': 0 * ureg.radian
+        ...     }
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes_con_unidades)
         """
         if not isinstance(mas_components, list) or not mas_components:
             raise ValueError(
@@ -70,13 +134,37 @@ class MovimientoArmonicoComplejo(Movimiento):
 
     def posicion(self, tiempo: Union[float, Q_]) -> Q_:
         """
-        Calcula la posición del objeto en un tiempo dado para el MAC.
+        Calcula la posición resultante del objeto en un tiempo dado.
 
-        Args:
-            tiempo (Q_): El tiempo o array de tiempos en segundos.
+        La posición total es la superposición de todos los componentes MAS:
+        x(t) = Σ Aᵢ · cos(ωᵢ t + φᵢ)
 
-        Returns:
-            Q_: La posición total en el tiempo especificado.
+        Parameters
+        ----------
+        tiempo : float or pint.Quantity
+            Tiempo transcurrido desde el inicio del movimiento, en segundos.
+            Si se proporciona un float, se asume que está en segundos.
+
+        Returns
+        -------
+        pint.Quantity
+            Posición total resultante de la superposición de todos los componentes,
+            con unidades de longitud.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 4*math.pi, 'fase_inicial': 0}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> pos = mac.posicion(tiempo=0.25)
+        >>> print(f"Posición: {pos:.4f}")
+
+        Notes
+        -----
+        La posición resultante puede ser compleja y no necesariamente periódica
+        si las frecuencias de los componentes no son conmensurables.
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
@@ -93,13 +181,36 @@ class MovimientoArmonicoComplejo(Movimiento):
 
     def velocidad(self, tiempo: Union[float, Q_]) -> Q_:
         """
-        Calcula la velocidad del objeto en un tiempo dado para el MAC.
+        Calcula la velocidad resultante del objeto en un tiempo dado.
 
-        Args:
-            tiempo (Q_): El tiempo en segundos.
+        La velocidad total es la superposición de las velocidades de todos los componentes:
+        v(t) = Σ (-Aᵢ · ωᵢ) · sin(ωᵢ t + φᵢ)
 
-        Returns:
-            Q_: La velocidad total en el tiempo especificado.
+        Parameters
+        ----------
+        tiempo : float or pint.Quantity
+            Tiempo transcurrido desde el inicio del movimiento, en segundos.
+            Si se proporciona un float, se asume que está en segundos.
+
+        Returns
+        -------
+        pint.Quantity
+            Velocidad total resultante de la superposición de todos los componentes,
+            con unidades de velocidad.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 4*math.pi, 'fase_inicial': 0}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> vel = mac.velocidad(tiempo=0.25)
+        >>> print(f"Velocidad: {vel:.4f}")
+
+        Notes
+        -----
+        La velocidad se obtiene derivando la posición respecto al tiempo.
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
@@ -116,13 +227,36 @@ class MovimientoArmonicoComplejo(Movimiento):
 
     def aceleracion(self, tiempo: Union[float, Q_]) -> Q_:
         """
-        Calcula la aceleración del objeto en un tiempo dado para el MAC.
+        Calcula la aceleración resultante del objeto en un tiempo dado.
 
-        Args:
-            tiempo (Q_): El tiempo en segundos.
+        La aceleración total es la superposición de las aceleraciones de todos los componentes:
+        a(t) = Σ (-Aᵢ · ωᵢ²) · cos(ωᵢ t + φᵢ)
 
-        Returns:
-            Q_: La aceleración total en el tiempo especificado.
+        Parameters
+        ----------
+        tiempo : float or pint.Quantity
+            Tiempo transcurrido desde el inicio del movimiento, en segundos.
+            Si se proporciona un float, se asume que está en segundos.
+
+        Returns
+        -------
+        pint.Quantity
+            Aceleración total resultante de la superposición de todos los componentes,
+            con unidades de aceleración.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 4*math.pi, 'fase_inicial': 0}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> acel = mac.aceleracion(tiempo=0.25)
+        >>> print(f"Aceleración: {acel:.4f}")
+
+        Notes
+        -----
+        La aceleración se obtiene derivando la velocidad respecto al tiempo.
         """
         if not isinstance(tiempo, Q_):
             tiempo = Q_(tiempo, ureg.second)
@@ -142,10 +276,35 @@ class MovimientoArmonicoComplejo(Movimiento):
     def amplitud_resultante(self) -> Q_:
         """
         Calcula la amplitud resultante para componentes de la misma frecuencia.
-        Solo funciona si todos los componentes tienen la misma frecuencia angular.
 
-        Returns:
-            Q_: Amplitud resultante en metros.
+        Utiliza la suma fasorial para calcular la amplitud resultante cuando
+        todos los componentes tienen la misma frecuencia angular.
+        A_resultante = √[(A₁cosφ₁ + A₂cosφ₂ + ...)² + (A₁sinφ₁ + A₂sinφ₂ + ...)²]
+
+        Returns
+        -------
+        pint.Quantity
+            Amplitud resultante del movimiento complejo, con unidades de longitud.
+
+        Raises
+        ------
+        ValueError
+            Si los componentes no tienen todos la misma frecuencia angular.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 2*math.pi, 'fase_inicial': math.pi/2}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> A_res = mac.amplitud_resultante()
+        >>> print(f"Amplitud resultante: {A_res:.4f}")
+
+        Notes
+        -----
+        Este método solo es aplicable cuando todos los componentes oscilan
+        con la misma frecuencia pero diferentes amplitudes y fases.
         """
         if len(self.mas_components) == 0:
             return Q_(0.0, ureg.meter)
@@ -175,10 +334,36 @@ class MovimientoArmonicoComplejo(Movimiento):
     def fase_resultante(self) -> Q_:
         """
         Calcula la fase resultante para componentes de la misma frecuencia.
-        Solo funciona si todos los componentes tienen la misma frecuencia angular.
 
-        Returns:
-            Q_: Fase resultante en radianes.
+        Utiliza la suma fasorial para calcular la fase resultante cuando
+        todos los componentes tienen la misma frecuencia angular.
+        φ_resultante = arctan2(ΣAᵢsinφᵢ, ΣAᵢcosφᵢ)
+
+        Returns
+        -------
+        pint.Quantity
+            Fase resultante del movimiento complejo, con unidades de ángulo.
+
+        Raises
+        ------
+        ValueError
+            Si los componentes no tienen todos la misma frecuencia angular.
+
+        Examples
+        --------
+        >>> componentes = [
+        ...     {'amplitud': 0.1, 'frecuencia_angular': 2*math.pi, 'fase_inicial': 0},
+        ...     {'amplitud': 0.05, 'frecuencia_angular': 2*math.pi, 'fase_inicial': math.pi/2}
+        ... ]
+        >>> mac = MovimientoArmonicoComplejo(componentes)
+        >>> phi_res = mac.fase_resultante()
+        >>> print(f"Fase resultante: {phi_res:.4f}")
+
+        Notes
+        -----
+        Este método solo es aplicable cuando todos los componentes oscilan
+        con la misma frecuencia pero diferentes amplitudes y fases.
+        La fase resultante está en el rango [-π, π].
         """
         if len(self.mas_components) == 0:
             return Q_(0.0, ureg.radian)

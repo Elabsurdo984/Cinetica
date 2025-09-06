@@ -5,7 +5,21 @@ from mpl_toolkits.mplot3d import Axes3D  # Importar para gráficos 3D
 
 def configurar_estilo_grafico():
     """
-    Configura el estilo común para todos los gráficos.
+    Configura el estilo visual común para todos los gráficos de la biblioteca.
+
+    Establece parámetros de matplotlib para crear gráficos consistentes
+    con un estilo profesional que incluye cuadrícula, tamaños de fuente,
+    colores y espaciado apropiados.
+
+    Examples
+    --------
+    >>> configurar_estilo_grafico()
+    # Los gráficos posteriores usarán el estilo configurado
+
+    Notes
+    -----
+    Esta función modifica los parámetros globales de matplotlib (rcParams).
+    Los cambios afectan a todos los gráficos creados después de la llamada.
     """
     plt.style.use("seaborn-v0_8-darkgrid")
     plt.rcParams["figure.figsize"] = [10, 6]
@@ -29,12 +43,38 @@ def configurar_estilo_grafico():
 
 def plot_mru(mru_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra gráficos de posición vs. tiempo y velocidad vs. tiempo para MRU.
+    Genera gráficos de posición y velocidad vs. tiempo para MRU.
 
-    Args:
-        mru_obj: Instancia de MovimientoRectilineoUniforme.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea una figura con dos subgráficos que muestran la evolución
+    temporal de la posición y velocidad en movimiento rectilíneo uniforme.
+
+    Parameters
+    ----------
+    mru_obj : MovimientoRectilineoUniforme
+        Instancia del objeto de movimiento rectilíneo uniforme.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.rectilineo import MovimientoRectilineoUniforme
+    >>> mru = MovimientoRectilineoUniforme(posicion_inicial=0, velocidad=5)
+    >>> plot_mru(mru, t_max=10)
+    # Muestra gráficos de posición y velocidad vs. tiempo
+
+    Notes
+    -----
+    - La posición muestra una relación lineal con el tiempo
+    - La velocidad es constante (línea horizontal)
+    - Los gráficos incluyen leyendas y etiquetas apropiadas
     """
     configurar_estilo_grafico()
     if t_max <= 0:
@@ -71,12 +111,39 @@ def plot_mru(mru_obj, t_max: float, num_points: int = 100):
 
 def plot_mruv(mruv_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra gráficos de posición vs. tiempo, velocidad vs. tiempo y aceleración vs. tiempo para MRUV.
+    Genera gráficos de posición, velocidad y aceleración vs. tiempo para MRUV.
 
-    Args:
-        mruv_obj: Instancia de MovimientoRectilineoUniformementeVariado.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea una figura con tres subgráficos que muestran la evolución
+    temporal de la posición, velocidad y aceleración en movimiento
+    rectilíneo uniformemente variado.
+
+    Parameters
+    ----------
+    mruv_obj : MovimientoRectilineoUniformementeVariado
+        Instancia del objeto de movimiento rectilíneo uniformemente variado.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.rectilineo import MovimientoRectilineoUniformementeVariado
+    >>> mruv = MovimientoRectilineoUniformementeVariado(posicion_inicial=0, velocidad_inicial=2, aceleracion=1)
+    >>> plot_mruv(mruv, t_max=10)
+    # Muestra gráficos de posición, velocidad y aceleración vs. tiempo
+
+    Notes
+    -----
+    - La posición muestra una relación cuadrática con el tiempo
+    - La velocidad muestra una relación lineal con el tiempo
+    - La aceleración es constante (línea horizontal)
     """
     configurar_estilo_grafico()
     if t_max <= 0:
@@ -127,12 +194,39 @@ def plot_mruv(mruv_obj, t_max: float, num_points: int = 100):
 
 def plot_parabolico(parabolico_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra el gráfico de la trayectoria (y vs. x) para Movimiento Parabólico.
+    Genera el gráfico de trayectoria parabólica (y vs. x).
 
-    Args:
-        parabolico_obj: Instancia de MovimientoParabolicoBase.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea un gráfico 2D que muestra la trayectoria del proyectil
+    en el plano xy, deteniéndose cuando el objeto alcanza el suelo.
+
+    Parameters
+    ----------
+    parabolico_obj : MovimientoParabolicoBase
+        Instancia del objeto de movimiento parabólico.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.parabolico import MovimientoParabolicoBase
+    >>> import numpy as np
+    >>> mp = MovimientoParabolicoBase(velocidad_inicial=np.array([20, 15]), posicion_inicial=np.array([0, 0]))
+    >>> plot_parabolico(mp, t_max=5)
+    # Muestra la trayectoria parabólica del proyectil
+
+    Notes
+    -----
+    - El gráfico mantiene proporciones iguales en ambos ejes
+    - Se incluyen líneas de referencia en x=0 e y=0
+    - La simulación se detiene cuando y < 0 (bajo el suelo)
     """
     configurar_estilo_grafico()
     if t_max <= 0:
@@ -173,13 +267,40 @@ def plot_parabolico(parabolico_obj, t_max: float, num_points: int = 100):
 
 def plot_mcu(mcu_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo
-    y aceleración centrípeta vs. tiempo para MCU. También grafica la trayectoria circular.
+    Genera gráficos completos para movimiento circular uniforme.
 
-    Args:
-        mcu_obj: Instancia de MovimientoCircularUniforme.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea dos figuras: una con tres subgráficos temporales (posición angular,
+    velocidad angular y aceleración centrípeta vs. tiempo) y otra con
+    la trayectoria circular en el plano xy.
+
+    Parameters
+    ----------
+    mcu_obj : MovimientoCircularUniforme
+        Instancia del objeto de movimiento circular uniforme.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.circular import MovimientoCircularUniforme
+    >>> mcu = MovimientoCircularUniforme(radio=2, velocidad_angular=1, posicion_angular_inicial=0)
+    >>> plot_mcu(mcu, t_max=10)
+    # Muestra gráficos temporales y trayectoria circular
+
+    Notes
+    -----
+    - La posición angular aumenta linealmente con el tiempo
+    - La velocidad angular es constante
+    - La aceleración centrípeta es constante
+    - La trayectoria muestra un círculo perfecto
     """
     configurar_estilo_grafico()
     if t_max <= 0:
@@ -260,13 +381,41 @@ def plot_mcu(mcu_obj, t_max: float, num_points: int = 100):
 
 def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra gráficos de posición angular vs. tiempo, velocidad angular vs. tiempo,
-    aceleración angular vs. tiempo, aceleración centrípeta vs. tiempo y aceleración total vs. tiempo para MCUV.
+    Genera gráficos completos para movimiento circular uniformemente variado.
 
-    Args:
-        mcuv_obj: Instancia de MovimientoCircularUniformementeVariado.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea una figura con cinco subgráficos que muestran la evolución temporal
+    de todas las magnitudes cinemáticas en MCUV: posición angular, velocidad
+    angular, aceleración angular, aceleración centrípeta y aceleración total.
+
+    Parameters
+    ----------
+    mcuv_obj : MovimientoCircularUniformementeVariado
+        Instancia del objeto de movimiento circular uniformemente variado.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.circular import MovimientoCircularUniformementeVariado
+    >>> mcuv = MovimientoCircularUniformementeVariado(radio=2, velocidad_angular_inicial=0, 
+    ...                                               aceleracion_angular=0.5, posicion_angular_inicial=0)
+    >>> plot_mcuv(mcuv, t_max=10)
+    # Muestra todos los gráficos temporales para MCUV
+
+    Notes
+    -----
+    - La posición angular muestra relación cuadrática con el tiempo
+    - La velocidad angular muestra relación lineal con el tiempo
+    - La aceleración angular es constante
+    - Las aceleraciones centrípeta y total varían con el tiempo
     """
     configurar_estilo_grafico()
     if t_max <= 0:
@@ -357,12 +506,41 @@ def plot_mcuv(mcuv_obj, t_max: float, num_points: int = 100):
 
 def plot_movimiento_espacial(espacial_obj, t_max: float, num_points: int = 100):
     """
-    Genera y muestra un gráfico 3D de la trayectoria para Movimiento Espacial.
+    Genera un gráfico 3D de la trayectoria espacial.
 
-    Args:
-        espacial_obj: Instancia de MovimientoEspacial.
-        t_max (float): Tiempo máximo para la simulación (s).
-        num_points (int): Número de puntos a generar para el gráfico.
+    Crea una visualización tridimensional que muestra la trayectoria
+    del objeto en el espacio, incluyendo puntos de inicio y fin.
+
+    Parameters
+    ----------
+    espacial_obj : MovimientoEspacial
+        Instancia del objeto de movimiento espacial.
+    t_max : float
+        Tiempo máximo para la simulación, en segundos.
+        Debe ser positivo.
+    num_points : int, optional
+        Número de puntos temporales para el gráfico, por defecto 100.
+
+    Raises
+    ------
+    ValueError
+        Si t_max es menor o igual a cero.
+
+    Examples
+    --------
+    >>> from cinetica.cinematica.espacial import MovimientoEspacial
+    >>> import numpy as np
+    >>> me = MovimientoEspacial(posicion_inicial=np.array([0, 0, 0]),
+    ...                        velocidad_inicial=np.array([1, 2, 1]),
+    ...                        aceleracion_constante=np.array([0, 0, -9.81]))
+    >>> plot_movimiento_espacial(me, t_max=5)
+    # Muestra la trayectoria 3D del objeto
+
+    Notes
+    -----
+    - El gráfico incluye marcadores para el punto de inicio (verde) y fin (rojo)
+    - Los ejes están etiquetados con unidades apropiadas
+    - La trayectoria se muestra como una línea continua
     """
     configurar_estilo_grafico()
     if t_max <= 0:

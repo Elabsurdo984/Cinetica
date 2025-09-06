@@ -30,23 +30,23 @@ def main():
     args = parser.parse_args()
 
     project_root = Path(__file__).parent
-    
+
     print("Running linting tools on Cinetica project...")
-    
+
     success = True
-    
+
     # Run Black (formatter)
     if args.fix:
         success &= run_command("black cinetica/ tests/ usage/", "Black formatting (auto-fix)")
     else:
         success &= run_command("black --check cinetica/ tests/ usage/", "Black formatting check")
-    
+
     # Run Flake8 (linter)
     success &= run_command("flake8 cinetica/ tests/ usage/", "Flake8 linting")
-    
+
     # Run MyPy (type checker)
     success &= run_command("mypy cinetica/", "MyPy type checking")
-    
+
     if success:
         print("\nAll linting checks passed!")
         return 0
