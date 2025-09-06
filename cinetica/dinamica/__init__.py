@@ -11,6 +11,6 @@ from .trabajo_energia import TrabajoEnergia
 
 __all__ = [
     "LeyesNewton",
-    "AnalisisFuerzas", 
+    "AnalisisFuerzas",
     "TrabajoEnergia"
 ]

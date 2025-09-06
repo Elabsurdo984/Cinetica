@@ -335,22 +335,22 @@ El módulo de dinámica proporciona herramientas completas para el análisis de 
 Clase para implementar las leyes de Newton y cálculos relacionados con fuerzas y aceleración.
 
 - **`__init__(self)`**: Inicializa una instancia de LeyesNewton.
-- **`segunda_ley(self, masa=None, aceleracion=None, fuerza=None)`**: 
+- **`segunda_ley(self, masa=None, aceleracion=None, fuerza=None)`**:
     Implementa la segunda ley de Newton (F = ma) con cálculo flexible de cualquier parámetro.
     - Proporciona exactamente dos de los tres parámetros para calcular el tercero.
     - Soporta valores escalares y vectoriales (numpy arrays).
     - Maneja unidades automáticamente con pint.
-- **`fuerza_neta(self, fuerzas)`**: 
+- **`fuerza_neta(self, fuerzas)`**:
     Calcula la fuerza neta de múltiples fuerzas.
     - Acepta lista de fuerzas escalares o vectoriales.
     - Retorna la suma vectorial de todas las fuerzas.
-- **`equilibrio(self, fuerzas, tolerancia=1e-10)`**: 
+- **`equilibrio(self, fuerzas, tolerancia=1e-10)`**:
     Verifica si un sistema está en equilibrio.
     - Retorna True si la fuerza neta es menor que la tolerancia.
-- **`peso(self, masa, gravedad=9.81)`**: 
+- **`peso(self, masa, gravedad=9.81)`**:
     Calcula el peso de un objeto.
     - Ecuación: W = m * g
-- **`fuerza_centripeta(self, masa, velocidad, radio)`**: 
+- **`fuerza_centripeta(self, masa, velocidad, radio)`**:
     Calcula la fuerza centrípeta.
     - Ecuación: Fc = m * v² / r
 
@@ -361,28 +361,28 @@ Clase para implementar las leyes de Newton y cálculos relacionados con fuerzas 
 Clase para análisis completo de diferentes tipos de fuerzas en sistemas físicos.
 
 - **`__init__(self)`**: Inicializa una instancia de AnalisisFuerzas.
-- **`friccion_estatica(self, normal, coeficiente)`**: 
+- **`friccion_estatica(self, normal, coeficiente)`**:
     Calcula la fuerza de fricción estática máxima.
     - Ecuación: fs = μs * N
-- **`friccion_cinetica(self, normal, coeficiente)`**: 
+- **`friccion_cinetica(self, normal, coeficiente)`**:
     Calcula la fuerza de fricción cinética.
     - Ecuación: fk = μk * N
-- **`fuerza_elastica(self, constante, deformacion)`**: 
+- **`fuerza_elastica(self, constante, deformacion)`**:
     Calcula la fuerza elástica según la ley de Hooke.
     - Ecuación: Fe = k * x
-- **`fuerza_gravitacional(self, masa1, masa2, distancia, G=6.67430e-11)`**: 
+- **`fuerza_gravitacional(self, masa1, masa2, distancia, G=6.67430e-11)`**:
     Calcula la fuerza gravitacional entre dos masas.
     - Ecuación: Fg = G * m1 * m2 / r²
-- **`descomponer_fuerza(self, magnitud, angulo)`**: 
+- **`descomponer_fuerza(self, magnitud, angulo)`**:
     Descompone una fuerza en componentes rectangulares.
     - Retorna (Fx, Fy) donde Fx = F*cos(θ), Fy = F*sen(θ)
-- **`magnitud_y_direccion(self, Fx, Fy)`**: 
+- **`magnitud_y_direccion(self, Fx, Fy)`**:
     Calcula magnitud y dirección desde componentes.
     - Retorna (magnitud, ángulo)
-- **`plano_inclinado(self, peso, angulo)`**: 
+- **`plano_inclinado(self, peso, angulo)`**:
     Descompone el peso en un plano inclinado.
     - Retorna (componente_paralela, componente_perpendicular)
-- **`tension_cuerda(self, masa, aceleracion=0, angulo=0, gravedad=9.81)`**: 
+- **`tension_cuerda(self, masa, aceleracion=0, angulo=0, gravedad=9.81)`**:
     Calcula la tensión en una cuerda.
     - Considera aceleración del sistema y ángulo con la vertical.
 
@@ -393,31 +393,31 @@ Clase para análisis completo de diferentes tipos de fuerzas en sistemas físico
 Clase para cálculos de trabajo, energía y potencia en sistemas mecánicos.
 
 - **`__init__(self)`**: Inicializa una instancia de TrabajoEnergia.
-- **`trabajo_fuerza_constante(self, fuerza, desplazamiento, angulo=0)`**: 
+- **`trabajo_fuerza_constante(self, fuerza, desplazamiento, angulo=0)`**:
     Calcula el trabajo realizado por una fuerza constante.
     - Ecuación: W = F * d * cos(θ)
-- **`trabajo_vectorial(self, fuerza, desplazamiento)`**: 
+- **`trabajo_vectorial(self, fuerza, desplazamiento)`**:
     Calcula el trabajo usando el producto punto de vectores.
     - Ecuación: W = F⃗ · d⃗
-- **`energia_cinetica(self, masa, velocidad)`**: 
+- **`energia_cinetica(self, masa, velocidad)`**:
     Calcula la energía cinética.
     - Ecuación: Ec = ½ * m * v²
-- **`energia_potencial_gravitacional(self, masa, altura, gravedad=9.81)`**: 
+- **`energia_potencial_gravitacional(self, masa, altura, gravedad=9.81)`**:
     Calcula la energía potencial gravitacional.
     - Ecuación: Ep = m * g * h
-- **`energia_potencial_elastica(self, constante, deformacion)`**: 
+- **`energia_potencial_elastica(self, constante, deformacion)`**:
     Calcula la energía potencial elástica.
     - Ecuación: Ep = ½ * k * x²
-- **`energia_mecanica_total(self, energia_cinetica, energia_potencial)`**: 
+- **`energia_mecanica_total(self, energia_cinetica, energia_potencial)`**:
     Calcula la energía mecánica total.
     - Ecuación: Em = Ec + Ep
-- **`teorema_trabajo_energia(self, masa, velocidad_inicial, velocidad_final)`**: 
+- **`teorema_trabajo_energia(self, masa, velocidad_inicial, velocidad_final)`**:
     Aplica el teorema trabajo-energía.
     - Ecuación: Wneto = ΔEc = Ecf - Eci
-- **`potencia(self, trabajo, tiempo)`**: 
+- **`potencia(self, trabajo, tiempo)`**:
     Calcula la potencia promedio.
     - Ecuación: P = W / t
-- **`potencia_instantanea(self, fuerza, velocidad)`**: 
+- **`potencia_instantanea(self, fuerza, velocidad)`**:
     Calcula la potencia instantánea.
     - Ecuación: P = F * v
 
