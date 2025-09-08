@@ -13,6 +13,14 @@ dist/
 *.egg
 *.whl
 
+# Environment variables
+.env
+!.env.example
+
+# Logs
+logs/
+*.log
+
 # Editors
 .vscode/
 .idea/

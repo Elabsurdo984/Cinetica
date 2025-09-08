@@ -16,6 +16,79 @@ La librería se organiza en paquetes y módulos, reflejando una estructura más 
 - `dinamica`: Módulos completos para análisis dinámico incluyendo fuerzas, trabajo y energía.
 - `graficos`: Funciones para la visualización de los movimientos.
 
+## Sistema de Configuración
+
+Cinetica incluye un sistema de configuración centralizado que permite personalizar el comportamiento de la biblioteca. La configuración se puede establecer a través de variables de entorno o un archivo `.env` en el directorio raíz del proyecto.
+
+### Configuración Básica
+
+La configuración se carga automáticamente al importar el módulo `cinetica`:
+
+```python
+from cinetica import config
+
+# Acceder a la configuración
+print(f"Nivel de log: {config.logging.level}")
+print(f"Workers máximos: {config.performance.max_workers}")
+```
+
+### Variables de Entorno
+
+Puedes configurar la aplicación usando variables de entorno con el prefijo `CINETICA_` o directamente con los nombres de las opciones:
+
+```bash
+# Ejemplo de configuración con variables de entorno
+export ENV=development
+export LOGGING__LEVEL=DEBUG
+export PERFORMANCE__MAX_WORKERS=8
+```
+
+### Archivo .env
+
+Crea un archivo `.env` en el directorio raíz de tu proyecto:
+
+```ini
+# .env
+ENV=development
+LOG_LEVEL=DEBUG
+LOG_FILE=logs/cinetica.log
+MAX_WORKERS=8
+CACHE_ENABLED=true
+```
+
+### Opciones de Configuración
+
+#### Configuración General
+- `ENV`: Entorno de ejecución (`development`, `testing`, `production`)
+- `DEBUG`: Modo de depuración (booleano)
+- `TESTING`: Modo de pruebas (booleano)
+
+#### Configuración de Logging
+- `LOG_LEVEL`: Nivel de log (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`)
+- `LOG_FILE`: Ruta del archivo de log (opcional)
+- `LOG_FORMAT`: Formato de los mensajes de log
+- `LOG_DATE_FORMAT`: Formato de fecha en los logs
+
+#### Configuración de Rendimiento
+- `MAX_WORKERS`: Número máximo de workers para operaciones paralelas
+- `CACHE_ENABLED`: Habilitar caché (booleano)
+- `CACHE_TTL`: Tiempo de vida de la caché en segundos
+
+### Uso Avanzado
+
+Puedes sobrescribir la configuración en tiempo de ejecución:
+
+```python
+from cinetica.config import settings
+
+# Modificar configuración
+settings.logging.level = "DEBUG"
+settings.performance.max_workers = 4
+
+# Recargar configuración
+settings = settings.model_validate(settings.model_dump())
+```
+
 ## Sistema de Unidades con `pint`
 
 La librería `Cinetica` ahora integra `pint` para un manejo robusto de unidades en los cálculos físicos. Esto permite definir cantidades con unidades y asegura la consistencia dimensional en las operaciones.

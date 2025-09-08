@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.20.0 - 2025-09-08
+
+### Added
+- **Sistema de Configuración Centralizado**:
+  - Nuevo módulo `cinetica.config` para gestión unificada de configuraciones
+  - Soporte para variables de entorno y archivos `.env`
+  - Validación de tipos y valores con Pydantic v2
+  - Configuraciones específicas por entorno (development, testing, production)
+- **Mejoras en el Sistema de Logging**:
+  - Integración con el sistema de configuración centralizado
+  - Soporte mejorado para archivos de log rotativos
+  - Formato de logs consistente en toda la aplicación
+- **Nuevas Dependencias**:
+  - `pydantic>=2.0.0` para validación de configuraciones
+  - `python-dotenv>=1.0.0` para manejo de variables de entorno
+- **Documentación**:
+  - Archivo `.env.example` con configuración de ejemplo
+  - Documentación detallada en docstrings
+  - Guía de migración para usuarios existentes
+
+### Changed
+- **Refactorización del Sistema de Logging**:
+  - Interfaz simplificada con `get_logger()`
+  - Configuración automática basada en el entorno
+  - Mejor manejo de errores y validación
+- **Estructura del Proyecto**:
+  - Actualizado `pyproject.toml` con nuevas dependencias
+  - Mejor organización de archivos de configuración
+  - Actualizado `.gitignore` para excluir archivos sensibles
+
+### Fixed
+- **Correcciones de Rendimiento**:
+  - Reducción de sobrecarga en la inicialización
+  - Mejor manejo de recursos del sistema
+- **Mejoras en la Estabilidad**:
+  - Validación robusta de configuraciones
+  - Manejo de errores mejorado
+
 ## 0.18.0 - 2025-09-06
 
 ### Added

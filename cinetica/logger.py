@@ -3,12 +3,22 @@ Módulo de logging centralizado para la librería Cinetica.
 
 Este módulo proporciona una configuración consistente de logging para toda la aplicación,
 permitiendo un registro detallado de eventos, advertencias y errores.
+
+El módulo está diseñado para ser utilizado junto con el sistema de configuración centralizado.
 """
 
 import logging
 import sys
 from pathlib import Path
-from typing import Optional, Union, Dict, Any
+from typing import Optional, Union, Dict, Any, TYPE_CHECKING
+
+# Evitar importación circular
+if TYPE_CHECKING:
+    from .config import Settings
+    settings: 'Settings'
+else:
+    # Se importará dinámicamente cuando sea necesario
+    settings = None
 
 # Niveles de log predefinidos
 LOG_LEVELS = {
@@ -19,25 +29,25 @@ LOG_LEVELS = {
     'CRITICAL': logging.CRITICAL
 }
 
-# Configuración por defecto
+# Nivel de log por defecto
 DEFAULT_LEVEL = 'INFO'
-DEFAULT_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 # Logger raíz de la aplicación
 _root_logger = None
 
 def setup_logger(
     name: str = "cinetica",
-    level: Union[str, int] = DEFAULT_LEVEL,
+    level: Optional[Union[str, int]] = None,
     log_file: Optional[Union[str, Path]] = None,
-    log_format: str = DEFAULT_FORMAT,
-    date_format: str = DEFAULT_DATE_FORMAT,
+    log_format: Optional[str] = None,
+    date_format: Optional[str] = None,
     propagate: bool = False,
     **kwargs: Any
 ) -> logging.Logger:
     """
     Configura y retorna un logger con formato consistente.
+    
+    Si no se especifican los parámetros, se utilizarán los valores de la configuración.
     
     Args:
         name: Nombre del logger (usualmente __name__)
@@ -52,10 +62,27 @@ def setup_logger(
         logging.Logger: Logger configurado
         
     Examples:
+        >>> # Usando configuración por defecto
         >>> logger = setup_logger(__name__)
-        >>> logger.info("Mensaje informativo")
+        >>> 
+        >>> # Sobrescribiendo configuración
+        >>> logger = setup_logger(__name__, level='DEBUG')
     """
     global _root_logger
+    
+    # Importar configuración solo cuando sea necesario para evitar importación circular
+    global settings
+    if settings is None:
+        from .config import settings as config_settings
+        settings = config_settings
+    
+    # Usar valores de configuración si no se especifican
+    if level is None:
+        level = settings.logging.level
+    if log_format is None:
+        log_format = settings.logging.format
+    if date_format is None:
+        date_format = settings.logging.date_format
     
     # Si es el logger raíz, configurarlo como tal
     is_root = (name == 'cinetica' or name == 'root')
@@ -94,13 +121,15 @@ def setup_logger(
                 logger.addHandler(console_handler)
             logger.propagate = True  # Propagar al logger raíz
         
-        # Configurar archivo de log si se especifica
-        if log_file:
-            file_handler = _get_file_handler(log_file, formatter, **kwargs)
-            logger.addHandler(file_handler)
-            
-            if is_root and _root_logger:
-                _root_logger.addHandler(file_handler)
+        # Configurar archivo de log si se especifica o está en configuración
+        if log_file or (is_root and settings.logging.file):
+            file_path = log_file or settings.logging.file
+            if file_path:
+                file_handler = _get_file_handler(file_path, formatter, **kwargs)
+                logger.addHandler(file_handler)
+                
+                if is_root and _root_logger:
+                    _root_logger.addHandler(file_handler)
     
     return logger
 
