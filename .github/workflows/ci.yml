@@ -44,8 +44,18 @@ jobs:
         pip install -e .[dev]
     
     - name: Run tests
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+        CINETICA_ENV: testing
+        PYTHONUNBUFFERED: 1
       run: |
-        python -m pytest tests/ --cov=cinetica --cov-report=xml
+        python -m pytest tests/ \
+          --cov=cinetica \
+          --cov-report=xml \
+          -v \
+          --durations=10 \
+          --cov-fail-under=80
+      continue-on-error: false
     
     - name: Upload coverage to Codecov
       if: matrix.os == 'ubuntu-latest'
