@@ -1,0 +1,9 @@
+# Dependencies for building documentation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.2.0
+sphinxcontrib-applehelp>=1.0.7
+sphinxcontrib-devhelp>=1.0.6
+sphinxcontrib-htmlhelp>=2.0.6
+sphinxcontrib-jsmath>=1.0.1
+sphinxcontrib-qthelp>=1.0.6
+sphinxcontrib-serializinghtml>=1.1.9
