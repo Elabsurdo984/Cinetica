@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinetica &mdash; documentación de Cinetica - 0.20.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0ebefd21"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Guía de Instalación" href="guia_instalacion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Cinetica
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenido:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guia_instalacion.html">Guía de Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#requisitos">Requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#instalacion-con-pip">Instalación con pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#instalacion-desde-el-codigo-fuente">Instalación desde el código fuente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#verificacion-de-la-instalacion">Verificación de la instalación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#solucion-de-problemas">Solución de problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guia_inicio_rapido.html">Guía de Inicio Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#primeros-pasos">Primeros pasos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#ejemplo-basico-movimiento-rectilineo-uniforme-mru">Ejemplo básico: Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#ejemplo-avanzado-segunda-ley-de-newton">Ejemplo avanzado: Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#visualizacion-de-datos">Visualización de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#proximos-pasos">Próximos pasos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Referencia de la API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.html">Módulo cinetica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.html#cinetica.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.html#cinetica.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.html#submodulos">Submódulos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.cinematica.html">Módulo cinetica.cinematica</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html">Módulo cinetica.dinamica</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.graficos.html">Módulo cinetica.graficos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html">Módulo cinetica.unidades</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.cinematica.html">Módulo cinetica.cinematica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.cinematica.html#submodulos">Submódulos</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html">Módulo cinetica.dinamica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#clases">Clases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id0"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id8"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id18"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.graficos.html">Módulo cinetica.graficos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.graficos.html#funciones">Funciones</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.unidades.html">Módulo cinetica.unidades</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#unidades-disponibles">Unidades disponibles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html#longitud">Longitud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html#tiempo">Tiempo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html#masa">Masa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html#fuerza">Fuerza</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.unidades.html#angulo">Ángulo</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#ejemplos-de-uso">Ejemplos de uso</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#modulos-principales">Módulos principales</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#movimiento-rectilineo-uniforme-mru">Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#segunda-ley-de-newton">Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#trabajo-y-energia">Trabajo y Energía</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#visualizacion-de-movimiento">Visualización de Movimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#analisis-de-fuerzas-en-un-plano-inclinado">Análisis de Fuerzas en un Plano Inclinado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="desarrollo.html">Guía para Desarrolladores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#configuracion-del-entorno">Configuración del Entorno</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#estructura-del-proyecto">Estructura del Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#convenciones-de-codigo">Convenciones de Código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#ejecucion-de-pruebas">Ejecución de Pruebas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#construccion-de-la-documentacion">Construcción de la Documentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#flujo-de-trabajo-para-contribuciones">Flujo de Trabajo para Contribuciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#reporte-de-errores">Reporte de Errores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#solicitud-de-caracteristicas">Solicitud de Características</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Referencia de la API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.cinematica.html">Módulo cinetica.cinematica</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.cinematica.html#submodulos">Submódulos</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.dinamica.html">Módulo cinetica.dinamica</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html#clases">Clases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#id0"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id1"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id2"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id3"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id4"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id5"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id6"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id7"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#id8"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id9"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id10"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id11"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id12"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id13"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id14"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id15"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id16"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id17"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.dinamica.html#id18"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id19"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id20"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id21"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id22"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id23"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id24"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id25"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id26"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id27"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/cinetica.dinamica.html#id28"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.graficos.html">Módulo cinetica.graficos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.graficos.html#funciones">Funciones</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.unidades.html">Módulo cinetica.unidades</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.unidades.html#unidades-disponibles">Unidades disponibles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#longitud">Longitud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#tiempo">Tiempo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#masa">Masa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#fuerza">Fuerza</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cinetica.unidades.html#angulo">Ángulo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.unidades.html#ejemplos-de-uso">Ejemplos de uso</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Cinetica</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cinetica</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cinetica">
+<h1>Cinetica<a class="headerlink" href="#cinetica" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contenido:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guia_instalacion.html">Guía de Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#requisitos">Requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#instalacion-con-pip">Instalación con pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#instalacion-desde-el-codigo-fuente">Instalación desde el código fuente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#verificacion-de-la-instalacion">Verificación de la instalación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_instalacion.html#solucion-de-problemas">Solución de problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guia_inicio_rapido.html">Guía de Inicio Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#primeros-pasos">Primeros pasos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#ejemplo-basico-movimiento-rectilineo-uniforme-mru">Ejemplo básico: Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#ejemplo-avanzado-segunda-ley-de-newton">Ejemplo avanzado: Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#visualizacion-de-datos">Visualización de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guia_inicio_rapido.html#proximos-pasos">Próximos pasos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Referencia de la API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.html">Módulo cinetica</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.cinematica.html">Módulo cinetica.cinematica</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.dinamica.html">Módulo cinetica.dinamica</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.graficos.html">Módulo cinetica.graficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/cinetica.unidades.html">Módulo cinetica.unidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#modulos-principales">Módulos principales</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#movimiento-rectilineo-uniforme-mru">Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#segunda-ley-de-newton">Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#trabajo-y-energia">Trabajo y Energía</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#visualizacion-de-movimiento">Visualización de Movimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ejemplos.html#analisis-de-fuerzas-en-un-plano-inclinado">Análisis de Fuerzas en un Plano Inclinado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="desarrollo.html">Guía para Desarrolladores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#configuracion-del-entorno">Configuración del Entorno</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#estructura-del-proyecto">Estructura del Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#convenciones-de-codigo">Convenciones de Código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#ejecucion-de-pruebas">Ejecución de Pruebas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#construccion-de-la-documentacion">Construcción de la Documentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#flujo-de-trabajo-para-contribuciones">Flujo de Trabajo para Contribuciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#reporte-de-errores">Reporte de Errores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="desarrollo.html#solicitud-de-caracteristicas">Solicitud de Características</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Referencia de la API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.cinematica.html">Módulo cinetica.cinematica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.dinamica.html">Módulo cinetica.dinamica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.graficos.html">Módulo cinetica.graficos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/cinetica.unidades.html">Módulo cinetica.unidades</a></li>
+</ul>
+</div>
+</section>
+<section id="indice-y-tablas">
+<h1>Indice y tablas<a class="headerlink" href="#indice-y-tablas" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Índice de Módulos</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Página de Búsqueda</span></a></p></li>
+</ul>
+<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
+documentation for details.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="guia_instalacion.html" class="btn btn-neutral float-right" title="Guía de Instalación" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Elabsurdo984.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

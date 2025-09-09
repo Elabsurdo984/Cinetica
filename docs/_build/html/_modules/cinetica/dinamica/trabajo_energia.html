@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cinetica.dinamica.trabajo_energia &mdash; documentación de Cinetica - 0.20.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=0ebefd21"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Cinetica
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenido:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../guia_instalacion.html">Guía de Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_instalacion.html#requisitos">Requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_instalacion.html#instalacion-con-pip">Instalación con pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_instalacion.html#instalacion-desde-el-codigo-fuente">Instalación desde el código fuente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_instalacion.html#verificacion-de-la-instalacion">Verificación de la instalación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_instalacion.html#solucion-de-problemas">Solución de problemas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guia_inicio_rapido.html">Guía de Inicio Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_inicio_rapido.html#primeros-pasos">Primeros pasos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_inicio_rapido.html#ejemplo-basico-movimiento-rectilineo-uniforme-mru">Ejemplo básico: Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_inicio_rapido.html#ejemplo-avanzado-segunda-ley-de-newton">Ejemplo avanzado: Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_inicio_rapido.html#visualizacion-de-datos">Visualización de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guia_inicio_rapido.html#proximos-pasos">Próximos pasos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Referencia de la API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.html">Módulo cinetica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.html#cinetica.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.html#cinetica.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.html#submodulos">Submódulos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.cinematica.html">Módulo cinetica.cinematica</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html">Módulo cinetica.dinamica</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.graficos.html">Módulo cinetica.graficos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html">Módulo cinetica.unidades</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.cinematica.html">Módulo cinetica.cinematica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.cinematica.html#submodulos">Submódulos</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.dinamica.html">Módulo cinetica.dinamica</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#clases">Clases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id0"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id8"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id18"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.graficos.html">Módulo cinetica.graficos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.graficos.html#funciones">Funciones</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.unidades.html">Módulo cinetica.unidades</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#unidades-disponibles">Unidades disponibles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html#longitud">Longitud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html#tiempo">Tiempo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html#masa">Masa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html#fuerza">Fuerza</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.unidades.html#angulo">Ángulo</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#ejemplos-de-uso">Ejemplos de uso</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#modulos-principales">Módulos principales</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ejemplos.html">Ejemplos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../ejemplos.html#movimiento-rectilineo-uniforme-mru">Movimiento Rectilíneo Uniforme (MRU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ejemplos.html#segunda-ley-de-newton">Segunda Ley de Newton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ejemplos.html#trabajo-y-energia">Trabajo y Energía</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ejemplos.html#visualizacion-de-movimiento">Visualización de Movimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ejemplos.html#analisis-de-fuerzas-en-un-plano-inclinado">Análisis de Fuerzas en un Plano Inclinado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../desarrollo.html">Guía para Desarrolladores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#configuracion-del-entorno">Configuración del Entorno</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#estructura-del-proyecto">Estructura del Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#convenciones-de-codigo">Convenciones de Código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#ejecucion-de-pruebas">Ejecución de Pruebas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#construccion-de-la-documentacion">Construcción de la Documentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#flujo-de-trabajo-para-contribuciones">Flujo de Trabajo para Contribuciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#reporte-de-errores">Reporte de Errores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../desarrollo.html#solicitud-de-caracteristicas">Solicitud de Características</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Referencia de la API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cinetica.cinematica.html">Módulo cinetica.cinematica</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento"><code class="docutils literal notranslate"><span class="pre">Movimiento</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.aceleracion"><code class="docutils literal notranslate"><span class="pre">Movimiento.aceleracion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.posicion"><code class="docutils literal notranslate"><span class="pre">Movimiento.posicion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.cinematica.html#cinetica.cinematica.Movimiento.velocidad"><code class="docutils literal notranslate"><span class="pre">Movimiento.velocidad()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.cinematica.html#submodulos">Submódulos</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cinetica.dinamica.html">Módulo cinetica.dinamica</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.__init__"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.aceleracion_desde_fuerzas"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.equilibrio"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_centripeta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.fuerza_neta"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.peso"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.LeyesNewton.segunda_ley"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.__init__"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.descomponer_fuerza"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_cinetica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.friccion_estatica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_elastica"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.fuerza_gravitacional"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.magnitud_y_direccion"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.plano_inclinado"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.AnalisisFuerzas.tension_cuerda"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.__init__"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.dinamica.html#clases">Clases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id0"><code class="docutils literal notranslate"><span class="pre">LeyesNewton</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id1"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id2"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.segunda_ley()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id3"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_neta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id4"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.equilibrio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id5"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.aceleracion_desde_fuerzas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id6"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.peso()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id7"><code class="docutils literal notranslate"><span class="pre">LeyesNewton.fuerza_centripeta()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id8"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id9"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id10"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_estatica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id11"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.friccion_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id12"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id13"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.fuerza_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id14"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.descomponer_fuerza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id15"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.magnitud_y_direccion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id16"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.plano_inclinado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id17"><code class="docutils literal notranslate"><span class="pre">AnalisisFuerzas.tension_cuerda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id18"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id19"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id20"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_fuerza_constante()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id21"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.trabajo_vectorial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id22"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_cinetica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id23"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_gravitacional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id24"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_potencial_elastica()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id25"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.energia_mecanica_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id26"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.teorema_trabajo_energia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id27"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/cinetica.dinamica.html#id28"><code class="docutils literal notranslate"><span class="pre">TrabajoEnergia.potencia_instantanea()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cinetica.graficos.html">Módulo cinetica.graficos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.graficos.html#funciones">Funciones</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cinetica.unidades.html">Módulo cinetica.unidades</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.unidades.html#unidades-disponibles">Unidades disponibles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#longitud">Longitud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#tiempo">Tiempo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#masa">Masa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#fuerza">Fuerza</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cinetica.unidades.html#angulo">Ángulo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cinetica.unidades.html#ejemplos-de-uso">Ejemplos de uso</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Cinetica</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">cinetica.dinamica.trabajo_energia</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para cinetica.dinamica.trabajo_energia</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Módulo de trabajo y energía para análisis dinámico.</span>
+
+<span class="sd">Este módulo implementa los conceptos fundamentales de trabajo, energía cinética,</span>
+<span class="sd">energía potencial y el teorema trabajo-energía para el análisis de sistemas</span>
+<span class="sd">mecánicos.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..units</span><span class="w"> </span><span class="kn">import</span> <span class="n">ureg</span><span class="p">,</span> <span class="n">Q_</span>
+
+
+<div class="viewcode-block" id="TrabajoEnergia">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TrabajoEnergia</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Análisis de trabajo y energía en sistemas mecánicos.</span>
+
+<span class="sd">    Esta clase proporciona métodos para calcular trabajo, energías cinética</span>
+<span class="sd">    y potencial, y aplicar el teorema trabajo-energía en problemas de mecánica.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from cinetica.dinamica import TrabajoEnergia</span>
+<span class="sd">    &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">    &gt;&gt;&gt; trabajo = te.trabajo_fuerza_constante(fuerza=50, desplazamiento=10)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Trabajo: {trabajo}&quot;)</span>
+<span class="sd">    Trabajo: 500.0 joule</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrabajoEnergia.__init__">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.__init__">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inicializa una instancia de TrabajoEnergia.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.trabajo_fuerza_constante">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_fuerza_constante">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trabajo_fuerza_constante</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fuerza</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">desplazamiento</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">angulo</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula el trabajo realizado por una fuerza constante.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fuerza : float or pint.Quantity</span>
+<span class="sd">            Magnitud de la fuerza en N.</span>
+<span class="sd">        desplazamiento : float or pint.Quantity</span>
+<span class="sd">            Magnitud del desplazamiento en m.</span>
+<span class="sd">        angulo : float or pint.Quantity, optional</span>
+<span class="sd">            Ángulo entre la fuerza y el desplazamiento en radianes. Default 0.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Trabajo realizado en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; W = te.trabajo_fuerza_constante(fuerza=100, desplazamiento=5)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Trabajo: {W}&quot;)</span>
+<span class="sd">        Trabajo: 500.0 joule</span>
+
+<span class="sd">        &gt;&gt;&gt; # Fuerza a 60 grados del desplazamiento</span>
+<span class="sd">        &gt;&gt;&gt; W_angulo = te.trabajo_fuerza_constante(fuerza=100, desplazamiento=5,</span>
+<span class="sd">        ...                                        angulo=math.pi/3)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Trabajo con ángulo: {W_angulo}&quot;)</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        El trabajo se calcula como: W = F · d = F * d * cos(θ)</span>
+<span class="sd">        donde θ es el ángulo entre la fuerza y el desplazamiento.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fuerza</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">fuerza</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">fuerza</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">newton</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">desplazamiento</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">desplazamiento</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">desplazamiento</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">angulo</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">angulo</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">angulo</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">radian</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">fuerza</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La magnitud de la fuerza debe ser no negativa&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">desplazamiento</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La magnitud del desplazamiento debe ser no negativa&quot;</span><span class="p">)</span>
+
+        <span class="n">angulo_rad</span> <span class="o">=</span> <span class="n">angulo</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">radian</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">trabajo</span> <span class="o">=</span> <span class="n">fuerza</span> <span class="o">*</span> <span class="n">desplazamiento</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angulo_rad</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">trabajo</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.trabajo_vectorial">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.trabajo_vectorial">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trabajo_vectorial</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fuerza</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">desplazamiento</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula el trabajo usando el producto punto de vectores.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fuerza : list, numpy.ndarray, or pint.Quantity</span>
+<span class="sd">            Vector fuerza en N.</span>
+<span class="sd">        desplazamiento : list, numpy.ndarray, or pint.Quantity</span>
+<span class="sd">            Vector desplazamiento en m.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Trabajo realizado en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; F = [10, 20, 0]  # Fuerza en 3D</span>
+<span class="sd">        &gt;&gt;&gt; d = [5, 0, 0]    # Desplazamiento en 3D</span>
+<span class="sd">        &gt;&gt;&gt; W = te.trabajo_vectorial(fuerza=F, desplazamiento=d)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Trabajo vectorial: {W}&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fuerza</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">fuerza</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fuerza</span><span class="p">),</span> <span class="n">ureg</span><span class="o">.</span><span class="n">newton</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">desplazamiento</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">desplazamiento</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">desplazamiento</span><span class="p">),</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+
+        <span class="c1"># Verificar que ambos vectores tengan la misma dimensión</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fuerza</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">desplazamiento</span><span class="o">.</span><span class="n">magnitude</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Los vectores fuerza y desplazamiento deben tener la misma dimensión&quot;</span><span class="p">)</span>
+
+        <span class="n">trabajo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fuerza</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">desplazamiento</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Q_</span><span class="p">(</span><span class="n">trabajo</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.energia_cinetica">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_cinetica">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">energia_cinetica</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">masa</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span> <span class="n">velocidad</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la energía cinética de un objeto.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        masa : float or pint.Quantity</span>
+<span class="sd">            Masa del objeto en kg.</span>
+<span class="sd">        velocidad : float or pint.Quantity</span>
+<span class="sd">            Velocidad del objeto en m/s.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Energía cinética en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; Ec = te.energia_cinetica(masa=10, velocidad=5)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Energía cinética: {Ec}&quot;)</span>
+<span class="sd">        Energía cinética: 125.0 joule</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La energía cinética se calcula como: Ec = (1/2) * m * v²</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">masa</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">kilogram</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">velocidad</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">velocidad</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">velocidad</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">masa</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La masa debe ser positiva&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">velocidad</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La velocidad debe ser no negativa&quot;</span><span class="p">)</span>
+
+        <span class="n">energia</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">masa</span> <span class="o">*</span> <span class="n">velocidad</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">energia</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.energia_potencial_gravitacional">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_gravitacional">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">energia_potencial_gravitacional</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">masa</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">altura</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">gravedad</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span> <span class="o">=</span> <span class="mf">9.81</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la energía potencial gravitacional.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        masa : float or pint.Quantity</span>
+<span class="sd">            Masa del objeto en kg.</span>
+<span class="sd">        altura : float or pint.Quantity</span>
+<span class="sd">            Altura sobre el nivel de referencia en m.</span>
+<span class="sd">        gravedad : float or pint.Quantity, optional</span>
+<span class="sd">            Aceleración gravitacional en m/s². Default 9.81.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Energía potencial gravitacional en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; Ep = te.energia_potencial_gravitacional(masa=5, altura=10)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Energía potencial: {Ep}&quot;)</span>
+<span class="sd">        Energía potencial: 490.5 joule</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La energía potencial gravitacional: Ep = m * g * h</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">masa</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">kilogram</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">altura</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">altura</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">altura</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gravedad</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">gravedad</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">gravedad</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">masa</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La masa debe ser positiva&quot;</span><span class="p">)</span>
+
+        <span class="n">energia</span> <span class="o">=</span> <span class="n">masa</span> <span class="o">*</span> <span class="n">gravedad</span> <span class="o">*</span> <span class="n">altura</span>
+        <span class="k">return</span> <span class="n">energia</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.energia_potencial_elastica">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_potencial_elastica">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">energia_potencial_elastica</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">constante</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">deformacion</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la energía potencial elástica de un resorte.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        constante : float or pint.Quantity</span>
+<span class="sd">            Constante elástica del resorte en N/m.</span>
+<span class="sd">        deformacion : float or pint.Quantity</span>
+<span class="sd">            Deformación del resorte en m.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Energía potencial elástica en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; Ep_elastica = te.energia_potencial_elastica(constante=200, deformacion=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Energía potencial elástica: {Ep_elastica}&quot;)</span>
+<span class="sd">        Energía potencial elástica: 1.0 joule</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La energía potencial elástica: Ep = (1/2) * k * x²</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constante</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">constante</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">constante</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">newton</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deformacion</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">deformacion</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">deformacion</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">constante</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La constante elástica debe ser no negativa&quot;</span><span class="p">)</span>
+
+        <span class="n">energia</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">constante</span> <span class="o">*</span> <span class="n">deformacion</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">energia</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.energia_mecanica_total">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.energia_mecanica_total">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">energia_mecanica_total</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">energia_cinetica</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">energia_potencial</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la energía mecánica total del sistema.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        energia_cinetica : float or pint.Quantity</span>
+<span class="sd">            Energía cinética en J.</span>
+<span class="sd">        energia_potencial : float or pint.Quantity</span>
+<span class="sd">            Energía potencial en J.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Energía mecánica total en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; Em = te.energia_mecanica_total(energia_cinetica=100, energia_potencial=50)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Energía mecánica total: {Em}&quot;)</span>
+<span class="sd">        Energía mecánica total: 150.0 joule</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La energía mecánica total: Em = Ec + Ep</span>
+<span class="sd">        En sistemas conservativos, la energía mecánica se conserva.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">energia_cinetica</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">energia_cinetica</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">energia_cinetica</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">energia_potencial</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">energia_potencial</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">energia_potencial</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">energia_cinetica</span> <span class="o">+</span> <span class="n">energia_potencial</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.teorema_trabajo_energia">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.teorema_trabajo_energia">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">teorema_trabajo_energia</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">masa</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">velocidad_inicial</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">velocidad_final</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica el teorema trabajo-energía para calcular el trabajo neto.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        masa : float or pint.Quantity</span>
+<span class="sd">            Masa del objeto en kg.</span>
+<span class="sd">        velocidad_inicial : float or pint.Quantity</span>
+<span class="sd">            Velocidad inicial en m/s.</span>
+<span class="sd">        velocidad_final : float or pint.Quantity</span>
+<span class="sd">            Velocidad final en m/s.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Trabajo neto realizado en J.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; W_neto = te.teorema_trabajo_energia(masa=10, velocidad_inicial=0,</span>
+<span class="sd">        ...                                    velocidad_final=5)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Trabajo neto: {W_neto}&quot;)</span>
+<span class="sd">        Trabajo neto: 125.0 joule</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        El teorema trabajo-energía: W_neto = ΔEc = Ec_final - Ec_inicial</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">masa</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">kilogram</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">velocidad_inicial</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">velocidad_inicial</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">velocidad_inicial</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">velocidad_final</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">velocidad_final</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">velocidad_final</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">masa</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La masa debe ser positiva&quot;</span><span class="p">)</span>
+
+        <span class="n">Ec_inicial</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia_cinetica</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">velocidad_inicial</span><span class="p">)</span>
+        <span class="n">Ec_final</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">energia_cinetica</span><span class="p">(</span><span class="n">masa</span><span class="p">,</span> <span class="n">velocidad_final</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Ec_final</span> <span class="o">-</span> <span class="n">Ec_inicial</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.potencia">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">potencia</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trabajo</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">tiempo</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la potencia como trabajo por unidad de tiempo.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        trabajo : float or pint.Quantity</span>
+<span class="sd">            Trabajo realizado en J.</span>
+<span class="sd">        tiempo : float or pint.Quantity</span>
+<span class="sd">            Tiempo transcurrido en s.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Potencia en W.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; P = te.potencia(trabajo=1000, tiempo=10)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Potencia: {P}&quot;)</span>
+<span class="sd">        Potencia: 100.0 watt</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La potencia se define como: P = W / t</span>
+<span class="sd">        También puede expresarse como: P = F · v (fuerza por velocidad)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trabajo</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">trabajo</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">trabajo</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">joule</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tiempo</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">tiempo</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">tiempo</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">tiempo</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;El tiempo debe ser positivo&quot;</span><span class="p">)</span>
+
+        <span class="n">potencia</span> <span class="o">=</span> <span class="n">trabajo</span> <span class="o">/</span> <span class="n">tiempo</span>
+        <span class="k">return</span> <span class="n">potencia</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">watt</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrabajoEnergia.potencia_instantanea">
+<a class="viewcode-back" href="../../../api/cinetica.dinamica.html#cinetica.dinamica.TrabajoEnergia.potencia_instantanea">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">potencia_instantanea</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fuerza</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">],</span>
+        <span class="n">velocidad</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Q_</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Q_</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calcula la potencia instantánea.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fuerza : float or pint.Quantity</span>
+<span class="sd">            Fuerza aplicada en N.</span>
+<span class="sd">        velocidad : float or pint.Quantity</span>
+<span class="sd">            Velocidad instantánea en m/s.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pint.Quantity</span>
+<span class="sd">            Potencia instantánea en W.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; te = TrabajoEnergia()</span>
+<span class="sd">        &gt;&gt;&gt; P_inst = te.potencia_instantanea(fuerza=50, velocidad=10)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Potencia instantánea: {P_inst}&quot;)</span>
+<span class="sd">        Potencia instantánea: 500.0 watt</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        La potencia instantánea: P = F · v</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fuerza</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">fuerza</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">fuerza</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">newton</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">velocidad</span><span class="p">,</span> <span class="n">Q_</span><span class="p">):</span>
+            <span class="n">velocidad</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">velocidad</span><span class="p">,</span> <span class="n">ureg</span><span class="o">.</span><span class="n">meter</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+        <span class="n">potencia</span> <span class="o">=</span> <span class="n">fuerza</span> <span class="o">*</span> <span class="n">velocidad</span>
+        <span class="k">return</span> <span class="n">potencia</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">watt</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Elabsurdo984.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

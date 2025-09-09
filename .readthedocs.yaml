@@ -1,60 +1,13 @@
-# .readthedocs.yaml
-# Read the Docs configuration file
-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-
+# Required
 version: 2
 
-# Build documentation in the docs/ directory with Sphinx
-sphinx:
-  configuration: docs/conf.py
-  fail_on_warning: true
-
-# Build documentation with Python 3.11
-python:
-  version: "3.11"
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
-
-# Optionally set the version of Sphinx and other tools
+# Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-22.04
+  os: ubuntu-24.04
   tools:
-    python: "3.11"
-  jobs:
-    post_install:
-      - pip install -r docs/requirements.txt
+    python: "3.13"
 
-# Optionally build PDF and ePub
-formats:
-  - pdf
-  - epub
+# Build documentation in the "docs/" directory with Sphinx
+sphinx:
+   configuration: docs/conf.py
 
-# Optionally set the default version
-defaults:
-  version: latest
-  features:
-    build_pdf: true
-    build_epub: true
-
-# Optionally include or exclude paths
-include_paths:
-  - docs/
-  - README.md
-  - LICENSE
-  - CHANGELOG.md
-  - CONTRIBUTING.md
-
-exclude_patterns:
-  - "**/_build/**"
-  - "**/__pycache__"
-  - "**/tests"
-  - "**/venv"
-  - ".git"
-  - ".github"
-  - ".gitignore"
-
-# Optionally set the language
-language: es
