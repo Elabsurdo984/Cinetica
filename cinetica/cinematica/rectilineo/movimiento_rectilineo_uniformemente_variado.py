@@ -1,7 +1,10 @@
+from typing import Union, Optional, Tuple, Any, Dict
+import numpy as np
 import math
-from typing import Union, Optional
+from functools import lru_cache
 from ..base_movimiento import Movimiento
 from ...units import ureg, Q_
+from ...optimizacion import vectorizar_funcion
 
 
 class MovimientoRectilineoUniformementeVariado(Movimiento):
@@ -51,28 +54,21 @@ class MovimientoRectilineoUniformementeVariado(Movimiento):
 
     def __init__(
         self,
-        posicion_inicial: Union[float, Q_] = 0.0 * ureg.meter,
-        velocidad_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second,
-        aceleracion_inicial: Union[float, Q_] = 0.0 * ureg.meter / ureg.second**2,
+        posicion_inicial: Union[float, Q_] = 0.0,
+        velocidad_inicial: Union[float, Q_] = 0.0,
+        aceleracion_inicial: Union[float, Q_] = 0.0,
     ) -> None:
         """
-        Inicializa una instancia de Movimiento Rectilíneo Uniformemente Variado.
+        Inicializa un objeto de movimiento rectilíneo uniformemente variado.
 
         Parameters
         ----------
         posicion_inicial : float or pint.Quantity, optional
-            Posición inicial del objeto en metros. Si se proporciona un float,
-            se asume que está en metros. Default es 0.0 m.
+            Posición inicial del objeto. Default es 0.0 m.
         velocidad_inicial : float or pint.Quantity, optional
-            Velocidad inicial del objeto en m/s. Si se proporciona un float,
-            se asume que está en m/s. Default es 0.0 m/s.
+            Velocidad inicial del objeto. Default es 0.0 m/s.
         aceleracion_inicial : float or pint.Quantity, optional
-            Aceleración constante del objeto en m/s². Si se proporciona un float,
-            se asume que está en m/s². Default es 0.0 m/s².
-
-        Examples
-        --------
-        >>> mruv = MovimientoRectilineoUniformementeVariado()
+            Aceleración constante del objeto. Default es 0.0 m/s².
         >>> mruv = MovimientoRectilineoUniformementeVariado(
         ...     posicion_inicial=10, velocidad_inicial=5, aceleracion_inicial=2
         ... )

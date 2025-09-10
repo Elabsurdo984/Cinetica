@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.21.0 - 2025-09-10
+
+### Added
+- **Optimized MRUV Implementation**:
+  - Added vectorized operations for position and velocity calculations
+  - Implemented JIT compilation with Numba for performance-critical functions
+  - Added caching for expensive calculations
+  - Improved unit handling with Pint quantities
+  - Added comprehensive test suite for the optimized implementation
+  - Created benchmark script for performance comparison
+
+### Dependencies
+- Added `numba>=0.61.2` for JIT compilation
+- Updated `numpy` requirement to `>=2.3.2` for compatibility
+
+### Performance
+- Significantly improved performance for batch calculations with NumPy arrays
+- Reduced overhead in unit conversions and mathematical operations
+- Optimized memory usage for large-scale simulations
+
+
 ## 0.20.0 - 2025-09-08
 
 ### Added
