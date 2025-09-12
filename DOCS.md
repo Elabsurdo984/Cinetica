@@ -13,8 +13,83 @@ La librería se organiza en paquetes y módulos, reflejando una estructura más 
   - `parabolico`: Movimiento Parabólico (Base y Análisis).
   - `rectilineo`: Movimiento Rectilíneo Uniforme y Movimiento Rectilíneo Uniformemente Variado.
   - `relativo`: Cálculo de velocidades relativas.
-- `dinamica`: Módulos completos para análisis dinámico incluyendo fuerzas, trabajo y energía.
+- `dinamica`: Módulos completos para análisis dinámico incluyendo fuerzas, trabajo, energía y colisiones.
 - `graficos`: Funciones para la visualización de los movimientos.
+
+## Módulo de Choques y Colisiones
+
+El módulo `ChoquesColisiones` proporciona herramientas para analizar diferentes tipos de colisiones en sistemas físicos.
+
+### Características Principales
+
+- **Colisiones Unidimensionales**: Cálculo de velocidades finales en colisiones 1D.
+- **Colisiones Bidimensionales**: Análisis de colisiones 2D con ángulos de impacto.
+- **Colisiones Tridimensionales**: Soporte para colisiones en el espacio 3D.
+- **Coeficiente de Restitución**: Cálculo del coeficiente de restitución a partir de velocidades.
+- **Pérdida de Energía**: Cálculo de la energía cinética perdida durante la colisión.
+- **Soporte de Unidades**: Integración completa con Pint para manejo de unidades.
+
+### Ejemplo Básico
+
+```python
+from cinetica.dinamica import ChoquesColisiones
+
+# Crear una instancia del módulo de choques
+choques = ChoquesColisiones()
+
+# Colisión unidimensional elástica
+v1f, v2f = choques.colision_unidimensional(
+    m1=2.0, v1i=3.0,  # kg, m/s
+    m2=5.0, v2i=-1.0,  # kg, m/s
+    coeficiente_restitucion=1.0
+)
+
+print(f"Velocidades finales: v1f={v1f:.2f} m/s, v2f={v2f:.2f} m/s")
+```
+
+### Métodos Principales
+
+- **`colision_unidimensional(m1, v1i, m2, v2i, coeficiente_restitucion, unidades=None)`**:
+  - Calcula las velocidades finales en una colisión unidimensional.
+  - Parámetros:
+    - `m1`, `m2`: Masas de los objetos (kg).
+    - `v1i`, `v2i`: Velocidades iniciales (m/s).
+    - `coeficiente_restitucion`: Valor entre 0 (inelástico) y 1 (elástico).
+    - `unidades`: Diccionario opcional para especificar unidades personalizadas.
+
+- **`colision_bidimensional(m1, v1i, m2, v2i, angulo_impacto, coeficiente_restitucion, unidades=None)`**:
+  - Analiza una colisión bidimensional con ángulo de impacto.
+  - `v1i`, `v2i` deben ser listas o arrays [vx, vy].
+
+- **`colision_tridimensional(m1, v1i, m2, v2i, normal_impacto, coeficiente_restitucion, unidades=None)`**:
+  - Analiza una colisión tridimensional con vector normal de impacto.
+  - `v1i`, `v2i`, `normal_impacto` deben ser listas o arrays [x, y, z].
+
+- **`coeficiente_restitucion(v1i, v2i, v1f, v2f, unidades=None)`**:
+  - Calcula el coeficiente de restitución a partir de las velocidades.
+
+- **`energia_cinetica_perdida(m1, v1i, m2, v2i, v1f=None, v2f=None, coeficiente_restitucion=None, unidades=None)`**:
+  - Calcula la energía cinética perdida durante la colisión.
+
+### Ejemplo Avanzado
+
+```python
+import numpy as np
+from cinetica.dinamica import ChoquesColisiones
+
+choques = ChoquesColisiones()
+
+# Colisión bidimensional
+v1f, v2f = choques.colision_bidimensional(
+    m1=2.0, v1i=[3.0, 2.0],
+    m2=4.0, v2i=[-1.0, 0.0],
+    angulo_impacto=np.pi/4,  # 45 grados
+    coeficiente_restitucion=0.8
+)
+
+print(f"Velocidad final 1: {v1f}")
+print(f"Velocidad final 2: {v2f}")
+```
 
 ## Sistema de Configuración
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.22.0 - 2025-09-10
+
+### Added
+- **New `ChoquesColisiones` Module**:
+  - Added comprehensive collision analysis with support for 1D, 2D, and 3D collisions
+  - Implemented elastic and inelastic collision calculations
+  - Added coefficient of restitution calculations
+  - Included energy loss calculations during collisions
+  - Full unit support with Pint integration
+  - Comprehensive test suite with 100% coverage
+  - Example usage in `usage/ejemplo_choques_colisiones.py`
+
 ## 0.21.0 - 2025-09-10
 
 ### Added
