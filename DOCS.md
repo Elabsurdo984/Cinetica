@@ -472,6 +472,97 @@ vel_espacial = me.velocidad(tiempo=2)
 print(f"Velocidad espacial a los 2s: {vel_espacial}")
 ```
 
+## Módulo de Sistemas de Partículas (`cinetica.dinamica.SistemasParticulas`)
+
+El módulo `SistemasParticulas` proporciona herramientas para analizar sistemas de partículas, incluyendo el cálculo de centros de masa, momentos de inercia, teoremas fundamentales, energía cinética rotacional y momento angular.
+
+### Características principales
+
+- Cálculo del centro de masa de un sistema de partículas
+- Cálculo del momento de inercia para partículas individuales y sistemas
+- Aplicación del teorema de Steiner (ejes paralelos)
+- Cálculo de la energía cinética rotacional
+- Cálculo del momento angular
+- Soporte completo para unidades mediante Pint
+
+### Ejemplo de uso
+
+```python
+from cinetica.dinamica import SistemasParticulas
+import numpy as np
+
+# Crear instancia
+sp = SistemasParticulas()
+
+# Definir un sistema de partículas
+masas = [1.0, 2.0, 3.0]  # kg
+posiciones = [
+    [0.0, 0.0, 0.0],  # m
+    [2.0, 0.0, 0.0],  # m
+    [2.0, 3.0, 0.0]   # m
+]
+
+# Calcular centro de masa
+centro_masa = sp.centro_masa(masas, posiciones)
+
+# Calcular momento de inercia con respecto al eje z
+I_z = sp.momento_inercia_sistema(masas, posiciones, eje=[0, 0, 1])
+
+# Calcular energía cinética rotacional (2 rad/s)
+omega = 2.0  # rad/s
+K_rot = sp.energia_cinetica_rotacional(I_z, omega)
+
+# Calcular momento angular
+L = sp.momento_angular(I_z, omega)
+```
+
+### Métodos principales
+
+- **`centro_masa(masas, posiciones, unidades=None)`**:
+  Calcula el centro de masa de un sistema de partículas.
+  - `masas`: Lista de masas de las partículas
+  - `posiciones`: Lista de vectores de posición [x, y, z] de cada partícula
+  - `unidades`: Diccionario opcional con unidades (ej: `{'masa': 'kg', 'longitud': 'm'}`)
+  - Retorna: Vector de posición del centro de masa [x_cm, y_cm, z_cm]
+
+- **`momento_inercia_particula(masa, posicion, eje=None, unidades=None)`**:
+  Calcula el momento de inercia de una partícula con respecto a un eje.
+  - `masa`: Masa de la partícula
+  - `posicion`: Vector de posición [x, y, z] de la partícula
+  - `eje`: Vector unitario que define la dirección del eje (si es None, se usa el origen)
+  - `unidades`: Diccionario opcional con unidades
+  - Retorna: Momento de inercia (escalar)
+
+- **`momento_inercia_sistema(masas, posiciones, eje=None, unidades=None)`**:
+  Calcula el momento de inercia de un sistema de partículas con respecto a un eje.
+  - `masas`: Lista de masas de las partículas
+  - `posiciones`: Lista de vectores de posición [x, y, z] de cada partícula
+  - `eje`: Vector unitario que define la dirección del eje (si es None, se usa el origen)
+  - `unidades`: Diccionario opcional con unidades
+  - Retorna: Momento de inercia total del sistema
+
+- **`teorema_steiner(I_cm, masa_total, distancia, unidades=None)`**:
+  Aplica el teorema de Steiner (teorema de los ejes paralelos).
+  - `I_cm`: Momento de inercia con respecto al centro de masa
+  - `masa_total`: Masa total del sistema
+  - `distancia`: Distancia entre los dos ejes paralelos
+  - `unidades`: Diccionario opcional con unidades
+  - Retorna: Momento de inercia con respecto al nuevo eje
+
+- **`energia_cinetica_rotacional(momento_inercia, velocidad_angular, unidades=None)`**:
+  Calcula la energía cinética rotacional.
+  - `momento_inercia`: Momento de inercia del sistema
+  - `velocidad_angular`: Velocidad angular (magnitud escalar)
+  - `unidades`: Diccionario opcional con unidades
+  - Retorna: Energía cinética rotacional
+
+- **`momento_angular(momento_inercia, velocidad_angular, unidades=None)`**:
+  Calcula el momento angular.
+  - `momento_inercia`: Momento de inercia del sistema
+  - `velocidad_angular`: Velocidad angular (magnitud escalar)
+  - `unidades`: Diccionario opcional con unidades
+  - Retorna: Momento angular
+
 ## Módulo de Dinámica (`cinetica.dinamica`)
 
 El módulo de dinámica proporciona herramientas completas para el análisis de fuerzas, trabajo y energía en sistemas mecánicos.

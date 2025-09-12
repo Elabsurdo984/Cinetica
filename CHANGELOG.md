@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.24.0 - 2025-09-12
+
+### Added
+- **New `SistemasParticulas` Module**:
+  - Added comprehensive particle systems analysis with support for:
+    - Center of mass calculations
+    - Moment of inertia for particles and systems
+    - Parallel axis theorem (Steiner's theorem)
+    - Rotational kinetic energy
+    - Angular momentum
+  - Full unit support with Pint integration
+  - Comprehensive test suite with 100% coverage
+  - Example usage in `usage/ejemplo_sistemas_particulas.py`
+
 ## 0.23.0 - 2025-09-10
 
 ### Added
