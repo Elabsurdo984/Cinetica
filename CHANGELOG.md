@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.22.0 - 2025-09-10
+## 0.23.0 - 2025-09-10
 
 ### Added
 - **New `ChoquesColisiones` Module**:
