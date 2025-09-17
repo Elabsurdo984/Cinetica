@@ -9,7 +9,7 @@ Esta biblioteca proporciona herramientas para cálculos de física, incluyendo:
 La configuración se puede personalizar a través de variables de entorno o un archivo .env.
 """
 
-__version__ = "0.24.0"  # Versión actualizada por la nueva funcionalidad
+__version__ = "0.25.0"  # Versión actualizada por la nueva funcionalidad
 
 # Importaciones principales
 from .units import ureg, Q_

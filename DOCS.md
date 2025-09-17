@@ -683,3 +683,187 @@ trabajo = te.trabajo_fuerza_constante(fuerza=50, desplazamiento=10)  # 500 J
 energia_cinetica = te.energia_cinetica(masa=5, velocidad=10)  # 250 J
 print(f"Trabajo: {trabajo}, Energía cinética: {energia_cinetica}")
 ```
+
+### 10. Dinámica Rotacional (`cinetica.dinamica.rotacional`)
+
+El módulo de dinámica rotacional proporciona herramientas completas para el análisis del movimiento rotacional, incluyendo momento angular, torque, energía rotacional y ecuaciones de Euler.
+
+#### Momento Angular (`cinetica.dinamica.rotacional.momento_angular`)
+
+##### `MomentoAngular`
+
+Clase para cálculos de momento angular y su conservación.
+
+- **`__init__(self)`**: Inicializa una instancia de MomentoAngular.
+- **`momento_angular_particula(self, posicion, momento_lineal, unidades=None)`**:
+    Calcula el momento angular de una partícula.
+    - `posicion`: Vector de posición [x, y, z] de la partícula
+    - `momento_lineal`: Vector momento lineal [px, py, pz] de la partícula
+    - Retorna: Momento angular L⃗ = r⃗ × p⃗
+- **`momento_angular_sistema(self, posiciones, momentos_lineales, unidades=None)`**:
+    Calcula el momento angular total de un sistema de partículas.
+    - `posiciones`: Lista de vectores de posición [x, y, z] de cada partícula
+    - `momentos_lineales`: Lista de vectores momento lineal [px, py, pz] de cada partícula
+    - Retorna: Momento angular total del sistema
+- **`conservacion_momento_angular(self, momento_angular_inicial, momento_angular_final, tolerancia=1e-10)`**:
+    Verifica la conservación del momento angular.
+    - Retorna True si |L_final - L_inicial| < tolerancia
+- **`momento_angular_rotacional(self, momento_inercia, velocidad_angular, unidades=None)`**:
+    Calcula el momento angular para rotación alrededor de un eje fijo.
+    - `momento_inercia`: Momento de inercia del sistema
+    - `velocidad_angular`: Velocidad angular (magnitud escalar)
+    - Retorna: Momento angular L = I * ω
+
+#### Torque y Rotación (`cinetica.dinamica.rotacional.torque`)
+
+##### `Torque`
+
+Clase para cálculos de torque y dinámica rotacional.
+
+- **`__init__(self)`**: Inicializa una instancia de Torque.
+- **`torque(self, posicion, fuerza, unidades=None)`**:
+    Calcula el torque producido por una fuerza.
+    - `posicion`: Vector de posición desde el eje de rotación al punto de aplicación
+    - `fuerza`: Vector de fuerza aplicada
+    - Retorna: Torque τ⃗ = r⃗ × F⃗
+- **`segunda_ley_rotacional(self, momento_inercia=None, aceleracion_angular=None, torque=None)`**:
+    Implementa la segunda ley de Newton para rotación (τ = Iα).
+    - Proporciona exactamente dos parámetros para calcular el tercero
+    - Soporta valores escalares y vectoriales
+- **`trabajo_torque(self, torque, desplazamiento_angular)`**:
+    Calcula el trabajo realizado por un torque.
+    - Ecuación: W = τ * Δθ
+- **`potencia_rotacional(self, torque, velocidad_angular)`**:
+    Calcula la potencia en rotación.
+    - Ecuación: P = τ * ω
+- **`energia_cinetica_rotacional(self, momento_inercia, velocidad_angular)`**:
+    Calcula la energía cinética rotacional.
+    - Ecuación: K_rot = ½ * I * ω²
+
+#### Energía Rotacional (`cinetica.dinamica.rotacional.energia_rotacional`)
+
+##### `EnergiaRotacional`
+
+Clase para cálculos de energía en sistemas rotacionales.
+
+- **`__init__(self)`**: Inicializa una instancia de EnergiaRotacional.
+- **`energia_cinetica_rotacional(self, momento_inercia, velocidad_angular, unidades=None)`**:
+    Calcula la energía cinética rotacional.
+    - `momento_inercia`: Momento de inercia del sistema
+    - `velocidad_angular`: Velocidad angular (magnitud escalar)
+    - Retorna: Energía cinética rotacional
+- **`energia_cinetica_total(self, masa, velocidad_lineal, momento_inercia, velocidad_angular, unidades=None)`**:
+    Calcula la energía cinética total (traslacional + rotacional).
+    - Ecuación: K_total = ½mv² + ½Iω²
+- **`energia_potencial_gravitacional(self, masa, altura, gravedad=9.81, unidades=None)`**:
+    Calcula la energía potencial gravitacional.
+    - Ecuación: U = mgh
+- **`conservacion_energia_mecanica(self, energia_inicial, energia_final, trabajo_no_conservativo=0, tolerancia=1e-10)`**:
+    Verifica la conservación de la energía mecánica.
+    - Considera el trabajo de fuerzas no conservativas
+- **`trabajo_torque(self, torque, desplazamiento_angular, unidades=None)`**:
+    Calcula el trabajo realizado por un torque.
+    - Ecuación: W = ∫τdθ
+- **`potencia_rotacional(self, torque, velocidad_angular, unidades=None)`**:
+    Calcula la potencia en rotación.
+    - Ecuación: P = τω
+- **`energia_cinetica_cilindro_rodando(self, masa, radio, velocidad_lineal, unidades=None)`**:
+    Calcula la energía cinética de un cilindro rodando sin deslizar.
+    - Ecuación: K = ¾mv²
+- **`teorema_ejes_paralelos(self, momento_inercia_cm, masa, distancia, unidades=None)`**:
+    Aplica el teorema de los ejes paralelos.
+    - Ecuación: I = I_cm + md²
+
+#### Cuerpos Rígidos (`cinetica.dinamica.rotacional.cuerpos_rigidos`)
+
+##### `CuerposRigidos`
+
+Clase para cálculos de momento de inercia de cuerpos rígidos comunes.
+
+- **`__init__(self)`**: Inicializa una instancia de CuerposRigidos.
+- **`cilindro_solido(self, masa, radio, eje='longitudinal', unidades=None)`**:
+    Momento de inercia de un cilindro sólido.
+    - `eje`: 'longitudinal' (I = ½mr²) o 'transversal' (I = ¼mr² + 1/12ml²)
+- **`cilindro_hueco(self, masa, radio, eje='longitudinal', unidades=None)`**:
+    Momento de inercia de un cilindro hueco.
+    - `eje`: 'longitudinal' (I = mr²) o 'transversal' (I = ½mr² + 1/12ml²)
+- **`esfera_solida(self, masa, radio, unidades=None)`**:
+    Momento de inercia de una esfera sólida.
+    - Ecuación: I = 2/5mr²
+- **`esfera_hueca(self, masa, radio, unidades=None)`**:
+    Momento de inercia de una esfera hueca.
+    - Ecuación: I = 2/3mr²
+- **`varilla(self, masa, longitud, eje='centro', unidades=None)`**:
+    Momento de inercia de una varilla delgada.
+    - `eje`: 'centro' (I = 1/12ml²) o 'extremo' (I = 1/3ml²)
+- **`placa_rectangular(self, masa, ancho, alto, eje='centro_normal', unidades=None)`**:
+    Momento de inercia de una placa rectangular delgada.
+    - `eje`: 'centro_normal' (I = 1/12m(a²+b²)) o 'centro_paralelo' (I = 1/12mb²)
+- **`anillo(self, masa, radio, eje='centro', unidades=None)`**:
+    Momento de inercia de un anillo delgado.
+    - `eje`: 'centro' (I = mr²) o 'diametro' (I = ½mr²)
+- **`radio_giro(self, momento_inercia, masa, unidades=None)`**:
+    Calcula el radio de giro.
+    - Ecuación: k = √(I/m)
+- **`momento_inercia_compuesto(self, momentos_inercia, distancias, masa_total, unidades=None)`**:
+    Calcula el momento de inercia de un cuerpo compuesto usando el teorema de Steiner.
+
+#### Ecuaciones de Euler (`cinetica.dinamica.rotacional.ecuaciones_euler`)
+
+##### `EcuacionesEuler`
+
+Clase para el análisis dinámico de cuerpos rígidos en rotación tridimensional.
+
+- **`__init__(self)`**: Inicializa una instancia de EcuacionesEuler.
+- **`set_tensor_inercia(self, Ixx, Iyy, Izz, Ixy=0, Ixz=0, Iyz=0, unidades=None)`**:
+    Define el tensor de inercia del cuerpo rígido.
+- **`euler_simple(self, omega_x, omega_y, omega_z, torque_x, torque_y, torque_z, dt=0.01, unidades=None)`**:
+    Resuelve las ecuaciones de Euler para rotación tridimensional.
+    - Retorna las derivadas de las velocidades angulares (dω/dt)
+- **`estabilidad_rotacion(self, velocidad_angular, eje_rotacion, unidades=None)`**:
+    Analiza la estabilidad de la rotación alrededor de un eje principal.
+    - Retorna información sobre estabilidad y frecuencias de nutación
+- **`precesion_giroscopio(self, momento_angular, torque, unidades=None)`**:
+    Calcula la velocidad de precesión de un giroscopio.
+    - Ecuación: Ω = τ / L
+- **`energia_rotacional(self, velocidades_angulares, unidades=None)`**:
+    Calcula la energía cinética rotacional total.
+    - Ecuación: K = ½(ω_x²I_xx + ω_y²I_yy + ω_z²I_zz)
+- **`cambio_momento_angular(self, torque, dt, unidades=None)`**:
+    Calcula el cambio en el momento angular.
+    - Ecuación: ΔL = τ * Δt
+
+### Ejemplo de uso del módulo de Dinámica Rotacional
+
+```python
+from cinetica.dinamica.rotacional import MomentoAngular, Torque, EnergiaRotacional
+import numpy as np
+
+# Momento angular
+ma = MomentoAngular()
+posicion = [2.0, 0.0, 0.0]  # m
+momento_lineal = [0.0, 3.0, 0.0]  # kg·m/s
+L = ma.momento_angular_particula(posicion, momento_lineal)
+print(f"Momento angular: {L}")
+
+# Torque
+torque = Torque()
+posicion = [0.5, 0.0, 0.0]  # m
+fuerza = [0.0, 10.0, 0.0]  # N
+tau = torque.torque(posicion, fuerza)
+print(f"Torque: {tau}")
+
+# Energía rotacional
+er = EnergiaRotacional()
+momento_inercia = 2.0  # kg·m²
+velocidad_angular = 3.0  # rad/s
+K_rot = er.energia_cinetica_rotacional(momento_inercia, velocidad_angular)
+print(f"Energía cinética rotacional: {K_rot}")
+
+# Cuerpo rígido rodando
+masa = 5.0  # kg
+radio = 0.2  # m
+velocidad = 4.0  # m/s
+K_total = er.energia_cinetica_cilindro_rodando(masa, radio, velocidad)
+print(f"Energía total del cilindro rodando: {K_total}")
+```

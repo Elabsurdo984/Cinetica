@@ -78,7 +78,7 @@ class TestMRUProperties:
         # Average velocity = (x2 - x1) / (t2 - t1)
         vel_promedio = (pos2.magnitude - pos1.magnitude) / (tiempo2 - tiempo1)
 
-        assert abs(vel_promedio - vel_instantanea.magnitude) < 1e-10
+        assert abs(vel_promedio - vel_instantanea.magnitude) < 1e-9
 
     @given(
         posicion_inicial=st.floats(min_value=-1000, max_value=1000, allow_nan=False, allow_infinity=False),

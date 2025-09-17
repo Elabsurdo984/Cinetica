@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.25.0 - 2025-09-17
+
+### Added
+- **Módulo Completo de Dinámica Rotacional**: Implementación integral de la dinámica rotacional en la cinemática clásica.
+  - **Clase `MomentoAngular` (`cinetica.dinamica.rotacional.momento_angular`)**:
+    - Cálculo de momento angular para partículas y sistemas de partículas.
+    - Análisis de conservación del momento angular.
+    - Determinación de cambios en la velocidad angular debido a variaciones en la inercia.
+  - **Clase `Torque` (`cinetica.dinamica.rotacional.torque`)**:
+    - Cálculo de torque (τ = r × F).
+    - Aplicación de la segunda ley de Newton para la rotación (τ = Iα).
+    - Determinación de trabajo y potencia rotacional.
+  - **Clase `EnergiaRotacional` (`cinetica.dinamica.rotacional.energia_rotacional`)**:
+    - Cálculo de energía cinética rotacional.
+    - Análisis de energía total (traslacional + rotacional).
+    - Principios de conservación de la energía mecánica.
+    - Modelado de cuerpos que ruedan sin deslizar.
+  - **Clase `CuerposRigidos` (`cinetica.dinamica.rotacional.cuerpos_rigidos`)**:
+    - Cálculo de momentos de inercia para diversas geometrías (cilindros, esferas, varillas, placas, anillos).
+    - Aplicación del teorema de los ejes paralelos.
+    - Determinación del radio de giro.
+  - **Clase `EcuacionesEuler` (`cinetica.dinamica.rotacional.ecuaciones_euler`)**:
+    - Dinámica de rotación tridimensional.
+    - Análisis de estabilidad de rotación.
+    - Modelado de precesión de giroscopios.
+    - Cálculo del tensor de inercia.
+
+### Enhanced
+- **Estructura del Paquete**: El módulo completo de dinámica rotacional se ha añadido a las exportaciones del paquete principal.
+- **Pruebas Unitarias**: Se han creado 30 pruebas unitarias exhaustivas que cubren todas las funcionalidades de la dinámica rotacional.
+- **Documentación**: Se han añadido docstrings extensos con ejemplos para todos los métodos de dinámica rotacional.
+- **Ejemplos de Uso**: Se ha creado un archivo de ejemplo completo (`usage/ejemplo_dinamica_rotacional.py`) que demuestra todas las capacidades de la dinámica rotacional.
+
+### Technical Features
+- **Integración Completa con Pint**: Todos los cálculos de dinámica rotacional soportan unidades con conversiones automáticas.
+- **Soporte Vectorial**: Soporte para arrays de NumPy para cálculos de fuerza y movimiento multidimensionales.
+- **Validación de Entrada**: Manejo integral de errores y validación de parámetros.
+- **Consistencia de la API**: Patrones de diseño consistentes que coinciden con los módulos de cinemática existentes.
+
+### Files Added
+- `cinetica/dinamica/rotacional/__init__.py` - Exportaciones del módulo de rotación
+- `cinetica/dinamica/rotacional/momento_angular.py` - Implementación del momento angular
+- `cinetica/dinamica/rotacional/torque.py` - Herramientas de análisis de torque
+- `cinetica/dinamica/rotacional/energia_rotacional.py` - Cálculos de energía rotacional
+- `cinetica/dinamica/rotacional/cuerpos_rigidos.py` - Implementación de cuerpos rígidos
+- `cinetica/dinamica/rotacional/ecuaciones_euler.py` - Implementación de ecuaciones de Euler
+- `tests/unit/dinamica/test_rotacional_*.py` - Suite completa de pruebas para dinámica rotacional
+- `usage/ejemplo_dinamica_rotacional.py` - Ejemplos de uso completos
+
+Esta importante versión extiende Cinetica para incluir un análisis mecánico completo, permitiendo simulaciones de física que abarcan fuerzas, trabajo, energía y dinámica rotacional.
+
 ## 0.24.0 - 2025-09-12
 
 ### Added

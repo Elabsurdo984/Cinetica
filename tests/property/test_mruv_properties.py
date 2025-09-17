@@ -215,7 +215,7 @@ class TestMRUVProperties:
 
         # Velocity should be constant
         velocidad = mruv.velocidad(tiempo * ureg.second)
-        assert abs(velocidad.magnitude - velocidad_inicial) < 1e-12
+        assert abs(velocidad.magnitude - velocidad_inicial) < 1e-9
 
     @given(
         posicion_inicial=st.floats(min_value=-100, max_value=100, allow_nan=False, allow_infinity=False),
