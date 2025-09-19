@@ -39,7 +39,15 @@ class Torque:
             Vector torque [N·m]
             
         Example:
-            Torque producido por una fuerza aplicada en un punto
+            >>> from cinetica.dinamica.rotacional.torque import Torque
+            >>> from cinetica.units import Q_
+            >>> import numpy as np
+            >>> torque = Torque()
+            >>> fuerza = Q_([0.0, 10.0, 0.0], 'N')
+            >>> posicion = np.array([2.0, 0.0, 0.0])
+            >>> resultado = torque.calcular_torque(fuerza, posicion)
+            >>> print(resultado)
+            [0. 0. 20.] newton * meter
         """
         if origen is None:
             origen = np.array([0, 0, 0])
@@ -52,12 +60,11 @@ class Torque:
         # Vector posición relativo al origen
         r_vec = (posicion - origen) * ureg.meter
         
-        # Convertir fuerza escalar a vector si es necesario
-        if hasattr(fuerza, 'magnitude') and np.isscalar(fuerza.magnitude):
-            # Asumiendo que la fuerza escalar se aplica en la dirección y para este caso básico
-            F_vec = np.array([0, fuerza.magnitude, 0]) * ureg.newton
-        else:
-            F_vec = fuerza
+        # Asegurar que la fuerza sea un vector
+        if not hasattr(fuerza, 'magnitude') or np.isscalar(fuerza.magnitude):
+            raise ValueError("La fuerza debe ser un vector con unidades.")
+
+        F_vec = fuerza
         
         # Torque τ = r × F
         torque_vec = np.cross(r_vec.magnitude, F_vec.magnitude) * ureg.newton * ureg.meter
@@ -76,17 +83,27 @@ class Torque:
             
         Returns:
             Magnitud del torque [N·m]
+
+        Example:
+            >>> from cinetica.dinamica.rotacional.torque import Torque
+            >>> from cinetica.units import Q_
+            >>> torque = Torque()
+            >>> fuerza = Q_(10.0, 'N')
+            >>> brazo = Q_(2.0, 'm')
+            >>> resultado = torque.torque_magnitud(fuerza, brazo)
+            >>> print(resultado)
+            20.0 newton * meter
         """
         # Validar unidades
         try:
             fuerza.to('N')
         except:
-            raise Exception("La fuerza debe estar en Newtons (N)")
+            raise ValueError("La fuerza debe estar en Newtons (N)")
             
         try:
             brazo_perpendicular.to('m')
         except:
-            raise Exception("El brazo de palanca debe estar en metros (m)")
+            raise ValueError("El brazo de palanca debe estar en metros (m)")
             
         torque_mag = fuerza * brazo_perpendicular
         self.torque = torque_mag
@@ -135,6 +152,16 @@ class Torque:
             
         Formula:
             τ = I * α
+
+        Example:
+            >>> from cinetica.dinamica.rotacional.torque import Torque
+            >>> from cinetica.units import Q_
+            >>> torque = Torque()
+            >>> momento_inercia = Q_(3.0, 'kg * m**2')
+            >>> aceleracion_angular = Q_(4.0, 'rad/s**2')
+            >>> resultado = torque.segunda_ley_newton_rotacional(momento_inercia, aceleracion_angular)
+            >>> print(resultado)
+            12.0 kilogram * meter ** 2 * radian / second ** 2
         """
         torque = inercia * aceleracion_angular
         self.torque = torque
@@ -229,6 +256,9 @@ class Torque:
         
         # Torque = r × F
         torque_cm = np.cross(r_cm.magnitude, F_vec.magnitude) * ureg.newton * ureg.meter
+        
+        logger.info(f"Torque respecto a CM: {torque_cm}")
+        return torque_cmde, F_vec.magnitude) * ureg.newton * ureg.meter
         
         logger.info(f"Torque respecto a CM: {torque_cm}")
         return torque_cm

@@ -7,7 +7,6 @@ including cálculos de momento angular, torque, energía rotacional y cuerpos r�
 """
 
 import numpy as np
-import cinetica
 from cinetica.dinamica.rotacional import MomentoAngular, Torque, EnergiaRotacional, CuerposRigidos, EcuacionesEuler
 from cinetica.units import ureg, Q_
 

@@ -17,7 +17,7 @@ class TestTorque:
 
     def test_calcular_torque_basico(self):
         """Test basic torque calculation."""
-        fuerza = Q_(10.0, 'N')
+        fuerza = Q_([0.0, 10.0, 0.0], 'N')
         posicion = np.array([2.0, 0.0, 0.0])
         
         resultado = self.torque.calcular_torque(fuerza, posicion)
@@ -74,7 +74,7 @@ class TestTorque:
 
     def test_torque_fuerza_paralela_posicion(self):
         """Test torque when force is parallel to position vector."""
-        fuerza = Q_(10.0, 'N')
+        fuerza = Q_([10.0, 0.0, 0.0], 'N')
         posicion = np.array([2.0, 0.0, 0.0])
         
         resultado = self.torque.calcular_torque(fuerza, posicion)
